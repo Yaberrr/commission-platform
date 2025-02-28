@@ -1,0 +1,3 @@
+com.moe.admin.api.factory.RemoteUserFallbackFactory
+com.moe.admin.api.factory.RemoteLogFallbackFactory
+com.moe.admin.api.factory.RemoteFileFallbackFactory

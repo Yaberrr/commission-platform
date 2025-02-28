@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.moe</groupId>
+        <artifactId>rabbit</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>rabbit-common-log</module>
+        <module>rabbit-common-core</module>
+        <module>rabbit-common-redis</module>
+        <module>rabbit-common-seata</module>
+        <module>rabbit-common-swagger</module>
+        <module>rabbit-common-security</module>
+        <module>rabbit-common-sensitive</module>
+        <module>rabbit-common-datascope</module>
+        <module>rabbit-common-datasource</module>
+    </modules>
+
+    <artifactId>rabbit-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        rabbit-common通用模块
+    </description>
+
+</project>

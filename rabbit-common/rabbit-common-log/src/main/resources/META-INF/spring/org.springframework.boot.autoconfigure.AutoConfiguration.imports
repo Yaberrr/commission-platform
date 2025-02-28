@@ -1,0 +1,2 @@
+com.moe.common.log.service.AsyncLogService
+com.moe.common.log.aspect.LogAspect
