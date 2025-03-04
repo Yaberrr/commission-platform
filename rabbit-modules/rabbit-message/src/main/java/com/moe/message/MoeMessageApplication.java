@@ -16,7 +16,7 @@ public class MoeMessageApplication {
 
     public static void main(String[] args)
     {
-        SpringApplication.run(MoeProductApplication.class, args);
+        SpringApplication.run(MoeMessageApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ  消息模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 "         (\\(\\     \n" +
                 "         ( -.-)    \n" +

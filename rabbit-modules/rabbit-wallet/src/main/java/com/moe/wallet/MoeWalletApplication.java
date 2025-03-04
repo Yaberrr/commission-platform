@@ -12,11 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableCustomConfig
 @EnableRyFeignClients
 @SpringBootApplication
-public class MoeProductApplication {
+public class MoeWalletApplication {
 
     public static void main(String[] args)
     {
-        SpringApplication.run(MoeProductApplication.class, args);
+        SpringApplication.run(MoeWalletApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ  钱包模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 "         (\\(\\     \n" +
                 "         ( -.-)    \n" +

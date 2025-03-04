@@ -16,7 +16,7 @@ public class MoeOrderApplication {
 
     public static void main(String[] args)
     {
-        SpringApplication.run(MoeProductApplication.class, args);
+        SpringApplication.run(MoeOrderApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ  订单模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 "         (\\(\\     \n" +
                 "         ( -.-)    \n" +
