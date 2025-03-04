@@ -7,7 +7,7 @@ import com.moe.common.core.constant.TokenConstants;
 import com.moe.common.core.context.SecurityContextHolder;
 import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * 权限获取工具类

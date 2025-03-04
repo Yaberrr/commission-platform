@@ -1,6 +1,6 @@
 package com.moe.admin.service;
 
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 import com.moe.admin.domain.SysUserOnline;
 
 /**

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.moe.common.core.constant.UserConstants;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.api.domain.SysDept;
+import com.moe.admin.domain.SysDept;
 import com.moe.admin.domain.SysMenu;
 
 /**

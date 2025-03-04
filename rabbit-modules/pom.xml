@@ -13,6 +13,12 @@
         <module>rabbit-gen</module>
         <module>rabbit-job</module>
         <module>rabbit-file</module>
+        <module>rabbit-product</module>
+        <module>rabbit-order</module>
+        <module>rabbit-user</module>
+        <module>rabbit-wallet</module>
+        <module>rabbit-message</module>
+        <module>rabbit-mall-connector</module>
     </modules>
 
     <artifactId>rabbit-modules</artifactId>

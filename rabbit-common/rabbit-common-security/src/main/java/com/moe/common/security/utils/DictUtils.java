@@ -7,7 +7,7 @@ import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.utils.SpringUtils;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.redis.service.RedisService;
-import com.moe.admin.api.domain.SysDictData;
+import com.moe.admin.domain.SysDictData;
 
 /**
  * 字典工具类

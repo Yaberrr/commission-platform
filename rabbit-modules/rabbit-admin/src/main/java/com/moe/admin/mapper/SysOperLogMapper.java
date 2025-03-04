@@ -1,7 +1,7 @@
 package com.moe.admin.mapper;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysOperLog;
+import com.moe.admin.domain.SysOperLog;
 
 /**
  * 操作日志 数据层

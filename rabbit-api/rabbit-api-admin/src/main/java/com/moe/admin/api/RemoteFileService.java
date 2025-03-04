@@ -1,5 +1,7 @@
 package com.moe.admin.api;
 
+import com.moe.admin.domain.SysFile;
+import com.moe.admin.factory.RemoteFileFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
-import com.moe.admin.api.domain.SysFile;
-import com.moe.admin.api.factory.RemoteFileFallbackFactory;
 
 /**
  * 文件服务

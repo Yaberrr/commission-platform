@@ -27,7 +27,7 @@ import com.moe.common.log.enums.BusinessStatus;
 import com.moe.common.log.filter.PropertyPreExcludeFilter;
 import com.moe.common.log.service.AsyncLogService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.domain.SysOperLog;
+import com.moe.admin.domain.SysOperLog;
 
 /**
  * 操作日志记录处理

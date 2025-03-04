@@ -16,14 +16,8 @@ public class MoeGatewayApplication
     {
         SpringApplication.run(MoeGatewayApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ  MOE网关启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
-                " .-------.       ____     __        \n" +
-                " |  _ _   \\      \\   \\   /  /    \n" +
-                " | ( ' )  |       \\  _. /  '       \n" +
-                " |(_ o _) /        _( )_ .'         \n" +
-                " | (_,_).' __  ___(_ o _)'          \n" +
-                " |  |\\ \\  |  ||   |(_,_)'         \n" +
-                " |  | \\ `'   /|   `-'  /           \n" +
-                " |  |  \\    /  \\      /           \n" +
-                " ''-'   `'-'    `-..-'              ");
+                "         (\\(\\     \n" +
+                "         ( -.-)    \n" +
+                "        o_(\")(\")  ");
     }
 }

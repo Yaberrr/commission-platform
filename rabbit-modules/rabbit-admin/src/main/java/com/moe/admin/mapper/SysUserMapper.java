@@ -2,7 +2,7 @@ package com.moe.admin.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import com.moe.admin.api.domain.SysUser;
+import com.moe.admin.domain.SysUser;
 
 /**
  * 用户表 数据层

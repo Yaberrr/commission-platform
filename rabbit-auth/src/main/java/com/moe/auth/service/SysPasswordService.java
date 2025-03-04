@@ -8,7 +8,7 @@ import com.moe.common.core.constant.Constants;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.domain.SysUser;
+import com.moe.admin.domain.SysUser;
 
 /**
  * 登录密码方法

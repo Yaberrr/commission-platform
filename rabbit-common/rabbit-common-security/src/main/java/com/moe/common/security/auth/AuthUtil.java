@@ -2,7 +2,7 @@ package com.moe.common.security.auth;
 
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.annotation.RequiresRoles;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * Token 权限验证工具类

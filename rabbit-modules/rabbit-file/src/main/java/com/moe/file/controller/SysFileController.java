@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.utils.file.FileUtils;
-import com.moe.admin.api.domain.SysFile;
+import com.moe.admin.domain.SysFile;
 
 /**
  * 文件请求处理

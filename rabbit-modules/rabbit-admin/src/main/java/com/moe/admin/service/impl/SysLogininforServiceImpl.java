@@ -3,7 +3,7 @@ package com.moe.admin.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.moe.admin.api.domain.SysLogininfor;
+import com.moe.admin.domain.SysLogininfor;
 import com.moe.admin.mapper.SysLogininforMapper;
 import com.moe.admin.service.ISysLogininforService;
 

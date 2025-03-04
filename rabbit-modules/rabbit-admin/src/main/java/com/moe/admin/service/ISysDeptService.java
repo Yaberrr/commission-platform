@@ -1,7 +1,7 @@
 package com.moe.admin.service;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysDept;
+import com.moe.admin.domain.SysDept;
 import com.moe.admin.domain.vo.TreeSelect;
 
 /**

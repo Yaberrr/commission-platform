@@ -17,7 +17,7 @@ import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.common.core.utils.uuid.IdUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * token验证处理

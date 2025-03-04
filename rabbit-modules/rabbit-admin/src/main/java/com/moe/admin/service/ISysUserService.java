@@ -1,7 +1,7 @@
 package com.moe.admin.service;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysUser;
+import com.moe.admin.domain.SysUser;
 
 /**
  * 用户 业务层

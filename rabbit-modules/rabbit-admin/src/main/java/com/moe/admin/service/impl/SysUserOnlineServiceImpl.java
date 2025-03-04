@@ -2,7 +2,7 @@ package com.moe.admin.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 import com.moe.admin.domain.SysUserOnline;
 import com.moe.admin.service.ISysUserOnlineService;
 

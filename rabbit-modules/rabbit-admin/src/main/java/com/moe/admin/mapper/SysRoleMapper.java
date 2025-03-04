@@ -1,7 +1,7 @@
 package com.moe.admin.mapper;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysRole;
+import com.moe.admin.domain.SysRole;
 
 /**
  * 角色表 数据层

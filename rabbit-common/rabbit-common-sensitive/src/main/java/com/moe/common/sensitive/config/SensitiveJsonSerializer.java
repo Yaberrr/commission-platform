@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.common.sensitive.annotation.Sensitive;
 import com.moe.common.sensitive.enums.DesensitizedType;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * 数据脱敏序列化过滤

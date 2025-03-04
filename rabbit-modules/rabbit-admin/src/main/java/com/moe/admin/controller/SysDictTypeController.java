@@ -20,7 +20,7 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.domain.SysDictType;
+import com.moe.admin.domain.SysDictType;
 import com.moe.admin.service.ISysDictTypeService;
 
 /**

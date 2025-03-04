@@ -22,9 +22,9 @@ import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.admin.api.RemoteFileService;
-import com.moe.admin.api.domain.SysFile;
-import com.moe.admin.api.domain.SysUser;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.domain.SysFile;
+import com.moe.admin.domain.SysUser;
+import com.moe.admin.model.LoginUser;
 import com.moe.admin.service.ISysUserService;
 
 /**

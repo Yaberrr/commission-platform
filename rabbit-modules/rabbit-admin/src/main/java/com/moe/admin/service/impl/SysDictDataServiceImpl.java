@@ -7,7 +7,7 @@ import com.moe.admin.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.moe.common.security.utils.DictUtils;
-import com.moe.admin.api.domain.SysDictData;
+import com.moe.admin.domain.SysDictData;
 
 /**
  * 字典 业务层处理

@@ -2,7 +2,7 @@ package com.moe.admin.service;
 
 import java.util.Set;
 
-import com.moe.admin.api.domain.SysUser;
+import com.moe.admin.domain.SysUser;
 
 /**
  * 权限信息 服务层

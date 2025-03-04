@@ -1,7 +1,7 @@
 package com.moe.admin.service;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysLogininfor;
+import com.moe.admin.domain.SysLogininfor;
 
 /**
  * 系统访问日志情况信息 服务层

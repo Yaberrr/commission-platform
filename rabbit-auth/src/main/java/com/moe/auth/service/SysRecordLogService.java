@@ -7,7 +7,7 @@ import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.admin.api.RemoteLogService;
-import com.moe.admin.api.domain.SysLogininfor;
+import com.moe.admin.domain.SysLogininfor;
 
 /**
  * 记录日志方法

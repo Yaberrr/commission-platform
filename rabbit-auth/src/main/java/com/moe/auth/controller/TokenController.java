@@ -16,7 +16,7 @@ import com.moe.common.core.utils.StringUtils;
 import com.moe.common.security.auth.AuthUtil;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * token 控制

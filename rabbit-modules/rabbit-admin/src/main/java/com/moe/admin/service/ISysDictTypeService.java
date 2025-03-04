@@ -1,8 +1,8 @@
 package com.moe.admin.service;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysDictData;
-import com.moe.admin.api.domain.SysDictType;
+import com.moe.admin.domain.SysDictData;
+import com.moe.admin.domain.SysDictType;
 
 /**
  * 字典 业务层

@@ -18,7 +18,7 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.annotation.RequiresPermissions;
-import com.moe.admin.api.domain.SysOperLog;
+import com.moe.admin.domain.SysOperLog;
 import com.moe.admin.service.ISysOperLogService;
 
 /**

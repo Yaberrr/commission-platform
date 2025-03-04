@@ -10,6 +10,13 @@
 
     <modules>
         <module>rabbit-api-admin</module>
+        <module>rabbit-api-mall-connector</module>
+        <module>rabbit-api-wallet</module>
+        <module>rabbit-api-file</module>
+        <module>rabbit-api-message</module>
+        <module>rabbit-api-product</module>
+        <module>rabbit-api-order</module>
+        <module>rabbit-api-user</module>
     </modules>
 
     <artifactId>rabbit-api</artifactId>

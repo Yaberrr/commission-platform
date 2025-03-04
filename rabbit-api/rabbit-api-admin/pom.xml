@@ -12,7 +12,7 @@
     <artifactId>rabbit-api-admin</artifactId>
 
     <description>
-        rabbit-api-admin系统接口模块
+        rabbit-api-admin后台服务对外接口
     </description>
 
     <dependencies>

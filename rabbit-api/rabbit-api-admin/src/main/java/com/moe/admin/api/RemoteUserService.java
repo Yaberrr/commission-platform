@@ -1,5 +1,8 @@
 package com.moe.admin.api;
 
+import com.moe.admin.domain.SysUser;
+import com.moe.admin.factory.RemoteUserFallbackFactory;
+import com.moe.admin.model.LoginUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
-import com.moe.admin.api.domain.SysUser;
-import com.moe.admin.api.factory.RemoteUserFallbackFactory;
-import com.moe.admin.api.model.LoginUser;
 
 /**
  * 用户服务

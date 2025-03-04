@@ -1,7 +1,7 @@
 package com.moe.admin.mapper;
 
 import java.util.List;
-import com.moe.admin.api.domain.SysDictType;
+import com.moe.admin.domain.SysDictType;
 
 /**
  * 字典表 数据层

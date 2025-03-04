@@ -16,7 +16,7 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.annotation.RequiresRoles;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * Token 权限验证，逻辑实现类

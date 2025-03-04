@@ -10,7 +10,7 @@ import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.security.auth.AuthUtil;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * 自定义请求头拦截器，将Header数据封装到线程变量中方便获取

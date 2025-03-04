@@ -16,8 +16,8 @@ import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.admin.api.RemoteUserService;
-import com.moe.admin.api.domain.SysUser;
-import com.moe.admin.api.model.LoginUser;
+import com.moe.admin.domain.SysUser;
+import com.moe.admin.model.LoginUser;
 
 /**
  * 登录校验方法

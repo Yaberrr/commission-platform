@@ -2,7 +2,7 @@ package com.moe.admin.service;
 
 import java.util.List;
 import java.util.Set;
-import com.moe.admin.api.domain.SysRole;
+import com.moe.admin.domain.SysRole;
 import com.moe.admin.domain.SysUserRole;
 
 /**

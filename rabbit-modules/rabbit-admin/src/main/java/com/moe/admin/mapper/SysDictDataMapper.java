@@ -2,7 +2,7 @@ package com.moe.admin.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import com.moe.admin.api.domain.SysDictData;
+import com.moe.admin.domain.SysDictData;
 
 /**
  * 字典表 数据层
