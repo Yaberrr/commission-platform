@@ -20,9 +20,71 @@
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### 本地安装Nacos
+
+1. 下载nacos2.5
+
+   https://download.nacos.io/nacos-server/nacos-server-2.5.0.zip?spm=5238cd80.6a33be36.0.0.5b841e5dWX5js9&file=nacos-server-2.5.0.zip
+
+2. 修改nacos目录中conf/application.properties配置文件
+
+   ```mysql
+   # db mysql
+   spring.datasource.platform=mysql
+   db.num=1
+   db.url.0=jdbc:mysql://47.96.40.74:23306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+   db.user=nacos
+   db.password=8I%+f~lM7fh2(PLB
+   ```
+
+3. 单机模式启动nacos，加载mysql中的配置
+
+   ##### Linux/Unix/Mac
+
+   ```shell
+   # Standalone means it is non-cluster Mode.
+   $ sh startup.sh -m standalone
+   ```
+
+   ##### Windows
+
+   ```shell
+   # Standalone means it is non-cluster Mode.
+   $ cmd startup.cmd -m standalone
+   ```
+
+4. 访问nacos，测试是否启动成功
+
+```
+http://localhost:8848/nacos
+```
+
+
+
+#### **安装lib下的jar包**
+
+```
+mvn install:install-file   -Dfile=D:\Projects\yuanbaotu\lib\open-api-sdk-2.0-2025-02-28.jar    -DgroupId=com.jd   -DartifactId=jd-api-sdk    -Dversion=2.0    -Dpackaging=jar
+
+```
+
+
+
+
+
+#### 本地启动sentinel控制台(可选)
+
+1.下载sentinel-dashboard包
+
+2.启动
+
+```sh
+java -Dserver.port=8718 -Dcsp.sentinel.dashboard.server=localhost:8718 -Dproject.name=sentinel-dashboard -Dcsp.sentinel.api.port=8719 -jar D:\sentinel-dashboard-1.8.8.jar
+```
+
+
+
+
 
 #### 使用说明
 
