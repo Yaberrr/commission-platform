@@ -61,11 +61,13 @@ http://localhost:8848/nacos
 
 
 
+
 #### **安装lib下的jar包**
 
 ```
 mvn install:install-file   -Dfile=D:\Projects\yuanbaotu\lib\open-api-sdk-2.0-2025-02-28.jar    -DgroupId=com.jd   -DartifactId=jd-api-sdk    -Dversion=2.0    -Dpackaging=jar
 
+mvn install:install-file   -Dfile=D:\Projects\yuanbaotu\lib\pop-sdk-1.19.54-all.jar    -DgroupId=com.pdd   -DartifactId=pop-sdk    -Dversion=1.19.54    -Dpackaging=jar
 ```
 
 
