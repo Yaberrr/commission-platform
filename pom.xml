@@ -34,11 +34,13 @@
         <poi.version>4.1.2</poi.version>
         <springdoc.version>1.6.9</springdoc.version>
         <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
-
+        <lombok.version>1.18.24</lombok.version>
         <!-- override dependency version -->
         <tomcat.version>9.0.96</tomcat.version>
         <logback.version>1.2.13</logback.version>
         <spring-framework.version>5.3.39</spring-framework.version>
+        <lombok.version>1.18.24</lombok.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -253,6 +255,18 @@
                 <version>${moe.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
