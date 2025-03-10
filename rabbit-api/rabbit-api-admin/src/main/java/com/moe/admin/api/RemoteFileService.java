@@ -1,6 +1,6 @@
 package com.moe.admin.api;
 
-import com.moe.admin.domain.SysFile;
+import com.moe.common.core.domain.sys.SysFile;
 import com.moe.admin.factory.RemoteFileFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -12,7 +12,7 @@ import com.moe.common.core.domain.R;
 
 /**
  * 文件服务
- * 
+ *
  * @author ruoyi
  */
 @FeignClient(contextId = "remoteFileService", value = ServiceNameConstants.FILE_SERVICE, fallbackFactory = RemoteFileFallbackFactory.class)

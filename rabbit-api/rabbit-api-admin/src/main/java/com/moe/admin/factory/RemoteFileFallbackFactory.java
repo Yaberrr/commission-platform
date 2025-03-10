@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import com.moe.common.core.domain.R;
 import com.moe.admin.api.RemoteFileService;
-import com.moe.admin.domain.SysFile;
+import com.moe.common.core.domain.sys.SysFile;
 
 /**
  * 文件服务降级处理
- * 
+ *
  * @author ruoyi
  */
 @Component

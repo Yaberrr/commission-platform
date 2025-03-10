@@ -13,13 +13,13 @@ import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.web.domain.BaseEntity;
 import com.moe.common.datascope.annotation.DataScope;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysRole;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysRole;
+import com.moe.common.core.domain.sys.SysUser;
 import com.moe.admin.model.LoginUser;
 
 /**
  * 数据过滤处理
- * 
+ *
  * @author ruoyi
  */
 @Aspect
@@ -81,7 +81,7 @@ public class DataScopeAspect
 
     /**
      * 数据范围过滤
-     * 
+     *
      * @param joinPoint 切点
      * @param user 用户
      * @param deptAlias 部门别名

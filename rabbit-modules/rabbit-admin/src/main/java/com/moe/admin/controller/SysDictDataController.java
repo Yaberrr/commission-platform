@@ -22,13 +22,13 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysDictData;
+import com.moe.common.core.domain.sys.SysDictData;
 import com.moe.admin.service.ISysDictDataService;
 import com.moe.admin.service.ISysDictTypeService;
 
 /**
  * 数据字典信息
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -37,7 +37,7 @@ public class SysDictDataController extends BaseController
 {
     @Autowired
     private ISysDictDataService dictDataService;
-    
+
     @Autowired
     private ISysDictTypeService dictTypeService;
 

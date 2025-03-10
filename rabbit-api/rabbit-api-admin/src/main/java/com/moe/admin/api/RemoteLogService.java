@@ -1,6 +1,6 @@
 package com.moe.admin.api;
 
-import com.moe.admin.domain.SysLogininfor;
+import com.moe.common.core.domain.sys.SysLogininfor;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
-import com.moe.admin.domain.SysOperLog;
+import com.moe.common.core.domain.sys.SysOperLog;
 import com.moe.admin.factory.RemoteLogFallbackFactory;
 
 /**
  * 日志服务
- * 
+ *
  * @author ruoyi
  */
 @FeignClient(contextId = "remoteLogService", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = RemoteLogFallbackFactory.class)

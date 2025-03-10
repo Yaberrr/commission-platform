@@ -1,4 +1,4 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -11,7 +11,7 @@ import com.moe.common.core.web.domain.BaseEntity;
 
 /**
  * 字典类型表 sys_dict_type
- * 
+ *
  * @author ruoyi
  */
 public class SysDictType extends BaseEntity
@@ -78,7 +78,7 @@ public class SysDictType extends BaseEntity
     {
         this.status = status;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

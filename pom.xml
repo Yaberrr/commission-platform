@@ -254,6 +254,41 @@
                 <artifactId>rabbit-api-admin</artifactId>
                 <version>${moe.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-file</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-message</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-order</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-platform</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-product</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-user</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-api-wallet</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>

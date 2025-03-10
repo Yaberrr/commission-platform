@@ -29,9 +29,9 @@ import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysDept;
-import com.moe.admin.domain.SysRole;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysDept;
+import com.moe.common.core.domain.sys.SysRole;
+import com.moe.common.core.domain.sys.SysUser;
 import com.moe.admin.model.LoginUser;
 import com.moe.admin.service.ISysConfigService;
 import com.moe.admin.service.ISysDeptService;
@@ -42,7 +42,7 @@ import com.moe.admin.service.ISysUserService;
 
 /**
  * 用户信息
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -165,7 +165,7 @@ public class SysUserController extends BaseController
 
     /**
      * 获取用户信息
-     * 
+     *
      * @return 用户信息
      */
     @GetMapping("getInfo")

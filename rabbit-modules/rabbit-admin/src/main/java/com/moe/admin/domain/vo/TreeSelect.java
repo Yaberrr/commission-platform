@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.moe.common.core.constant.UserConstants;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.domain.SysDept;
+import com.moe.common.core.domain.sys.SysDept;
 import com.moe.admin.domain.SysMenu;
 
 /**
  * Treeselect树结构实体类
- * 
+ *
  * @author ruoyi
  */
 public class TreeSelect implements Serializable

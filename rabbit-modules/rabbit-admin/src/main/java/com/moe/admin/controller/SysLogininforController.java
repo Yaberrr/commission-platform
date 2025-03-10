@@ -20,12 +20,12 @@ import com.moe.common.log.enums.BusinessType;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.annotation.RequiresPermissions;
-import com.moe.admin.domain.SysLogininfor;
+import com.moe.common.core.domain.sys.SysLogininfor;
 import com.moe.admin.service.ISysLogininforService;
 
 /**
  * 系统访问记录
- * 
+ *
  * @author ruoyi
  */
 @RestController

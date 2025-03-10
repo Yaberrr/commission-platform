@@ -8,11 +8,11 @@ import com.moe.common.core.constant.Constants;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysUser;
 
 /**
  * 登录密码方法
- * 
+ *
  * @author ruoyi
  */
 @Component
@@ -30,7 +30,7 @@ public class SysPasswordService
 
     /**
      * 登录账户密码错误次数缓存键名
-     * 
+     *
      * @param username 用户名
      * @return 缓存键key
      */

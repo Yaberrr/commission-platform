@@ -10,7 +10,7 @@
 
     <modules>
         <module>rabbit-api-admin</module>
-        <module>rabbit-api-mall-connector</module>
+        <module>rabbit-api-platform</module>
         <module>rabbit-api-wallet</module>
         <module>rabbit-api-file</module>
         <module>rabbit-api-message</module>

@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import com.moe.common.core.constant.UserConstants;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.domain.SysRole;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysRole;
+import com.moe.common.core.domain.sys.SysUser;
 import com.moe.admin.service.ISysMenuService;
 import com.moe.admin.service.ISysPermissionService;
 import com.moe.admin.service.ISysRoleService;
 
 /**
  * 用户权限处理
- * 
+ *
  * @author ruoyi
  */
 @Service
@@ -30,7 +30,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService
 
     /**
      * 获取角色数据权限
-     * 
+     *
      * @param userId 用户Id
      * @return 角色权限信息
      */
@@ -52,7 +52,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService
 
     /**
      * 获取菜单数据权限
-     * 
+     *
      * @param userId 用户Id
      * @return 菜单权限信息
      */

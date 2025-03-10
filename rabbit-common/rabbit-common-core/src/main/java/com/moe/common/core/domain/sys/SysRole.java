@@ -1,4 +1,4 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import java.util.Set;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import com.moe.common.core.web.domain.BaseEntity;
 
 /**
  * 角色表 sys_role
- * 
+ *
  * @author ruoyi
  */
 public class SysRole extends BaseEntity

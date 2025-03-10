@@ -5,11 +5,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.admin.api.RemoteLogService;
-import com.moe.admin.domain.SysOperLog;
+import com.moe.common.core.domain.sys.SysOperLog;
 
 /**
  * 异步调用日志服务
- * 
+ *
  * @author ruoyi
  */
 @Service

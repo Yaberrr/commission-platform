@@ -65,6 +65,11 @@
             <artifactId>rabbit-common-log</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-message</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

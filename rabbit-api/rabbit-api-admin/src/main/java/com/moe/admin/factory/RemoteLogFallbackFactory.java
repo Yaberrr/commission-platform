@@ -1,8 +1,8 @@
 package com.moe.admin.factory;
 
 import com.moe.admin.api.RemoteLogService;
-import com.moe.admin.domain.SysLogininfor;
-import com.moe.admin.domain.SysOperLog;
+import com.moe.common.core.domain.sys.SysLogininfor;
+import com.moe.common.core.domain.sys.SysOperLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;
@@ -11,7 +11,7 @@ import com.moe.common.core.domain.R;
 
 /**
  * 日志服务降级处理
- * 
+ *
  * @author ruoyi
  */
 @Component

@@ -22,14 +22,14 @@ import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.admin.api.RemoteFileService;
-import com.moe.admin.domain.SysFile;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysFile;
+import com.moe.common.core.domain.sys.SysUser;
 import com.moe.admin.model.LoginUser;
 import com.moe.admin.service.ISysUserService;
 
 /**
  * 个人信息 业务处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -38,10 +38,10 @@ public class SysProfileController extends BaseController
 {
     @Autowired
     private ISysUserService userService;
-    
+
     @Autowired
     private TokenService tokenService;
-    
+
     @Autowired
     private RemoteFileService remoteFileService;
 
@@ -119,7 +119,7 @@ public class SysProfileController extends BaseController
         }
         return error("修改密码异常，请联系管理员");
     }
-    
+
     /**
      * 头像上传
      */

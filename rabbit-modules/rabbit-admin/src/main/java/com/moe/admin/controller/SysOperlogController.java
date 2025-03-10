@@ -18,12 +18,12 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.annotation.RequiresPermissions;
-import com.moe.admin.domain.SysOperLog;
+import com.moe.common.core.domain.sys.SysOperLog;
 import com.moe.admin.service.ISysOperLogService;
 
 /**
  * 操作日志记录
- * 
+ *
  * @author ruoyi
  */
 @RestController

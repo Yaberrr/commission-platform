@@ -1,4 +1,4 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ import com.moe.common.core.xss.Xss;
 
 /**
  * 用户对象 sys_user
- * 
+ *
  * @author ruoyi
  */
 public class SysUser extends BaseEntity

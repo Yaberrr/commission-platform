@@ -1,4 +1,4 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,7 +8,7 @@ import com.moe.common.core.web.domain.BaseEntity;
 
 /**
  * 系统访问记录表 sys_logininfor
- * 
+ *
  * @author ruoyi
  */
 public class SysLogininfor extends BaseEntity

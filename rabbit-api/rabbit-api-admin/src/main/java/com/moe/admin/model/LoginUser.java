@@ -2,7 +2,7 @@ package com.moe.admin.model;
 
 import java.io.Serializable;
 import java.util.Set;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysUser;
 
 /**
  * 用户信息

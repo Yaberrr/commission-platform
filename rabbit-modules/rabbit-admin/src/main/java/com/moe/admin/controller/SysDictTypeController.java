@@ -20,12 +20,12 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysDictType;
+import com.moe.common.core.domain.sys.SysDictType;
 import com.moe.admin.service.ISysDictTypeService;
 
 /**
  * 数据字典信息
- * 
+ *
  * @author ruoyi
  */
 @RestController

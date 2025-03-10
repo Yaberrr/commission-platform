@@ -9,10 +9,10 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>rabbit-api-mall-connector</artifactId>
+    <artifactId>rabbit-api-platform</artifactId>
 
     <description>
-        rabbit-api-admin电商对接服务对外接口
+        rabbit-api-platform电商对接服务对外接口
     </description>
 
     <dependencies>

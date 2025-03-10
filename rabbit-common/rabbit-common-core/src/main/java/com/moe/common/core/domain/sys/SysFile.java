@@ -1,11 +1,11 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 文件信息
- * 
+ *
  * @author ruoyi
  */
 public class SysFile

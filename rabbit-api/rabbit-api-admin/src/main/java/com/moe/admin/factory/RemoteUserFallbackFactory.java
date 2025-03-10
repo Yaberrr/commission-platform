@@ -7,11 +7,11 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 import com.moe.common.core.domain.R;
 import com.moe.admin.api.RemoteUserService;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysUser;
 
 /**
  * 用户服务降级处理
- * 
+ *
  * @author ruoyi
  */
 @Component

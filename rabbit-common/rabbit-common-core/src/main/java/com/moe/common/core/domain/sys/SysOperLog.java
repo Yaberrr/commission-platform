@@ -1,4 +1,4 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,7 +8,7 @@ import com.moe.common.core.web.domain.BaseEntity;
 
 /**
  * 操作日志记录表 oper_log
- * 
+ *
  * @author ruoyi
  */
 public class SysOperLog extends BaseEntity

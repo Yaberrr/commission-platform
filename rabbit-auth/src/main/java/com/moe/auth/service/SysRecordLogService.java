@@ -7,11 +7,11 @@ import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.admin.api.RemoteLogService;
-import com.moe.admin.domain.SysLogininfor;
+import com.moe.common.core.domain.sys.SysLogininfor;
 
 /**
  * 记录日志方法
- * 
+ *
  * @author ruoyi
  */
 @Component
@@ -22,7 +22,7 @@ public class SysRecordLogService
 
     /**
      * 记录登录信息
-     * 
+     *
      * @param username 用户名
      * @param status 状态
      * @param message 消息内容

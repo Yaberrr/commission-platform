@@ -20,9 +20,9 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysDept;
-import com.moe.admin.domain.SysRole;
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysDept;
+import com.moe.common.core.domain.sys.SysRole;
+import com.moe.common.core.domain.sys.SysUser;
 import com.moe.admin.domain.SysUserRole;
 import com.moe.admin.service.ISysDeptService;
 import com.moe.admin.service.ISysRoleService;
@@ -30,7 +30,7 @@ import com.moe.admin.service.ISysUserService;
 
 /**
  * 角色信息
- * 
+ *
  * @author ruoyi
  */
 @RestController

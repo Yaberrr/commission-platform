@@ -1,6 +1,6 @@
 package com.moe.admin.api;
 
-import com.moe.admin.domain.SysUser;
+import com.moe.common.core.domain.sys.SysUser;
 import com.moe.admin.factory.RemoteUserFallbackFactory;
 import com.moe.admin.model.LoginUser;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,7 +16,7 @@ import com.moe.common.core.domain.R;
 
 /**
  * 用户服务
- * 
+ *
  * @author ruoyi
  */
 @FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = RemoteUserFallbackFactory.class)
