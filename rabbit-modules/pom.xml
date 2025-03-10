@@ -18,7 +18,7 @@
         <module>rabbit-user</module>
         <module>rabbit-wallet</module>
         <module>rabbit-message</module>
-        <module>rabbit-mall-connector</module>
+        <module>rabbit-platform</module>
     </modules>
 
     <artifactId>rabbit-modules</artifactId>
