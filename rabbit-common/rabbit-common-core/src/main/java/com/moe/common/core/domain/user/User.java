@@ -1,0 +1,65 @@
+package com.moe.common.core.domain.user;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.moe.common.core.web.domain.BaseEntity;
+import lombok.Data;
+import java.util.Date;
+
+/**
+ * 用户
+ */
+@Data
+@TableName("rb_user")
+public class User extends BaseEntity {
+    @TableId
+    private Long id;
+
+    // 用户名
+    private String userName;
+
+    // 手机号
+    private String phoneNumber;
+
+    // 微信号
+    private String wechat;
+
+    // 地区
+    private String area;
+
+    // 性别（0男 1女 2未知）
+    private Integer sex;
+
+    // 会员等级 1铜元宝 2银元宝 3金元宝
+    private Integer memberLevel;
+
+    // 邀请码
+    private String inviteCode;
+
+    // 邀请数量
+    private Integer inviteCount;
+
+    // 下游邀请数量
+    private Integer childInviteCount;
+
+    // 上游id
+    private Long parentId;
+
+    // 上上游id
+    private Long grandparentId;
+
+    // 分享商品次数
+    private Integer shareCount;
+
+    // 分享商品被点击次数
+    private Integer shareHitCount;
+
+    // 注册时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date registerTime;
+
+    // 最后登录时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastLoginTime;
+}
