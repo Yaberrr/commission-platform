@@ -5,11 +5,22 @@ import com.moe.common.core.utils.ServletUtils;
 
 /**
  * 表格数据处理
- * 
+ *
  * @author ruoyi
  */
 public class TableSupport
 {
+
+    /**
+     * 默认起始索引 默认值
+     */
+    public static final int DEFAULT_PAGE_NUM = 1;
+
+    /**
+     * 默认每页大小 默认值
+     */
+    public static final int DEFAULT_PAGE_SIZE = 10;
+
     /**
      * 当前记录起始索引
      */

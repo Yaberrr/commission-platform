@@ -41,6 +41,7 @@
         <spring-framework.version>5.3.39</spring-framework.version>
         <lombok.version>1.18.24</lombok.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <hutool.version>5.8.25</hutool.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -302,6 +303,14 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+
+            <!-- hutool 的依赖配置-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -348,6 +357,7 @@
                             </goals>
                         </execution>
                     </executions>
+
                 </plugin>
             </plugins>
         </pluginManagement>

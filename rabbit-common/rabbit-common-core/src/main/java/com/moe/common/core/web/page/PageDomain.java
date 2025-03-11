@@ -1,10 +1,14 @@
 package com.moe.common.core.web.page;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.common.core.utils.StringUtils;
+
+import java.util.Objects;
 
 /**
  * 分页数据
- * 
+ *
  * @author ruoyi
  */
 public class PageDomain
@@ -31,6 +35,10 @@ public class PageDomain
             return "";
         }
         return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
+    }
+
+    private boolean isDesc() {
+        return Objects.equals("desc", isAsc);
     }
 
     public Integer getPageNum()
@@ -97,5 +105,20 @@ public class PageDomain
     public void setReasonable(Boolean reasonable)
     {
         this.reasonable = reasonable;
+    }
+
+    public <T> Page<T> buildPage() {
+        if (pageNum <= 0) {
+            pageNum = TableSupport.DEFAULT_PAGE_NUM;
+        }
+        Page<T> page = new Page<>(pageNum, pageSize);
+        if (StringUtils.isNotEmpty(orderByColumn)) {
+            if (isDesc()) {
+                page.addOrder(OrderItem.desc(orderByColumn));
+            } else {
+                page.addOrder(OrderItem.asc(orderByColumn));
+            }
+        }
+        return page;
     }
 }
