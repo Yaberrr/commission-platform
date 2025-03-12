@@ -1,4 +1,4 @@
-package com.moe.common.security.feign;
+package com.moe.common.core.feign;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +12,7 @@ import feign.RequestTemplate;
 
 /**
  * feign 请求拦截器
- * 
+ *
  * @author ruoyi
  */
 @Component
@@ -21,6 +21,9 @@ public class FeignRequestInterceptor implements RequestInterceptor
     @Override
     public void apply(RequestTemplate requestTemplate)
     {
+        //内部调用
+        requestTemplate.header(SecurityConstants.FROM_SOURCE, SecurityConstants.INNER);
+
         HttpServletRequest httpServletRequest = ServletUtils.getRequest();
         if (StringUtils.isNotNull(httpServletRequest))
         {
@@ -46,7 +49,6 @@ public class FeignRequestInterceptor implements RequestInterceptor
             {
                 requestTemplate.header(SecurityConstants.AUTHORIZATION_HEADER, authentication);
             }
-
             // 配置客户端IP
             requestTemplate.header("X-Forwarded-For", IpUtils.getIpAddr());
         }
