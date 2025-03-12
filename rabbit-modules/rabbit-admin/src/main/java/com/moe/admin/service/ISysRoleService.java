@@ -3,7 +3,7 @@ package com.moe.admin.service;
 import java.util.List;
 import java.util.Set;
 import com.moe.common.core.domain.sys.SysRole;
-import com.moe.admin.domain.SysUserRole;
+import com.moe.common.core.domain.sys.SysUserRole;
 
 /**
  * 角色业务层

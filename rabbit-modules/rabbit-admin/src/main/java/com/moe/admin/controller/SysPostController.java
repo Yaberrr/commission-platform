@@ -20,12 +20,12 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.annotation.RequiresPermissions;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.domain.SysPost;
+import com.moe.common.core.domain.sys.SysPost;
 import com.moe.admin.service.ISysPostService;
 
 /**
  * 岗位信息操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController

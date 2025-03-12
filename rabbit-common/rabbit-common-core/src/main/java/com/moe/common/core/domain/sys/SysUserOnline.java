@@ -1,8 +1,8 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 /**
  * 当前在线会话
- * 
+ *
  * @author ruoyi
  */
 public class SysUserOnline

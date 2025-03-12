@@ -2,13 +2,13 @@ package com.moe.admin.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.model.LoginUser;
-import com.moe.admin.domain.SysUserOnline;
+import com.moe.common.core.domain.LoginUser;
+import com.moe.common.core.domain.sys.SysUserOnline;
 import com.moe.admin.service.ISysUserOnlineService;
 
 /**
  * 在线用户 服务层处理
- * 
+ *
  * @author ruoyi
  */
 @Service
@@ -16,7 +16,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService
 {
     /**
      * 通过登录地址查询信息
-     * 
+     *
      * @param ipaddr 登录地址
      * @param user 用户信息
      * @return 在线用户信息
@@ -33,7 +33,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService
 
     /**
      * 通过用户名称查询信息
-     * 
+     *
      * @param userName 用户名称
      * @param user 用户信息
      * @return 在线用户信息
@@ -50,7 +50,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService
 
     /**
      * 通过登录地址/用户名称查询信息
-     * 
+     *
      * @param ipaddr 登录地址
      * @param userName 用户名称
      * @param user 用户信息
@@ -68,7 +68,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService
 
     /**
      * 设置在线用户信息
-     * 
+     *
      * @param user 用户信息
      * @return 在线用户
      */

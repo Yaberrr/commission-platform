@@ -1,5 +1,7 @@
 package com.moe.auth.service;
 
+import com.moe.admin.api.RemoteUserService;
+import com.moe.common.core.domain.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.moe.common.core.constant.CacheConstants;
@@ -15,9 +17,7 @@ import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.RemoteUserService;
 import com.moe.common.core.domain.sys.SysUser;
-import com.moe.admin.model.LoginUser;
 
 /**
  * 登录校验方法
@@ -25,8 +25,7 @@ import com.moe.admin.model.LoginUser;
  * @author ruoyi
  */
 @Component
-public class SysLoginService
-{
+public class SysLoginService {
     @Autowired
     private RemoteUserService remoteUserService;
 

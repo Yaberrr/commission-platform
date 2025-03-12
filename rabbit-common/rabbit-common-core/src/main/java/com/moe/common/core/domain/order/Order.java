@@ -3,6 +3,7 @@ package com.moe.common.core.domain.order;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.moe.common.core.enums.PlatformType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ public class Order extends BaseEntity {
     private BigDecimal orderAmount;
 
     // 订单平台
-    private Integer platformType;
+    private PlatformType platformType;
 
     // 平台总佣金
     private BigDecimal platformCommission;

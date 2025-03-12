@@ -1,8 +1,10 @@
 package com.moe.common.core.exception;
 
+import com.moe.common.core.utils.StringUtils;
+
 /**
  * 业务异常
- * 
+ *
  * @author ruoyi
  */
 public final class ServiceException extends RuntimeException
@@ -42,6 +44,10 @@ public final class ServiceException extends RuntimeException
     {
         this.message = message;
         this.code = code;
+    }
+
+    public ServiceException(String messageTemplate, Object... params) {
+        this.message = StringUtils.format(messageTemplate, params);
     }
 
     public String getDetailMessage()

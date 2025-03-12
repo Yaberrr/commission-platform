@@ -2,6 +2,7 @@ package com.moe.common.core.domain.config;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.moe.common.core.enums.config.PolicyType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class PolicyConfig extends BaseEntity {
     private Long id;
 
     // 政策类型
-    private Integer policyType;
+    private PolicyType policyType;
 
     // 政策名称
     private String policyName;

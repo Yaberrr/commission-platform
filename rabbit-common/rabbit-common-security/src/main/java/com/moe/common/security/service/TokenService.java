@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+
+import com.moe.common.core.domain.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,10 @@ import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.common.core.utils.uuid.IdUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.model.LoginUser;
 
 /**
  * token验证处理
- * 
+ *
  * @author ruoyi
  */
 @Component

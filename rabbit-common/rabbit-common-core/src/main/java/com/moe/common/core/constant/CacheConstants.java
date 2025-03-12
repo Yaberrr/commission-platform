@@ -2,7 +2,7 @@ package com.moe.common.core.constant;
 
 /**
  * 缓存常量信息
- * 
+ *
  * @author ruoyi
  */
 public class CacheConstants
@@ -56,4 +56,9 @@ public class CacheConstants
      * 登录IP黑名单 cache key
      */
     public static final String SYS_LOGIN_BLACKIPLIST = SYS_CONFIG_KEY + "sys.login.blackIPList";
+
+    /**
+     * 验证码 cache key
+     */
+    public static final String VERIFY_CODE_KEY = "verify_code:";
 }

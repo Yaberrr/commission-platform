@@ -2,6 +2,7 @@ package com.moe.common.core.domain.config;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.moe.common.core.enums.config.RuleType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class RuleConfig extends BaseEntity {
     private Long id;
 
     // 规则类型
-    private Integer ruleType;
+    private RuleType ruleType;
 
     // 规则名称
     private String ruleName;

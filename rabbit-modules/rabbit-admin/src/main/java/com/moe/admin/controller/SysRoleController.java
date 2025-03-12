@@ -23,7 +23,7 @@ import com.moe.common.security.utils.SecurityUtils;
 import com.moe.common.core.domain.sys.SysDept;
 import com.moe.common.core.domain.sys.SysRole;
 import com.moe.common.core.domain.sys.SysUser;
-import com.moe.admin.domain.SysUserRole;
+import com.moe.common.core.domain.sys.SysUserRole;
 import com.moe.admin.service.ISysDeptService;
 import com.moe.admin.service.ISysRoleService;
 import com.moe.admin.service.ISysUserService;

@@ -3,6 +3,8 @@ package com.moe.common.core.domain.message;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.moe.common.core.enums.message.MessageContentType;
+import com.moe.common.core.enums.message.MessageSendType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import java.util.Date;
@@ -23,7 +25,7 @@ public class SystemMessage extends BaseEntity {
     private String content;
 
     // 消息格式 1上下图文 2左右图文 3纯文字
-    private Integer contentForm;
+    private MessageContentType contentForm;
 
     // 消息图片
     private String cover;
@@ -33,7 +35,7 @@ public class SystemMessage extends BaseEntity {
     private Date sendTime;
 
     // 发送人群  1全体用户 2指定用户
-    private Integer sendType;
+    private MessageSendType sendType;
 
     // 发送用户
     private String sendUser;

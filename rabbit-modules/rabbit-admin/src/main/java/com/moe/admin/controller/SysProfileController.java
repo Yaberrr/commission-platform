@@ -24,7 +24,7 @@ import com.moe.common.security.utils.SecurityUtils;
 import com.moe.admin.api.RemoteFileService;
 import com.moe.common.core.domain.sys.SysFile;
 import com.moe.common.core.domain.sys.SysUser;
-import com.moe.admin.model.LoginUser;
+import com.moe.common.core.domain.LoginUser;
 import com.moe.admin.service.ISysUserService;
 
 /**

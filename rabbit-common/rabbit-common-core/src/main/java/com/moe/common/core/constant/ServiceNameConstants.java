@@ -2,7 +2,7 @@ package com.moe.common.core.constant;
 
 /**
  * 服务名称
- * 
+ *
  * @author ruoyi
  */
 public class ServiceNameConstants
@@ -21,4 +21,10 @@ public class ServiceNameConstants
      * 文件服务的serviceid
      */
     public static final String FILE_SERVICE = "rabbit-file";
+
+    /**
+     * 消息服务
+     */
+    public static final String MESSAGE_SERVICE = "rabbit-message";
+
 }

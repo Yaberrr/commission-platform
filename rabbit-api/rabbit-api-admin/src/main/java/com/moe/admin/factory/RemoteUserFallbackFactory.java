@@ -1,6 +1,6 @@
 package com.moe.admin.factory;
 
-import com.moe.admin.model.LoginUser;
+import com.moe.common.core.domain.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

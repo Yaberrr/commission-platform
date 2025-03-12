@@ -2,6 +2,8 @@ package com.moe.common.datascope.aspect;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.moe.common.core.domain.LoginUser;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -15,7 +17,6 @@ import com.moe.common.datascope.annotation.DataScope;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.common.core.domain.sys.SysRole;
 import com.moe.common.core.domain.sys.SysUser;
-import com.moe.admin.model.LoginUser;
 
 /**
  * 数据过滤处理

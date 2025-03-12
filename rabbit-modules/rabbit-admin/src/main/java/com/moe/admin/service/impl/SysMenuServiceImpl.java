@@ -19,7 +19,7 @@ import com.moe.common.core.utils.StringUtils;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.common.core.domain.sys.SysRole;
 import com.moe.common.core.domain.sys.SysUser;
-import com.moe.admin.domain.SysMenu;
+import com.moe.common.core.domain.sys.SysMenu;
 import com.moe.admin.domain.vo.MetaVo;
 import com.moe.admin.domain.vo.RouterVo;
 import com.moe.admin.domain.vo.TreeSelect;

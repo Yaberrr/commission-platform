@@ -2,6 +2,7 @@ package com.moe.common.core.domain.message;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.moe.common.core.enums.message.MessageType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
@@ -18,7 +19,7 @@ public class UserMessage extends BaseEntity {
     private Long userId;
 
     // 消息类型 1订单 2元宝宝
-    private Integer messageType;
+    private MessageType messageType;
 
     // 消息标题
     private String title;

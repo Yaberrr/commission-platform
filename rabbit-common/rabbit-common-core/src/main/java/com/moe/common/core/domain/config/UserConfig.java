@@ -2,6 +2,7 @@ package com.moe.common.core.domain.config;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.moe.common.core.enums.config.UserConfigType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
@@ -18,7 +19,7 @@ public class UserConfig extends BaseEntity {
     private Long userId;
 
     // 配置类型
-    private Integer configType;
+    private UserConfigType configType;
 
     // 配置值
     private String configValue;

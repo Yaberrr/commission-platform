@@ -1,20 +1,20 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * 用户和角色关联 sys_user_role
- * 
+ * 用户和岗位关联 sys_user_post
+ *
  * @author ruoyi
  */
-public class SysUserRole
+public class SysUserPost
 {
     /** 用户ID */
     private Long userId;
-    
-    /** 角色ID */
-    private Long roleId;
+
+    /** 岗位ID */
+    private Long postId;
 
     public Long getUserId()
     {
@@ -26,21 +26,21 @@ public class SysUserRole
         this.userId = userId;
     }
 
-    public Long getRoleId()
+    public Long getPostId()
     {
-        return roleId;
+        return postId;
     }
 
-    public void setRoleId(Long roleId)
+    public void setPostId(Long postId)
     {
-        this.roleId = roleId;
+        this.postId = postId;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userId", getUserId())
-            .append("roleId", getRoleId())
+            .append("postId", getPostId())
             .toString();
     }
 }

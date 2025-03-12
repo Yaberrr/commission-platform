@@ -3,6 +3,8 @@ package com.moe.common.core.domain.user;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.moe.common.core.enums.user.Gender;
+import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import java.util.Date;
@@ -29,10 +31,10 @@ public class User extends BaseEntity {
     private String area;
 
     // 性别（0男 1女 2未知）
-    private Integer sex;
+    private Gender sex;
 
     // 会员等级 1铜元宝 2银元宝 3金元宝
-    private Integer memberLevel;
+    private MemberLevel memberLevel;
 
     // 邀请码
     private String inviteCode;

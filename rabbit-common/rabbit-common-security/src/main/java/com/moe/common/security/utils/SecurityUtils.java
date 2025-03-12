@@ -1,17 +1,18 @@
 package com.moe.common.security.utils;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.moe.common.core.domain.LoginUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.TokenConstants;
 import com.moe.common.core.context.SecurityContextHolder;
 import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
-import com.moe.admin.model.LoginUser;
 
 /**
  * 权限获取工具类
- * 
+ *
  * @author ruoyi
  */
 public class SecurityUtils
@@ -81,7 +82,7 @@ public class SecurityUtils
 
     /**
      * 是否为管理员
-     * 
+     *
      * @param userId 用户ID
      * @return 结果
      */

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * spring redis 工具类
- * 
+ *
  * @author ruoyi
  **/
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
@@ -80,9 +80,14 @@ public class RedisService
      * @param key Redis键
      * @return 有效时间
      */
-    public long getExpire(final String key)
+    public Long getExpire(final String key)
     {
         return redisTemplate.getExpire(key);
+    }
+
+    public Long getExpire(final String key, final TimeUnit unit)
+    {
+        return redisTemplate.getExpire(key,unit);
     }
 
     /**

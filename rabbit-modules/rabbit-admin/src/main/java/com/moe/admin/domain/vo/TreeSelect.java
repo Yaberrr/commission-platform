@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.moe.common.core.constant.UserConstants;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.domain.sys.SysDept;
-import com.moe.admin.domain.SysMenu;
+import com.moe.common.core.domain.sys.SysMenu;
 
 /**
  * Treeselect树结构实体类

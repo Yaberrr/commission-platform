@@ -1,4 +1,4 @@
-package com.moe.admin.domain;
+package com.moe.common.core.domain.sys;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -10,7 +10,7 @@ import com.moe.common.core.web.domain.BaseEntity;
 
 /**
  * 参数配置表 sys_config
- * 
+ *
  * @author ruoyi
  */
 public class SysConfig extends BaseEntity
@@ -92,7 +92,7 @@ public class SysConfig extends BaseEntity
     {
         this.configType = configType;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

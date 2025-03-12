@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
+import com.moe.common.core.domain.LoginUser;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +34,6 @@ import com.moe.common.security.utils.SecurityUtils;
 import com.moe.common.core.domain.sys.SysDept;
 import com.moe.common.core.domain.sys.SysRole;
 import com.moe.common.core.domain.sys.SysUser;
-import com.moe.admin.model.LoginUser;
 import com.moe.admin.service.ISysConfigService;
 import com.moe.admin.service.ISysDeptService;
 import com.moe.admin.service.ISysPermissionService;

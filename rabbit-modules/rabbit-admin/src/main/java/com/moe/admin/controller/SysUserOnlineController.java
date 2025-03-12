@@ -19,13 +19,13 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.annotation.RequiresPermissions;
-import com.moe.admin.model.LoginUser;
-import com.moe.admin.domain.SysUserOnline;
+import com.moe.common.core.domain.LoginUser;
+import com.moe.common.core.domain.sys.SysUserOnline;
 import com.moe.admin.service.ISysUserOnlineService;
 
 /**
  * 在线用户监控
- * 
+ *
  * @author ruoyi
  */
 @RestController

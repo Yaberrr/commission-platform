@@ -2,6 +2,7 @@ package com.moe.common.core.domain;
 
 import java.io.Serializable;
 import com.moe.common.core.constant.Constants;
+import com.moe.common.core.exception.ServiceException;
 
 /**
  * 响应信息主体
@@ -101,6 +102,19 @@ public class R<T> implements Serializable
     public void setData(T data)
     {
         this.data = data;
+    }
+
+    public Boolean isSuccess(){
+        return this.code == Constants.SUCCESS;
+    }
+    public Boolean isError(){
+        return !isSuccess();
+    }
+
+    public void check(){
+        if(isError()){
+            throw new ServiceException(this.msg);
+        }
     }
 
     public static <T> Boolean isError(R<T> ret)
