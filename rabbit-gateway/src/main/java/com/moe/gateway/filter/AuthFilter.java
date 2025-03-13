@@ -1,16 +1,17 @@
 package com.moe.gateway.filter;
 
+import com.moe.common.core.enums.SystemType;
 import com.moe.gateway.config.properties.IgnoreWhiteProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.cloud.gateway.route.Route;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
-import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.constant.HttpStatus;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.TokenConstants;
@@ -21,9 +22,12 @@ import com.moe.common.redis.service.RedisService;
 import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
 
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
+
 /**
  * 网关鉴权
- * 
+ *
  * @author ruoyi
  */
 @Component
@@ -51,22 +55,34 @@ public class AuthFilter implements GlobalFilter, Ordered
         {
             return chain.filter(exchange);
         }
-        String token = getToken(request);
-        if (StringUtils.isEmpty(token))
+        String accessToken = getAccessToken(request);
+        if (StringUtils.isEmpty(accessToken))
         {
             return unauthorizedResponse(exchange, "令牌不能为空");
         }
-        Claims claims = JwtUtils.parseToken(token);
+        Claims claims = JwtUtils.parseAccessToken(accessToken);
         if (claims == null)
         {
             return unauthorizedResponse(exchange, "令牌已过期或验证不正确！");
         }
-        String userkey = JwtUtils.getUserKey(claims);
-        boolean islogin = redisService.hasKey(getTokenKey(userkey));
+
+        boolean islogin = redisService.hasKey(JwtUtils.getRedisKey(accessToken));
         if (!islogin)
         {
             return unauthorizedResponse(exchange, "登录状态已过期");
         }
+
+        //校验是否可访问该服务
+        Route route = exchange.getAttribute(GATEWAY_ROUTE_ATTR);
+        if(route == null){
+            return unauthorizedResponse(exchange, "服务不存在");
+        }
+        SystemType systemType = SystemType.valueOf(JwtUtils.getValue(claims, SecurityConstants.SYSTEM_TYPE));
+        String serviceId = route.getId();
+       if(!StringUtils.matches(serviceId,systemType.getServiceIds())){
+           return unauthorizedResponse(exchange, "令牌不可用于当前服务");
+        }
+
         String userid = JwtUtils.getUserId(claims);
         String username = JwtUtils.getUserName(claims);
         if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username))
@@ -74,10 +90,6 @@ public class AuthFilter implements GlobalFilter, Ordered
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
 
-        // 设置用户信息到请求
-        addHeader(mutate, SecurityConstants.USER_KEY, userkey);
-        addHeader(mutate, SecurityConstants.DETAILS_USER_ID, userid);
-        addHeader(mutate, SecurityConstants.DETAILS_USERNAME, username);
         // 内部请求来源参数清除
         removeHeader(mutate, SecurityConstants.FROM_SOURCE);
         return chain.filter(exchange.mutate().request(mutate.build()).build());
@@ -105,18 +117,11 @@ public class AuthFilter implements GlobalFilter, Ordered
         return ServletUtils.webFluxResponseWriter(exchange.getResponse(), msg, HttpStatus.UNAUTHORIZED);
     }
 
-    /**
-     * 获取缓存key
-     */
-    private String getTokenKey(String token)
-    {
-        return CacheConstants.LOGIN_TOKEN_KEY + token;
-    }
 
     /**
      * 获取请求token
      */
-    private String getToken(ServerHttpRequest request)
+    private String getAccessToken(ServerHttpRequest request)
     {
         String token = request.getHeaders().getFirst(SecurityConstants.AUTHORIZATION_HEADER);
         // 如果前端设置了令牌前缀，则裁剪掉前缀

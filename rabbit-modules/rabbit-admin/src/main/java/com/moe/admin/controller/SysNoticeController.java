@@ -63,7 +63,7 @@ public class SysNoticeController extends BaseController
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysNotice notice)
     {
-        notice.setCreateBy(SecurityUtils.getUsername());
+        notice.setCreateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(noticeService.insertNotice(notice));
     }
 
@@ -75,7 +75,7 @@ public class SysNoticeController extends BaseController
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysNotice notice)
     {
-        notice.setUpdateBy(SecurityUtils.getUsername());
+        notice.setUpdateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(noticeService.updateNotice(notice));
     }
 

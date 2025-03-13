@@ -31,14 +31,14 @@ public class Wallet extends BaseEntity {
     private String withdrawnCommission;
 
     // 有效订单数
-    private Integer orderCount;
+    private int orderCount;
 
     // 订单金额
     private BigDecimal orderAmount;
 
     // 邀请下单数量
-    private Integer inviteOrderCount;
+    private int inviteOrderCount;
 
     // 下游邀请下单数量
-    private Integer childInviteOrderCount;
+    private int childInviteOrderCount;
 }

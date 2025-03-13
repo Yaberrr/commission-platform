@@ -1,9 +1,12 @@
 package com.moe.common.core.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.moe.common.core.constant.ServiceNameConstants;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static com.moe.common.core.constant.ServiceNameConstants.*;
 
 
 /**
@@ -12,27 +15,17 @@ import lombok.Getter;
 @Getter
 public enum SystemType {
 
-    ADMIN(1, "后台"),
-    APP(2, "app");
+    ADMIN("admin_", Arrays.asList(ADMIN_SERVICE)),
+    APP("app_", Arrays.asList(USER_SERVICE,PRODUCT_SERVICE,ORDER_SERVICE,WALLET_SERVICE));
 
-    @EnumValue
-    @JsonValue
-    private final int code;
+    //redis key前缀
+    private final String redisPrefix;
 
-    private final String desc;
+    //对外可访问的服务
+    private final List<String> serviceIds;
 
-    SystemType(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
-    }
-
-    @JsonCreator
-    public static SystemType fromCode(int code) {
-        for (SystemType e : SystemType.values()) {
-            if (e.code == code) {
-                return e;
-            }
-        }
-        return null;
+    SystemType(String redisPrefix, List<String> serviceIds) {
+        this.redisPrefix = redisPrefix;
+        this.serviceIds = serviceIds;
     }
 }

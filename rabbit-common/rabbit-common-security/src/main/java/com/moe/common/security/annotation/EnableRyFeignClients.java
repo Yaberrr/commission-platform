@@ -1,6 +1,6 @@
 package com.moe.common.security.annotation;
 
-import com.moe.common.core.feign.InnerFeignConfiguration;
+import com.moe.common.security.feign.InnerFeignConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import java.lang.annotation.*;
 

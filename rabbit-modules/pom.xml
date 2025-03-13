@@ -29,6 +29,12 @@
     </description>
 
     <dependencies>
+        <!-- datasource -->
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-common-datasource</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

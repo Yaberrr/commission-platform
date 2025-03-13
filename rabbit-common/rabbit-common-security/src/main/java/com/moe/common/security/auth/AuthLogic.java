@@ -39,7 +39,7 @@ public class AuthLogic
      */
     public void logout()
     {
-        String token = SecurityUtils.getToken();
+        String token = SecurityUtils.getAccessToken();
         if (token == null)
         {
             return;
@@ -70,8 +70,8 @@ public class AuthLogic
      */
     public LoginUser getLoginUser()
     {
-        String token = SecurityUtils.getToken();
-        if (token == null)
+        String accessToken = SecurityUtils.getAccessToken();
+        if (accessToken == null)
         {
             throw new NotLoginException("未提供token");
         }
@@ -112,7 +112,7 @@ public class AuthLogic
      */
     public boolean hasPermi(String permission)
     {
-        return hasPermi(getPermiList(), permission);
+        return this.hasPermi(this.getPermiList(), permission);
     }
 
     /**
@@ -123,7 +123,7 @@ public class AuthLogic
      */
     public void checkPermi(String permission)
     {
-        if (!hasPermi(getPermiList(), permission))
+        if (!this.hasPermi(this.getPermiList(), permission))
         {
             throw new NotPermissionException(permission);
         }
@@ -139,11 +139,11 @@ public class AuthLogic
         SecurityContextHolder.setPermission(StringUtils.join(requiresPermissions.value(), ","));
         if (requiresPermissions.logical() == Logical.AND)
         {
-            checkPermiAnd(requiresPermissions.value());
+            this.checkPermiAnd(requiresPermissions.value());
         }
         else
         {
-            checkPermiOr(requiresPermissions.value());
+            this.checkPermiOr(requiresPermissions.value());
         }
     }
 
@@ -154,10 +154,10 @@ public class AuthLogic
      */
     public void checkPermiAnd(String... permissions)
     {
-        Set<String> permissionList = getPermiList();
+        Set<String> permissionList = this.getPermiList();
         for (String permission : permissions)
         {
-            if (!hasPermi(permissionList, permission))
+            if (!this.hasPermi(permissionList, permission))
             {
                 throw new NotPermissionException(permission);
             }
@@ -171,10 +171,10 @@ public class AuthLogic
      */
     public void checkPermiOr(String... permissions)
     {
-        Set<String> permissionList = getPermiList();
+        Set<String> permissionList = this.getPermiList();
         for (String permission : permissions)
         {
-            if (hasPermi(permissionList, permission))
+            if (this.hasPermi(permissionList, permission))
             {
                 return;
             }
@@ -193,7 +193,7 @@ public class AuthLogic
      */
     public boolean hasRole(String role)
     {
-        return hasRole(getRoleList(), role);
+        return this.hasRole(this.getRoleList(), role);
     }
 
     /**
@@ -203,7 +203,7 @@ public class AuthLogic
      */
     public void checkRole(String role)
     {
-        if (!hasRole(role))
+        if (!this.hasRole(role))
         {
             throw new NotRoleException(role);
         }
@@ -218,11 +218,11 @@ public class AuthLogic
     {
         if (requiresRoles.logical() == Logical.AND)
         {
-            checkRoleAnd(requiresRoles.value());
+            this.checkRoleAnd(requiresRoles.value());
         }
         else
         {
-            checkRoleOr(requiresRoles.value());
+            this.checkRoleOr(requiresRoles.value());
         }
     }
 
@@ -233,10 +233,10 @@ public class AuthLogic
      */
     public void checkRoleAnd(String... roles)
     {
-        Set<String> roleList = getRoleList();
+        Set<String> roleList = this.getRoleList();
         for (String role : roles)
         {
-            if (!hasRole(roleList, role))
+            if (!this.hasRole(roleList, role))
             {
                 throw new NotRoleException(role);
             }
@@ -250,10 +250,10 @@ public class AuthLogic
      */
     public void checkRoleOr(String... roles)
     {
-        Set<String> roleList = getRoleList();
+        Set<String> roleList = this.getRoleList();
         for (String role : roles)
         {
-            if (hasRole(roleList, role))
+            if (this.hasRole(roleList, role))
             {
                 return;
             }

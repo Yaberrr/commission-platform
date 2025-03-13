@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
+import com.moe.common.core.enums.SystemType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,11 +23,6 @@ public class LoginUser implements Serializable
      * 用户唯一标识
      */
     private String token;
-
-    /**
-     * 用户名id
-     */
-    private Long userid;
 
     /**
      * 用户名
@@ -66,7 +62,12 @@ public class LoginUser implements Serializable
     /**
      * app用户信息
      */
-    private User user;
+    private User appUser;
+
+    /**
+     * 系统类型
+     */
+    private SystemType systemType;
 
 }
 

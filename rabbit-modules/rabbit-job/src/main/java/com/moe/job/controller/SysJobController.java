@@ -30,7 +30,7 @@ import com.moe.job.util.ScheduleUtils;
 
 /**
  * 调度任务信息操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -107,7 +107,7 @@ public class SysJobController extends BaseController
         {
             return error("新增任务'" + job.getJobName() + "'失败，目标字符串不在白名单内");
         }
-        job.setCreateBy(SecurityUtils.getUsername());
+        job.setCreateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(jobService.insertJob(job));
     }
 
@@ -143,7 +143,7 @@ public class SysJobController extends BaseController
         {
             return error("修改任务'" + job.getJobName() + "'失败，目标字符串不在白名单内");
         }
-        job.setUpdateBy(SecurityUtils.getUsername());
+        job.setUpdateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(jobService.updateJob(job));
     }
 

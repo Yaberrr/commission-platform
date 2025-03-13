@@ -19,8 +19,8 @@ import com.moe.common.core.domain.R;
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = RemoteUserFallbackFactory.class)
-public interface RemoteUserService
+@FeignClient(contextId = "remoteSysUserService", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = RemoteUserFallbackFactory.class)
+public interface RemoteSysUserService
 {
     /**
      * 通过用户名查询用户信息

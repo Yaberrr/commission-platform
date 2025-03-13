@@ -8,7 +8,7 @@ import com.moe.common.core.text.Convert;
 import com.moe.common.core.utils.StringUtils;
 
 /**
- * 获取当前线程变量中的 用户id、用户名称、Token等信息 
+ * 获取当前线程变量中的 用户id、用户名称、Token等信息
  * 注意： 必须在网关通过请求头的方法传入，同时在HeaderInterceptor拦截器设置值。 否则这里无法获取
  *
  * @author ruoyi
@@ -49,36 +49,6 @@ public class SecurityContextHolder
     public static void setLocalMap(Map<String, Object> threadLocalMap)
     {
         THREAD_LOCAL.set(threadLocalMap);
-    }
-
-    public static Long getUserId()
-    {
-        return Convert.toLong(get(SecurityConstants.DETAILS_USER_ID), 0L);
-    }
-
-    public static void setUserId(String account)
-    {
-        set(SecurityConstants.DETAILS_USER_ID, account);
-    }
-
-    public static String getUserName()
-    {
-        return get(SecurityConstants.DETAILS_USERNAME);
-    }
-
-    public static void setUserName(String username)
-    {
-        set(SecurityConstants.DETAILS_USERNAME, username);
-    }
-
-    public static String getUserKey()
-    {
-        return get(SecurityConstants.USER_KEY);
-    }
-
-    public static void setUserKey(String userKey)
-    {
-        set(SecurityConstants.USER_KEY, userKey);
     }
 
     public static String getPermission()

@@ -2,7 +2,7 @@ package com.moe.common.core.constant;
 
 /**
  * 权限相关通用常量
- * 
+ *
  * @author ruoyi
  */
 public class SecurityConstants
@@ -46,4 +46,9 @@ public class SecurityConstants
      * 角色权限
      */
     public static final String ROLE_PERMISSION = "role_permission";
+
+    /**
+     * 系统标识
+     */
+    public static final String SYSTEM_TYPE = "system_type";
 }

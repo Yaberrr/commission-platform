@@ -20,6 +20,6 @@ public class TestAuth {
 
     @Test
     public void testSendCode(){
-        appLoginService.sendCode("13316022418");
+        appLoginService.sendCode("19073170919");
     }
 }

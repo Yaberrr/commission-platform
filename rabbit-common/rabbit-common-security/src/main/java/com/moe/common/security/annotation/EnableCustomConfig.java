@@ -6,12 +6,13 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import com.moe.common.security.config.ApplicationConfig;
-import com.moe.common.core.feign.InnerFeignConfiguration;
+import com.moe.common.security.feign.InnerFeignConfiguration;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -24,7 +25,7 @@ import com.moe.common.core.feign.InnerFeignConfiguration;
 // 开启线程异步执行
 @EnableAsync
 // 自动加载类
-@Import({ ApplicationConfig.class, InnerFeignConfiguration.class })
+@Import({ ApplicationConfig.class, InnerFeignConfiguration.class})
 public @interface EnableCustomConfig
 {
 

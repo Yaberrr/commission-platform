@@ -5,7 +5,6 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.common.core.domain.R;
-import com.moe.common.core.exception.ServiceException;
 import com.moe.message.body.SmsBody;
 import com.moe.message.service.ISmsService;
 import org.slf4j.Logger;
@@ -43,8 +42,7 @@ public class AliyunSmsServiceImpl implements ISmsService {
                 return R.fail(null,response.getBody().getMessage());
             }
         } catch (Exception e){
-            log.error("短信服务异常",e);
-            throw new ServiceException("短信服务异常");
+            throw new RuntimeException(e);
         }
     }
 }

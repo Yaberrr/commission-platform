@@ -92,7 +92,7 @@ public class SysRoleController extends BaseController
         {
             return error("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
-        role.setCreateBy(SecurityUtils.getUsername());
+        role.setCreateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(roleService.insertRole(role));
 
     }
@@ -115,7 +115,7 @@ public class SysRoleController extends BaseController
         {
             return error("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
-        role.setUpdateBy(SecurityUtils.getUsername());
+        role.setUpdateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(roleService.updateRole(role));
     }
 
@@ -142,7 +142,7 @@ public class SysRoleController extends BaseController
     {
         roleService.checkRoleAllowed(role);
         roleService.checkRoleDataScope(role.getRoleId());
-        role.setUpdateBy(SecurityUtils.getUsername());
+        role.setUpdateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(roleService.updateRoleStatus(role));
     }
 

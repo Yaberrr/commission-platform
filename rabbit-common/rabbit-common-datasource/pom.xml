@@ -8,7 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    
+
     <artifactId>rabbit-common-datasource</artifactId>
 
     <description>
@@ -24,12 +24,12 @@
             <version>${druid.version}</version>
         </dependency>
 
-        <!-- Dynamic DataSource -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>${dynamic-ds.version}</version>
-        </dependency>
+<!--        &lt;!&ndash; Dynamic DataSource &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+<!--            <version>${dynamic-ds.version}</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 </project>

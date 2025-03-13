@@ -3,6 +3,8 @@ package com.moe.common.core.domain;
 import java.io.Serializable;
 import com.moe.common.core.constant.Constants;
 import com.moe.common.core.exception.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 响应信息主体
@@ -18,6 +20,7 @@ public class R<T> implements Serializable
 
     /** 失败 */
     public static final int FAIL = Constants.FAIL;
+    private static final Logger log = LoggerFactory.getLogger(R.class);
 
     private int code;
 

@@ -27,4 +27,29 @@ public class ServiceNameConstants
      */
     public static final String MESSAGE_SERVICE = "rabbit-message";
 
+    /**
+     * 用户服务
+     */
+    public static final String USER_SERVICE = "rabbit-user";
+
+    /**
+     * 商品服务
+     */
+    public static final String PRODUCT_SERVICE = "rabbit-product";
+
+    /**
+     * 订单服务
+     */
+    public static final String ORDER_SERVICE = "rabbit-order";
+
+    /**
+     * 平台服务
+     */
+    public static final String PLATFORM_SERVICE = "rabbit-platform";
+
+    /**
+     * 钱包服务
+     */
+    public static final String WALLET_SERVICE = "rabbit-wallet";
+
 }

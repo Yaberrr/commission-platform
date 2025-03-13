@@ -66,12 +66,9 @@
             <groupId>com.moe</groupId>
             <artifactId>rabbit-api-message</artifactId>
         </dependency>
-
-        <!--    Lombok -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-user</artifactId>
         </dependency>
 
         <!-- Test -->
@@ -90,6 +87,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
 
     </dependencies>
 

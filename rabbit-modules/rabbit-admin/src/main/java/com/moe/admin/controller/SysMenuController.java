@@ -41,7 +41,7 @@ public class SysMenuController extends BaseController
     @GetMapping("/list")
     public AjaxResult list(SysMenu menu)
     {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityUtils.getSysUser().getUserId();
         List<SysMenu> menus = menuService.selectMenuList(menu, userId);
         return success(menus);
     }
@@ -62,7 +62,7 @@ public class SysMenuController extends BaseController
     @GetMapping("/treeselect")
     public AjaxResult treeselect(SysMenu menu)
     {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityUtils.getSysUser().getUserId();
         List<SysMenu> menus = menuService.selectMenuList(menu, userId);
         return success(menuService.buildMenuTreeSelect(menus));
     }
@@ -73,7 +73,7 @@ public class SysMenuController extends BaseController
     @GetMapping(value = "/roleMenuTreeselect/{roleId}")
     public AjaxResult roleMenuTreeselect(@PathVariable("roleId") Long roleId)
     {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityUtils.getSysUser().getUserId();
         List<SysMenu> menus = menuService.selectMenuList(userId);
         AjaxResult ajax = AjaxResult.success();
         ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
@@ -97,7 +97,7 @@ public class SysMenuController extends BaseController
         {
             return error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
         }
-        menu.setCreateBy(SecurityUtils.getUsername());
+        menu.setCreateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(menuService.insertMenu(menu));
     }
 
@@ -121,7 +121,7 @@ public class SysMenuController extends BaseController
         {
             return error("修改菜单'" + menu.getMenuName() + "'失败，上级菜单不能选择自己");
         }
-        menu.setUpdateBy(SecurityUtils.getUsername());
+        menu.setUpdateBy(SecurityUtils.getSysUser().getUserName());
         return toAjax(menuService.updateMenu(menu));
     }
 
@@ -152,7 +152,7 @@ public class SysMenuController extends BaseController
     @GetMapping("getRouters")
     public AjaxResult getRouters()
     {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = SecurityUtils.getSysUser().getUserId();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
         return success(menuService.buildMenus(menus));
     }

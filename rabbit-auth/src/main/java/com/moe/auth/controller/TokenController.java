@@ -1,21 +1,21 @@
 package com.moe.auth.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.moe.auth.form.LoginBody;
 import com.moe.auth.service.AppLoginService;
 import com.moe.auth.service.SysLoginService;
 import com.moe.common.core.domain.LoginUser;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import com.moe.auth.form.LoginBody;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.utils.JwtUtils;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.security.auth.AuthUtil;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -56,29 +56,28 @@ public class TokenController
 
     @Operation(description = "App手机登录")
     @PostMapping("mobileLogin")
-    public R<?> mobileLogin(@Schema(name="手机号") String phoneNumber,
-                            @Schema(name="验证码") String code){
-        appLoginService.mobileLogin(phoneNumber,code);
-        return R.ok();
+    public R<?> mobileLogin(@Parameter(description="手机号")@RequestParam String phoneNumber,
+                            @Parameter(description="验证码")@RequestParam String code){
+        LoginUser loginUser = appLoginService.mobileLogin(phoneNumber, code);
+        return R.ok(tokenService.createToken(loginUser));
     }
 
     @Operation(description = "App发送手机验证码")
     @PostMapping("sendCode")
-    public R<?> sendCode(@Schema(name="手机号") String phoneNumber){
-        appLoginService.sendCode(phoneNumber);
-        return R.ok();
+    public R<?> sendCode(@Parameter(description="手机号")@RequestParam String phoneNumber){
+        return appLoginService.sendCode(phoneNumber);
     }
 
 
     @DeleteMapping("logout")
     public R<?> logout(HttpServletRequest request)
     {
-        String token = SecurityUtils.getToken(request);
-        if (StringUtils.isNotEmpty(token))
+        String accessToken = SecurityUtils.getAccessToken(request);
+        if (StringUtils.isNotEmpty(accessToken))
         {
-            String username = JwtUtils.getUserName(token);
+            String username = JwtUtils.getUserName(accessToken);
             // 删除用户缓存记录
-            AuthUtil.logoutByToken(token);
+            AuthUtil.logoutByToken(accessToken);
             // 记录用户退出日志
             sysLoginService.logout(username);
         }

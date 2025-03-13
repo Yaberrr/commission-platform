@@ -1,7 +1,8 @@
 package com.moe.auth.service;
 
-import com.moe.admin.api.RemoteUserService;
+import com.moe.admin.api.RemoteSysUserService;
 import com.moe.common.core.domain.LoginUser;
+import com.moe.common.core.enums.SystemType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.moe.common.core.constant.CacheConstants;
@@ -27,7 +28,7 @@ import com.moe.common.core.domain.sys.SysUser;
 @Component
 public class SysLoginService {
     @Autowired
-    private RemoteUserService remoteUserService;
+    private RemoteSysUserService remoteSysUserService;
 
     @Autowired
     private SysPasswordService passwordService;
@@ -71,7 +72,7 @@ public class SysLoginService {
             throw new ServiceException("很遗憾，访问IP已被列入系统黑名单");
         }
         // 查询用户信息
-        R<LoginUser> userResult = remoteUserService.getUserInfo(username, SecurityConstants.INNER);
+        R<LoginUser> userResult = remoteSysUserService.getUserInfo(username, SecurityConstants.INNER);
 
         if (R.FAIL == userResult.getCode())
         {
@@ -93,6 +94,9 @@ public class SysLoginService {
         passwordService.validate(user, password);
         recordLogService.recordLogininfor(username, Constants.LOGIN_SUCCESS, "登录成功");
         recordLoginInfo(user.getUserId());
+
+        userInfo.setUsername(user.getUserName());
+        userInfo.setSystemType(SystemType.ADMIN);
         return userInfo;
     }
 
@@ -109,7 +113,7 @@ public class SysLoginService {
         sysUser.setLoginIp(IpUtils.getIpAddr());
         // 更新用户登录时间
         sysUser.setLoginDate(DateUtils.getNowDate());
-        remoteUserService.recordUserLogin(sysUser, SecurityConstants.INNER);
+        remoteSysUserService.recordUserLogin(sysUser, SecurityConstants.INNER);
     }
 
     public void logout(String loginName)
@@ -143,7 +147,7 @@ public class SysLoginService {
         sysUser.setUserName(username);
         sysUser.setNickName(username);
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
-        R<?> registerResult = remoteUserService.registerUserInfo(sysUser, SecurityConstants.INNER);
+        R<?> registerResult = remoteSysUserService.registerUserInfo(sysUser, SecurityConstants.INNER);
 
         if (R.FAIL == registerResult.getCode())
         {

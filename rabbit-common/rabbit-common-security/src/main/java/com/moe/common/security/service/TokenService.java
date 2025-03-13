@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 
 import com.moe.common.core.domain.LoginUser;
+import com.moe.common.core.domain.sys.SysUser;
+import com.moe.common.core.domain.user.User;
+import com.moe.common.core.enums.SystemType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +42,6 @@ public class TokenService
 
     private final static long expireTime = CacheConstants.EXPIRATION;
 
-    private final static String ACCESS_TOKEN = CacheConstants.LOGIN_TOKEN_KEY;
 
     private final static Long MILLIS_MINUTE_TEN = CacheConstants.REFRESH_TIME * MILLIS_MINUTE;
 
@@ -49,23 +51,32 @@ public class TokenService
     public Map<String, Object> createToken(LoginUser loginUser)
     {
         String token = IdUtils.fastUUID();
-        Long userId = loginUser.getSysUser().getUserId();
-        String userName = loginUser.getSysUser().getUserName();
+        Long userId;
+        String userName;
+        if(loginUser.getSystemType().equals(SystemType.ADMIN)) {
+            SysUser sysUser = loginUser.getSysUser();
+            userId = sysUser.getUserId();
+            userName = sysUser.getUserName();
+        }else{
+            User appUser = loginUser.getAppUser();
+            userId = appUser.getId();
+            userName = appUser.getUserName();
+        }
         loginUser.setToken(token);
-        loginUser.setUserid(userId);
         loginUser.setUsername(userName);
         loginUser.setIpaddr(IpUtils.getIpAddr());
-        refreshToken(loginUser);
+        this.refreshToken(loginUser);
 
         // Jwt存储信息
         Map<String, Object> claimsMap = new HashMap<String, Object>();
         claimsMap.put(SecurityConstants.USER_KEY, token);
         claimsMap.put(SecurityConstants.DETAILS_USER_ID, userId);
         claimsMap.put(SecurityConstants.DETAILS_USERNAME, userName);
+        claimsMap.put(SecurityConstants.SYSTEM_TYPE, loginUser.getSystemType().name());
 
         // 接口返回信息
         Map<String, Object> rspMap = new HashMap<String, Object>();
-        rspMap.put("access_token", JwtUtils.createToken(claimsMap));
+        rspMap.put("access_token", JwtUtils.createAccessToken(claimsMap));
         rspMap.put("expires_in", expireTime);
         return rspMap;
     }
@@ -88,8 +99,8 @@ public class TokenService
     public LoginUser getLoginUser(HttpServletRequest request)
     {
         // 获取请求携带的令牌
-        String token = SecurityUtils.getToken(request);
-        return getLoginUser(token);
+        String accessToken = SecurityUtils.getAccessToken(request);
+        return getLoginUser(accessToken);
     }
 
     /**
@@ -97,15 +108,14 @@ public class TokenService
      *
      * @return 用户信息
      */
-    public LoginUser getLoginUser(String token)
+    public LoginUser getLoginUser(String accessToken)
     {
         LoginUser user = null;
         try
         {
-            if (StringUtils.isNotEmpty(token))
+            if (StringUtils.isNotEmpty(accessToken))
             {
-                String userkey = JwtUtils.getUserKey(token);
-                user = redisService.getCacheObject(getTokenKey(userkey));
+                user = redisService.getCacheObject(JwtUtils.getRedisKey(accessToken));
                 return user;
             }
         }
@@ -130,12 +140,11 @@ public class TokenService
     /**
      * 删除用户缓存信息
      */
-    public void delLoginUser(String token)
+    public void delLoginUser(String accessToken)
     {
-        if (StringUtils.isNotEmpty(token))
+        if (StringUtils.isNotEmpty(accessToken))
         {
-            String userkey = JwtUtils.getUserKey(token);
-            redisService.deleteObject(getTokenKey(userkey));
+            redisService.deleteObject(JwtUtils.getRedisKey(accessToken));
         }
     }
 
@@ -164,12 +173,9 @@ public class TokenService
         loginUser.setLoginTime(System.currentTimeMillis());
         loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
-        String userKey = getTokenKey(loginUser.getToken());
-        redisService.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+        String redisKey = JwtUtils.getRedisKey(loginUser.getToken(), loginUser.getSystemType());
+        redisService.setCacheObject(redisKey, loginUser, expireTime, TimeUnit.MINUTES);
     }
 
-    private String getTokenKey(String token)
-    {
-        return ACCESS_TOKEN + token;
-    }
+
 }

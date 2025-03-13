@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.moe.common.core.enums.PlatformType;
+import com.moe.common.core.enums.order.OrderStatus;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ public class Order extends BaseEntity {
     private String orderNo;
 
     // 订单状态
-    private Integer status;
+    private OrderStatus status;
 
     // 商品名称
     private String productName;

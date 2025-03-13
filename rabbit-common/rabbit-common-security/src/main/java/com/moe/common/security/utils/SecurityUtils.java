@@ -3,12 +3,17 @@ package com.moe.common.security.utils;
 import javax.servlet.http.HttpServletRequest;
 
 import com.moe.common.core.domain.LoginUser;
+import com.moe.common.core.domain.sys.SysUser;
+import com.moe.common.core.domain.user.User;
+import com.moe.common.core.exception.ServiceException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.TokenConstants;
 import com.moe.common.core.context.SecurityContextHolder;
 import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
+
+import java.util.Optional;
 
 /**
  * 权限获取工具类
@@ -17,54 +22,47 @@ import com.moe.common.core.utils.StringUtils;
  */
 public class SecurityUtils
 {
-    /**
-     * 获取用户ID
-     */
-    public static Long getUserId()
-    {
-        return SecurityContextHolder.getUserId();
-    }
-
-    /**
-     * 获取用户名称
-     */
-    public static String getUsername()
-    {
-        return SecurityContextHolder.getUserName();
-    }
-
-    /**
-     * 获取用户key
-     */
-    public static String getUserKey()
-    {
-        return SecurityContextHolder.getUserKey();
-    }
 
     /**
      * 获取登录用户信息
      */
     public static LoginUser getLoginUser()
     {
-        return SecurityContextHolder.get(SecurityConstants.LOGIN_USER, LoginUser.class);
+        return Optional.ofNullable(SecurityContextHolder.get(SecurityConstants.LOGIN_USER, LoginUser.class)).orElseThrow(() -> new ServiceException("用户未登录"));
     }
 
     /**
-     * 获取请求token
+     * 获取admin用户信息
      */
-    public static String getToken()
+    public static SysUser getSysUser(){
+        return Optional.ofNullable(getLoginUser().getSysUser()).orElseThrow(() -> new ServiceException("用户未登录"));
+    }
+
+    /**
+     * 获取app用户信息
+     * @return
+     */
+    public static User getAppUser(){
+        return Optional.ofNullable(getLoginUser().getAppUser()).orElseThrow(() -> new ServiceException("用户未登录"));
+    }
+
+
+    /**
+     * 从请求头中获取访问令牌
+     */
+    public static String getAccessToken()
     {
-        return getToken(ServletUtils.getRequest());
+        return getAccessToken(ServletUtils.getRequest());
     }
 
     /**
-     * 根据request获取请求token
+     * 根据request获取访问令牌
      */
-    public static String getToken(HttpServletRequest request)
+    public static String getAccessToken(HttpServletRequest request)
     {
         // 从header获取token标识
-        String token = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER);
-        return replaceTokenPrefix(token);
+        String accessToken = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER);
+        return replaceTokenPrefix(accessToken);
     }
 
     /**

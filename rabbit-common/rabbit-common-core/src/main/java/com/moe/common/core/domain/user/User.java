@@ -1,5 +1,6 @@
 package com.moe.common.core.domain.user;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Data
 @TableName("rb_user")
 public class User extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     // 用户名
@@ -40,10 +41,10 @@ public class User extends BaseEntity {
     private String inviteCode;
 
     // 邀请数量
-    private Integer inviteCount;
+    private int inviteCount;
 
     // 下游邀请数量
-    private Integer childInviteCount;
+    private int childInviteCount;
 
     // 上游id
     private Long parentId;
@@ -52,10 +53,10 @@ public class User extends BaseEntity {
     private Long grandparentId;
 
     // 分享商品次数
-    private Integer shareCount;
+    private int shareCount;
 
     // 分享商品被点击次数
-    private Integer shareHitCount;
+    private int shareHitCount;
 
     // 注册时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

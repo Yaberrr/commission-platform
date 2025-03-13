@@ -1,4 +1,4 @@
-package com.moe.common.core.feign;
+package com.moe.common.security.feign;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -28,25 +28,9 @@ public class FeignRequestInterceptor implements RequestInterceptor
         if (StringUtils.isNotNull(httpServletRequest))
         {
             Map<String, String> headers = ServletUtils.getHeaders(httpServletRequest);
-            // 传递用户信息请求头，防止丢失
-            String userId = headers.get(SecurityConstants.DETAILS_USER_ID);
-            if (StringUtils.isNotEmpty(userId))
-            {
-                requestTemplate.header(SecurityConstants.DETAILS_USER_ID, userId);
-            }
-            String userKey = headers.get(SecurityConstants.USER_KEY);
-            if (StringUtils.isNotEmpty(userKey))
-            {
-                requestTemplate.header(SecurityConstants.USER_KEY, userKey);
-            }
-            String userName = headers.get(SecurityConstants.DETAILS_USERNAME);
-            if (StringUtils.isNotEmpty(userName))
-            {
-                requestTemplate.header(SecurityConstants.DETAILS_USERNAME, userName);
-            }
+            //传递accessToken，防止丢失
             String authentication = headers.get(SecurityConstants.AUTHORIZATION_HEADER);
-            if (StringUtils.isNotEmpty(authentication))
-            {
+            if (StringUtils.isNotEmpty(authentication)) {
                 requestTemplate.header(SecurityConstants.AUTHORIZATION_HEADER, authentication);
             }
             // 配置客户端IP
