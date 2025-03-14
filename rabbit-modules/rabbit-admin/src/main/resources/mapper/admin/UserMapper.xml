@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.UserMapper">
+
+    <select id="selectUserVOByUserDTO" resultType="com.moe.common.core.domain.vo.user.UserVO">
+        SELECT
+        u.id,
+        u.user_name AS userName,
+        u.sex,
+        u.area,
+        u.wechat,
+        u.phone_number AS phoneNumber,
+        u.member_level AS memberLevel,
+        u.invite_code AS inviteCode,
+        u.invite_count AS inviteCount,
+        u.child_invite_count AS childInviteCount,
+        u.share_count AS shareCount,
+        u.share_hit_count AS shareHitCount,
+        u.register_time AS registerTime,
+        u.last_login_time AS lastLoginTime,
+
+        -- 订单相关数据
+        IFNULL(SUM(CASE WHEN o.status = 1 THEN 1 ELSE 0 END), 0) AS orderCount,
+        IFNULL(SUM(CASE WHEN o.status = 1 THEN o.order_amount ELSE 0 END), 0) AS validTransactionAmount,
+        IFNULL(SUM(CASE WHEN o.status = 1 THEN o.commission ELSE 0 END), 0) AS validEarningsAmount,
+        IFNULL(SUM(CASE WHEN o.status = 2 THEN o.commission ELSE 0 END), 0) AS pendingEarningsAmount
+
+--         -- 提现金额
+--         IFNULL(SUM(w.amount), 0) AS withdrawalAmount
+
+        FROM rb_user u
+        LEFT JOIN rb_order o ON o.user_id = u.id
+--         LEFT JOIN rb_withdrawal w ON w.user_id = u.id
+        <where>
+            <if test="dto.id != null and dto.id != ''">
+                AND u.id = #{dto.id}
+            </if>
+            <if test="dto.userName != null and dto.userName != ''">
+                AND u.user_name LIKE CONCAT('%', #{dto.userName}, '%')
+            </if>
+            <if test="dto.phoneNumber != null and dto.phoneNumber != ''">
+                AND u.phone_number = #{dto.phoneNumber}
+            </if>
+            <if test="dto.wechat != null and dto.wechat != ''">
+                AND u.wechat = #{dto.wechat}
+            </if>
+            <if test="dto.memberLevel != null">
+                AND u.member_level = #{dto.memberLevel}
+            </if>
+            <if test="dto.minRegisterTime != null and dto.minRegisterTime != ''">
+                AND u.register_time &gt;= #{dto.minRegisterTime}
+            </if>
+            <if test="dto.maxRegisterTime != null and dto.maxRegisterTime != ''">
+                AND u.register_time &lt;= #{dto.maxRegisterTime}
+            </if>
+            <if test="dto.minLastLoginTime != null and dto.minLastLoginTime != ''">
+                AND u.last_login_time &gt;= #{dto.minLastLoginTime}
+            </if>
+            <if test="dto.maxLastLoginTime != null and dto.maxLastLoginTime != ''">
+                AND u.last_login_time &lt;= #{dto.maxLastLoginTime}
+            </if>
+            <if test="dto.minOrderCount != null">
+                HAVING orderCount &gt;= #{dto.minOrderCount}
+            </if>
+            <if test="dto.maxOrderCount != null">
+                HAVING orderCount &lt;= #{dto.maxOrderCount}
+            </if>
+            <if test="dto.minOrderAmount != null">
+                HAVING validTransactionAmount &gt;= #{dto.minOrderAmount}
+            </if>
+            <if test="dto.maxOrderAmount != null">
+                HAVING validTransactionAmount &lt;= #{dto.maxOrderAmount}
+            </if>
+            <if test="dto.minEarnAmount != null">
+                HAVING validEarningsAmount &gt;= #{dto.minEarnAmount}
+            </if>
+            <if test="dto.maxEarnAmount != null">
+                HAVING validEarningsAmount &lt;= #{dto.maxEarnAmount}
+            </if>
+<!--            <if test="minWithdrawalAmount != null">-->
+<!--                HAVING withdrawalAmount &gt;= #{minWithdrawalAmount}-->
+<!--            </if>-->
+<!--            <if test="maxWithdrawalAmount != null">-->
+<!--                HAVING withdrawalAmount &lt;= #{maxWithdrawalAmount}-->
+<!--            </if>-->
+            <if test="dto.minInviteCount != null">
+                AND u.invite_count &gt;= #{dto.minInviteCount}
+            </if>
+            <if test="dto.maxInviteCount != null">
+                AND u.invite_count &lt;= #{dto.maxInviteCount}
+            </if>
+        </where>
+        GROUP BY u.id
+    </select>
+
+    <select id="selectInviteUserVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
+        select id, user_name, wechat, phoneNumber, sex, area
+        from rb_user
+        where parent_id = #{dto.id}
+    </select>
+
+    <select id="selectGrandInviteUserVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
+        SELECT id, user_name, wechat, phone_number, sex, area
+        FROM rb_user
+        WHERE grandparent_id IN (SELECT id FROM rb_user WHERE parent_id = #{dto.id})
+    </select>
+
+    <select id="selectUserDetailByUserId" resultType="com.moe.common.core.domain.vo.user.UserDetailVO">
+        SELECT
+        u.id,
+        u.user_name AS userName,
+        u.sex,
+        u.area,
+        u.wechat,
+        u.phone_number AS phoneNumber,
+        u.member_level AS memberLevel,
+        u.invite_code AS inviteCode,
+        u.invite_count AS inviteCount,
+        u.child_invite_count AS childInviteCount,
+        u.share_count AS shareCount,
+        u.share_hit_count AS shareHitCount,
+        u.register_time AS registerTime,
+        u.last_login_time AS lastLoginTime,
+
+        -- 订单相关数据
+        IFNULL(SUM(CASE WHEN o.status = 1 THEN 1 ELSE 0 END), 0) AS orderCount,
+        IFNULL(SUM(CASE WHEN o.status = 1 THEN o.order_amount ELSE 0 END), 0) AS validTransactionAmount,
+        IFNULL(SUM(CASE WHEN o.status = 1 THEN o.commission ELSE 0 END), 0) AS validEarningsAmount,
+        IFNULL(SUM(CASE WHEN o.status = 2 THEN o.commission ELSE 0 END), 0) AS pendingEarningsAmount
+
+        --         -- 提现金额
+        --         IFNULL(SUM(w.amount), 0) AS withdrawalAmount
+
+        FROM rb_user u
+        LEFT JOIN rb_order o ON o.user_id = u.id
+        --         LEFT JOIN rb_withdrawal w ON w.user_id = u.id
+        where u.id = #{id}
+    </select>
+
+    <select id="selectInviteUserRankVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserRankVO">
+        SELECT
+            u.id AS userId,
+            u.user_name AS userName,
+            u.phone_number AS phoneNumber,
+            u.invite_count AS inviteCount,
+            IFNULL(SUM(CASE WHEN o.status = 1 THEN 1 ELSE 0 END), 0) AS orderCount,
+            (SELECT COUNT(*) FROM rb_user WHERE parent_id = u.id AND register_time BETWEEN #{dto.startTime} AND #{dto.endTime}) AS periodInviteCount,
+            u.register_time AS registerTime,
+            u.last_login_time AS lastLoginTime
+        FROM rb_user u
+        LEFT JOIN rb_order o ON o.user_id = u.id
+        WHERE u.register_time BETWEEN #{dto.startTime} AND #{dto.endTime}
+        <if test="dto.userId != null and dto.userId != ''">
+            AND u.id = #{dto.userId}
+        </if>
+        <if test="dto.userName != null and dto.userName != ''">
+            AND u.user_name LIKE CONCAT('%', #{dto.userName}, '%')
+        </if>
+        <if test="dto.phoneNumber != null and dto.phoneNumber != ''">
+            AND u.phone_number = #{dto.phoneNumber}
+        </if>
+        GROUP BY u.id
+        HAVING periodInviteCount > 0
+        ORDER BY periodInviteCount DESC
+        LIMIT #{dto.limit}
+    </select>
+
+    <select id="selectInviteUserVOByPeriod" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
+        select id, user_name, wechat, phoneNumber, sex, area
+        from rb_user
+        where parent_id = #{dto.id}
+        AND register_time BETWEEN #{dto.startTime} AND #{dto.endTime}
+    </select>
+</mapper>

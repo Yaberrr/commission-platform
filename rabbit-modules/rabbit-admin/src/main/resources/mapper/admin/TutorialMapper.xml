@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.TutorialMapper">
+
+    <insert id="insertTutorial">
+        INSERT INTO rb_tutorial (video_name, video_url, video_cover)
+        VALUES (#{dto.videoName}, #{dto.videoUrl}, #{dto.videoCover})
+    </insert>
+
+    <update id="updateTutorial">
+        UPDATE rb_tutorial
+        SET video_name = #{dto.videoName},
+            video_url = #{dto.videoUrl},
+            video_cover = #{dto.videoCover}
+        WHERE id = #{dto.id}
+    </update>
+
+    <update id="updateSort">
+        UPDATE rb_tutorial
+        SET sort = #{tutorial.sort}
+        WHERE id = #{tutorial.id}
+    </update>
+
+    <delete id="deleteTutorialById">
+        delete from rb_tutorial
+        WHERE id = #{id}
+    </delete>
+
+    <select id="selectAllTutorial" resultType="com.moe.common.core.domain.vo.user.TutorialVO">
+        SELECT id, video_name AS videoName, video_cover AS videoCover, view_count AS viewCount, create_time AS createTime
+        FROM rb_tutorial
+        ORDER BY sort ASC
+    </select>
+
+    <select id="selectTutorialById" resultType="com.moe.common.core.domain.vo.user.TutorialDetailVO">
+        SELECT id, video_name AS videoName, video_cover AS videoCover, video_url AS videoUrl
+        FROM rb_tutorial
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAll" resultType="com.moe.common.core.domain.config.Tutorial">
+        SELECT id, video_name AS videoName, video_cover AS videoCover, view_count AS viewCount, sort
+        FROM rb_tutorial
+        ORDER BY sort ASC
+    </select>
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.PolicyConfigMapper">
+    <insert id="insertPolicyConfigVOByDTO">
+        INSERT INTO rb_policy_config (policy_type, policy_name, policy_desc, create_by, create_time, update_by, update_time, remark)
+        VALUES (#{dto.policyType}, #{dto.policyName}, #{dto.policyDesc}, #{dto.createBy}, NOW(), #{dto.updateBy}, NOW(), #{dto.remark})
+    </insert>
+    <update id="updatePolicyConfigVOByDTO">
+        UPDATE rb_policy_config
+        SET policy_type = #{dto.policyType},
+            policy_name = #{dto.policyName},
+            policy_desc = #{dto.policyDesc},
+            update_by = #{dto.updateBy},
+            update_time = NOW(),
+            remark = #{dto.remark}
+        WHERE id = #{dto.id}
+    </update>
+    <delete id="deletePolicyConfigVOByDTO">
+        DELETE FROM rb_policy_config WHERE id = #{id}
+    </delete>
+
+
+    <select id="selectPolicyConfigVOByDTO" resultType="com.moe.common.core.domain.vo.rule.PolicyConfigVO">
+        SELECT id, policy_type, policy_name, policy_desc, create_by, create_time, update_by, update_time, remark
+        FROM rb_policy_config
+        <where>
+            <if test="dto.policyName != null and dto.policyName != ''">
+                AND policy_name LIKE CONCAT('%', #{dto.policyName}, '%')
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <select id="selectPolicyConfigVOById" resultType="com.moe.common.core.domain.vo.rule.PolicyConfigVO">
+        SELECT id, policy_type, policy_name, policy_desc, create_by, create_time, update_by, update_time, remark
+        FROM rb_policy_config
+        WHERE id = #{id}
+    </select>
+</mapper>

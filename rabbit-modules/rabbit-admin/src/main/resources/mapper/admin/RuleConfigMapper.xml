@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.RuleConfigMapper">
+
+    <insert id="insertRuleConfig" parameterType="com.moe.common.core.domain.dto.rule.RuleConfigDTO">
+        INSERT INTO rb_rule_config (rule_type, rule_name, rule_desc)
+        VALUES (#{dto.ruleType}, #{dto.ruleName}, #{dto.ruleDesc})
+    </insert>
+
+    <!-- 更新规则配置 -->
+    <update id="updateRuleConfig" parameterType="com.moe.common.core.domain.dto.rule.RuleConfigDTO">
+        UPDATE rb_rule_config
+        <set>
+            <if test="dto.ruleType != null"> rule_type = #{dto.ruleType}, </if>
+            <if test="dto.ruleName != null"> rule_name = #{dto.ruleName}, </if>
+            <if test="dto.ruleDesc != null"> rule_desc = #{dto.ruleDesc}, </if>
+        </set>
+        WHERE id = #{dto.id}
+    </update>
+
+    <!-- 根据 DTO 查询规则配置 -->
+    <select id="selectRuleConfigByDTO" resultType="com.moe.common.core.domain.vo.rule.RuleConfigVO">
+        SELECT id, rule_type, rule_name, update_time, update_by
+        FROM rb_rule_config
+        <where>
+            <if test="dto.id != null"> AND id = #{dto.id} </if>
+            <if test="dto.ruleType != null"> AND rule_type = #{dto.ruleType} </if>
+            <if test="dto.ruleName != null and dto.ruleName != ''">
+                AND rule_name LIKE CONCAT('%', #{dto.ruleName}, '%')
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <!-- 根据 ID 查询规则配置 -->
+    <select id="selectRuleConfigById" resultType="com.moe.common.core.domain.vo.rule.RuleConfigVO">
+        SELECT id, rule_type, rule_name, rule_desc, update_time, update_by
+        FROM rb_rule_config
+        WHERE id = #{id}
+    </select>
+
+</mapper>

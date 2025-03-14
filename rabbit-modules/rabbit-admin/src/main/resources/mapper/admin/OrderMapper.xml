@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.OrderMapper">
+
+
+    <select id="selectOrderVOByDTO" resultType="com.moe.common.core.domain.vo.order.OrderVO">
+        select id, user_id, order_no, status, product_name, product_img, order_amount, platform_type, platform_commission, commission, parent_commission, grand_parent_commission, order_time
+        from rb_order
+        <where>
+            <if test="dto.orderNo != null and dto.orderNo != ''">
+                and order_no like concat('%', #{dto.orderNo}, '%')
+            </if>
+            <if test="dto.status != null">
+                and status = #{dto.status}
+            </if>
+            <if test="dto.platformType != null">
+                and platform_type = #{dto.platformType}
+            </if>
+            <if test="dto.orderStartTime != null and dto.orderStartTime != '' ">
+                AND order_time >= #{dto.orderStartTime}
+            </if>
+            <if test="dto.orderEndTime != null and dto.orderEndTime != '' ">
+                AND order_time &lt;= #{dto.orderEndTime}
+            </if>
+            <if test="dto.minPlatformCommission != null">
+                AND platform_commission >= #{dto.minPlatformCommission}
+            </if>
+            <if test="dto.maxPlatformCommission != null">
+                AND platform_commission &lt;= #{dto.maxPlatformCommission}
+            </if>
+            <if test="dto.userId != null and dto.userId != '' ">
+                AND user_id like concat('%', #{dto.userId}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
