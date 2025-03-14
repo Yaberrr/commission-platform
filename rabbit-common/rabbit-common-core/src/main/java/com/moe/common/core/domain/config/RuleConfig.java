@@ -1,5 +1,6 @@
 package com.moe.common.core.domain.config;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.moe.common.core.enums.config.RuleType;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Data
 @TableName("rb_rule_config")
 public class RuleConfig extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     // 规则类型

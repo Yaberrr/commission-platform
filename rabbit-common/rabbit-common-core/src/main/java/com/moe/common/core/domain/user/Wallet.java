@@ -1,5 +1,6 @@
 package com.moe.common.core.domain.user;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.moe.common.core.web.domain.BaseEntity;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @Data
 @TableName("rb_wallet")
 public class Wallet extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     // 用户id

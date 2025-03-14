@@ -8,6 +8,7 @@ import com.moe.common.core.enums.user.Gender;
 import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
+
 import java.util.Date;
 
 /**

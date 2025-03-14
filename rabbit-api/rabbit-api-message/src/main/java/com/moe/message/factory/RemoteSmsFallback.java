@@ -18,7 +18,7 @@ public class RemoteSmsFallback implements FallbackFactory<RemoteSmsService> {
         return new RemoteSmsService() {
             @Override
             public R<?> sendOne(SmsBody dto) {
-                return R.fail("发送单条短信接口异常");
+                return R.fail("发送单条短信服务异常");
             }
         };
     }

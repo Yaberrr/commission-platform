@@ -108,10 +108,6 @@ public class BaseEntity implements Serializable
 
     public Map<String, Object> getParams()
     {
-        if (params == null)
-        {
-            params = new HashMap<>();
-        }
         return params;
     }
 

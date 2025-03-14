@@ -1,5 +1,6 @@
 package com.moe.common.core.domain.message;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Data
 @TableName("rb_system_message")
 public class SystemMessage extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     // 消息标题

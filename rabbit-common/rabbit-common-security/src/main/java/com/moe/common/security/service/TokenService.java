@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 
 import com.moe.common.core.domain.LoginUser;
+import com.moe.common.core.domain.TokenVO;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.SystemType;
@@ -48,7 +49,7 @@ public class TokenService
     /**
      * 创建令牌
      */
-    public Map<String, Object> createToken(LoginUser loginUser)
+    public TokenVO createToken(LoginUser loginUser)
     {
         String token = IdUtils.fastUUID();
         Long userId;
@@ -75,10 +76,12 @@ public class TokenService
         claimsMap.put(SecurityConstants.SYSTEM_TYPE, loginUser.getSystemType().name());
 
         // 接口返回信息
-        Map<String, Object> rspMap = new HashMap<String, Object>();
-        rspMap.put("access_token", JwtUtils.createAccessToken(claimsMap));
-        rspMap.put("expires_in", expireTime);
-        return rspMap;
+        TokenVO vo = new TokenVO();
+        vo.setAccessToken(JwtUtils.createAccessToken(claimsMap));
+        vo.setExpiresIn(expireTime);
+        vo.setAccess_token(vo.getAccessToken());
+        vo.setExpires_in(expireTime);
+        return vo;
     }
 
     /**

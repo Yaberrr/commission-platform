@@ -7,6 +7,7 @@ import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.user.api.RemoteUserService;
 import com.moe.user.service.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class UserController implements RemoteUserService {
     private IUserService userService;
 
 
+    @Operation(description = "用户信息")
     @GetMapping("/info")
     public R<User> getInfo() {
         return R.ok(SecurityUtils.getAppUser());

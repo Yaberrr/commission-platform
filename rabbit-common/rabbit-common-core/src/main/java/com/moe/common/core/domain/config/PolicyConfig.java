@@ -1,5 +1,6 @@
 package com.moe.common.core.domain.config;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.moe.common.core.enums.config.PolicyType;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Data
 @TableName("rb_policy_config")
 public class PolicyConfig extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     // 政策类型

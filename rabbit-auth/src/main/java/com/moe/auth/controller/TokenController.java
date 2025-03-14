@@ -1,8 +1,9 @@
 package com.moe.auth.controller;
 
-import com.moe.auth.form.LoginBody;
+import com.moe.auth.body.LoginBody;
 import com.moe.auth.service.AppLoginService;
 import com.moe.auth.service.SysLoginService;
+import com.moe.common.core.domain.TokenVO;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.utils.JwtUtils;
@@ -19,8 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * 后台token控制
- *
+ * token
  * @author ruoyi
  */
 @RestController
@@ -35,9 +35,9 @@ public class TokenController
     @Autowired
     private AppLoginService appLoginService;
 
-    @Operation(description = "管理员登录")
+    @Operation(description = "后台管理员登录")
     @PostMapping("login")
-    public R<?> login(@RequestBody LoginBody form)
+    public R<TokenVO> login(@RequestBody LoginBody form)
     {
         // 用户登录
         LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
@@ -56,7 +56,7 @@ public class TokenController
 
     @Operation(description = "App手机登录")
     @PostMapping("mobileLogin")
-    public R<?> mobileLogin(@Parameter(description="手机号")@RequestParam String phoneNumber,
+    public R<TokenVO> mobileLogin(@Parameter(description="手机号")@RequestParam String phoneNumber,
                             @Parameter(description="验证码")@RequestParam String code){
         LoginUser loginUser = appLoginService.mobileLogin(phoneNumber, code);
         return R.ok(tokenService.createToken(loginUser));
@@ -69,6 +69,7 @@ public class TokenController
     }
 
 
+    @Operation(description = "登出")
     @DeleteMapping("logout")
     public R<?> logout(HttpServletRequest request)
     {
@@ -84,6 +85,7 @@ public class TokenController
         return R.ok();
     }
 
+    @Operation(description = "刷新token")
     @PostMapping("refresh")
     public R<?> refresh(HttpServletRequest request)
     {

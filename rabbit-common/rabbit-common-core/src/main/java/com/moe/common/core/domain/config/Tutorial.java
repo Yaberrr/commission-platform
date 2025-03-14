@@ -1,5 +1,6 @@
 package com.moe.common.core.domain.config;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.moe.common.core.web.domain.BaseEntity;
@@ -11,7 +12,7 @@ import lombok.Data;
 @Data
 @TableName("rb_tutorial")
 public class Tutorial extends BaseEntity {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     // 视频名称
