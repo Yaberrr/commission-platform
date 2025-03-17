@@ -26,6 +26,10 @@ public class UserFeedbackVO {
 
     private List<String> feedbackImg;
 
+    private String replyContent;
+
+    private String replyImg;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feedbackTime;
 

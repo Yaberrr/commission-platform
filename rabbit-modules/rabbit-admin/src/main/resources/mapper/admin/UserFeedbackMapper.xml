@@ -47,7 +47,7 @@
     <select id="selectUserFeedbackById" resultType="com.moe.common.core.domain.vo.user.UserFeedbackVO">
         SELECT uf.id, uf.user_id, ru.user_name as userName, ru.wechat, ru.phone_number as phoneNumber,
                uf.feedback_content, uf.feedback_img AS feedbackImgStr, uf.feedback_time,
-               uf.feedback_count, uf.status
+               uf.feedback_count, uf.status, uf.reply_content, uf.reply_img
         FROM rb_user_feedback uf
                  LEFT JOIN rb_user ru ON uf.user_id = ru.id
         WHERE uf.id = #{id}
