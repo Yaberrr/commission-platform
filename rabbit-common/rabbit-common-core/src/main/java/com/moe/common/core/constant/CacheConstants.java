@@ -8,14 +8,14 @@ package com.moe.common.core.constant;
 public class CacheConstants
 {
     /**
-     * 缓存有效期，默认720（分钟）
+     * 缓存有效期 30天
      */
-    public final static long EXPIRATION = 720;
+    public final static long EXPIRATION = 43200;
 
     /**
-     * 缓存刷新时间，默认120（分钟）
+     * 缓存刷新时间 29天
      */
-    public final static long REFRESH_TIME = 120;
+    public final static long REFRESH_TIME = 41760;
 
     /**
      * 密码最大错误次数
@@ -61,4 +61,9 @@ public class CacheConstants
      * 验证码 cache key
      */
     public static final String VERIFY_CODE_KEY = "verify_code:";
+
+    /**
+     * 防重放攻击 cache key
+     */
+    public static final String INTERFACE_RANDOM_KEY = "interface_random:";
 }

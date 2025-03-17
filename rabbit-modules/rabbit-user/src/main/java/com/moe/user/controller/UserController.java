@@ -27,7 +27,7 @@ public class UserController implements RemoteUserService {
 
 
     @Operation(description = "用户信息")
-    @GetMapping("/info")
+    @PostMapping("/info")
     public R<User> getInfo() {
         return R.ok(SecurityUtils.getAppUser());
     }

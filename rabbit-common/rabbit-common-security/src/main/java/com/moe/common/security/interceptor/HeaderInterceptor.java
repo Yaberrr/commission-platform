@@ -32,7 +32,7 @@ public class HeaderInterceptor implements AsyncHandlerInterceptor
             return true;
         }
         //外部访问-通过网关传递 或 内部调用-Feign拦截器传递
-         String accessToken = SecurityUtils.getAccessToken(request);
+        String accessToken = SecurityUtils.getAccessToken(request);
 
         if (StringUtils.isNotEmpty(accessToken))
         {

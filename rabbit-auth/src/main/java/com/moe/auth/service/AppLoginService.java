@@ -30,9 +30,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AppLoginService {
 
-    //验证码有效时间
-    private static final long CODE_TIMEOUT = 60L;
-    private static final Logger log = LoggerFactory.getLogger(AppLoginService.class);
+    //验证码有效时间  5分钟内有效
+    private static final long CODE_TIMEOUT = 300L;
+    //可重发时间  1分钟后可重发
+    private static final long CODE_RETRY = 60L;
 
     @Autowired
     private RedisService redisService;
@@ -74,8 +75,9 @@ public class AppLoginService {
         String redisKey = CacheConstants.VERIFY_CODE_KEY + phoneNumber;
 
         Long ttl = redisService.getExpire(redisKey, TimeUnit.SECONDS);
-        if(ttl != null && ttl > 0){
-            return R.fail(ttl,"验证码未到期");
+        //一分钟内不可重发
+        if(ttl != null && CODE_TIMEOUT - ttl < CODE_RETRY){
+            return R.fail(ttl,"");
         }
 
         Random random = new Random();
