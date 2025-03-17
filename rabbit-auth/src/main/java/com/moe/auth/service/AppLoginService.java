@@ -77,13 +77,19 @@ public class AppLoginService {
         Long ttl = redisService.getExpire(redisKey, TimeUnit.SECONDS);
         //一分钟内不可重发
         if(ttl != null && CODE_TIMEOUT - ttl < CODE_RETRY){
-            return R.fail(ttl,"");
+            return R.fail(ttl,"请稍后发送");
         }
 
-        Random random = new Random();
         StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            code.append(random.nextInt(10));
+        if(ttl != null && ttl > 0){
+            //旧的验证码
+            code.append(redisService.getCacheObject(redisKey).toString());
+        }else {
+            //重新生成验证码
+            Random random = new Random();
+            for (int i = 0; i < 6; i++) {
+                code.append(random.nextInt(10));
+            }
         }
 
         Map<String,String> param = new HashMap<>();
@@ -94,7 +100,7 @@ public class AppLoginService {
         dto.setParam(param);
         R<?> r = remoteSmsService.sendOne(dto);
         r.check();
-
+        //刷新过期时间
         redisService.setCacheObject(redisKey, code.toString(), CODE_TIMEOUT, TimeUnit.SECONDS);
         return R.ok(CODE_TIMEOUT,"验证码已发送");
     }

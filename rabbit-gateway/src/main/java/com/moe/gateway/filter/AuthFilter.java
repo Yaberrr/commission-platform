@@ -2,7 +2,6 @@ package com.moe.gateway.filter;
 
 import com.moe.common.core.enums.SystemType;
 import com.moe.gateway.config.properties.IgnoreWhiteProperties;
-import com.moe.gateway.utils.SignUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import com.moe.common.redis.service.RedisService;
 import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
 
 /**
