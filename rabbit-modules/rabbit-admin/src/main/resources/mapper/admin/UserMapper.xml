@@ -96,7 +96,7 @@
     </select>
 
     <select id="selectInviteUserVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
-        select id, user_name, wechat, phoneNumber, sex, area
+        select id, user_name, wechat, phone_number, sex, area
         from rb_user
         where parent_id = #{dto.id}
     </select>
