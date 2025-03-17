@@ -15,4 +15,6 @@ public interface RuleConfigService {
     int addRuleConfig(RuleConfigDTO ruleConfigDTO);
 
     int updateRuleConfig(RuleConfigDTO ruleConfigDTO);
+
+    int deleteRuleConfigById(Long id);
 }

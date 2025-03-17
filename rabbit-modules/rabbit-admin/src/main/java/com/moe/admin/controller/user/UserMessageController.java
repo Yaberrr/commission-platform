@@ -10,10 +10,7 @@ import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,10 +30,17 @@ public class UserMessageController extends BaseController {
         return getDataTable(list);
     }
 
-    @RequiresPermissions("admin:userMessagek:query")
+    @RequiresPermissions("admin:userMessage:query")
     @GetMapping("/{id}")
     public AjaxResult detail(@PathVariable("id") Long id)
     {
         return AjaxResult.success(userMessageService.selectUserMessageDetailVOById(id));
+    }
+
+    @RequiresPermissions("admin:userMessage:remove")
+    @DeleteMapping("/{id}")
+    public AjaxResult remove(@PathVariable("id") Long id)
+    {
+        return AjaxResult.success(userMessageService.deleteUserMessageById(id));
     }
 }

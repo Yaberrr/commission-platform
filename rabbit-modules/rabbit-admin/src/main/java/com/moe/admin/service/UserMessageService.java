@@ -12,4 +12,6 @@ public interface UserMessageService {
     List<UserMessageVO> selectUserMessageVOByDTO(UserMessageDTO userMessageDTO);
 
     UserMessageDetailVO selectUserMessageDetailVOById(Long id);
+
+    int deleteUserMessageById(Long id);
 }

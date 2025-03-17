@@ -49,4 +49,11 @@ public class RuleConfigController extends BaseController {
     {
         return AjaxResult.success(ruleConfigService.updateRuleConfig(ruleConfigDTO));
     }
+
+    @RequiresPermissions("admin:ruleConfig:remove")
+    @DeleteMapping("/{id}")
+    public AjaxResult remove(@PathVariable("id") Long id)
+    {
+        return AjaxResult.success(ruleConfigService.deleteRuleConfigById(id));
+    }
 }

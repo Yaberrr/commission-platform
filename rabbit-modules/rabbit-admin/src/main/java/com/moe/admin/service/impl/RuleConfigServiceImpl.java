@@ -34,4 +34,9 @@ public class RuleConfigServiceImpl implements RuleConfigService {
     public int updateRuleConfig(RuleConfigDTO ruleConfigDTO) {
         return ruleConfigMapper.updateRuleConfig(ruleConfigDTO);
     }
+
+    @Override
+    public int deleteRuleConfigById(Long id) {
+        return ruleConfigMapper.deleteById(id);
+    }
 }

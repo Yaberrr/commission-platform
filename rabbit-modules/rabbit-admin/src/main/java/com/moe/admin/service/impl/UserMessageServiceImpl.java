@@ -25,4 +25,9 @@ public class UserMessageServiceImpl implements UserMessageService {
     public UserMessageDetailVO selectUserMessageDetailVOById(Long id) {
         return userMessageMapper.selectUserMessageDetailVOById(id);
     }
+
+    @Override
+    public int deleteUserMessageById(Long id) {
+        return userMessageMapper.deleteById(id);
+    }
 }
