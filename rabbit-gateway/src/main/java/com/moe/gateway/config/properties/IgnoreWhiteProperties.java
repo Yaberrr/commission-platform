@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 放行白名单配置
- * 
+ *
  * @author ruoyi
  */
 @Configuration
@@ -21,6 +21,12 @@ public class IgnoreWhiteProperties
      */
     private List<String> whites = new ArrayList<>();
 
+    /**
+     * 跳过密文校验配置，不验证密文
+     */
+    private List<String> signs = new ArrayList<>();
+
+
     public List<String> getWhites()
     {
         return whites;
@@ -30,4 +36,13 @@ public class IgnoreWhiteProperties
     {
         this.whites = whites;
     }
+
+    public List<String> getSigns() {
+        return signs;
+    }
+
+    public void setSigns(List<String> signs) {
+        this.signs = signs;
+    }
+
 }

@@ -22,7 +22,6 @@ import com.moe.common.redis.service.RedisService;
 import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
 
 /**
@@ -41,7 +40,6 @@ public class AuthFilter implements GlobalFilter, Ordered
 
     @Autowired
     private RedisService redisService;
-
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
@@ -65,33 +63,31 @@ public class AuthFilter implements GlobalFilter, Ordered
         {
             return unauthorizedResponse(exchange, "令牌已过期或验证不正确！");
         }
-
         boolean islogin = redisService.hasKey(JwtUtils.getRedisKey(accessToken));
         if (!islogin)
         {
             return unauthorizedResponse(exchange, "登录状态已过期");
         }
-
-        //校验是否可访问该服务
+        //用户系统类型
+        SystemType systemType = SystemType.valueOf(JwtUtils.getValue(claims, SecurityConstants.SYSTEM_TYPE));
+        //校验用户可用服务
         Route route = exchange.getAttribute(GATEWAY_ROUTE_ATTR);
         if(route == null){
-            return unauthorizedResponse(exchange, "服务不存在");
+            log.error("[查找服务异常]请求路径:{},错误信息:{}", exchange.getRequest().getPath(), "服务不存在");
+            return ServletUtils.webFluxResponseWriter(exchange.getResponse(), "服务不存在", HttpStatus.NOT_FOUND);
         }
-        SystemType systemType = SystemType.valueOf(JwtUtils.getValue(claims, SecurityConstants.SYSTEM_TYPE));
         String serviceId = route.getId();
-       if(!StringUtils.matches(serviceId,systemType.getServiceIds())){
+        if(!StringUtils.matches(serviceId,systemType.getServiceIds())){
            return unauthorizedResponse(exchange, "令牌不可用于当前服务");
         }
-
         String userid = JwtUtils.getUserId(claims);
         String username = JwtUtils.getUserName(claims);
-        if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username))
-        {
+        if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username)) {
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
-
         // 内部请求来源参数清除
         removeHeader(mutate, SecurityConstants.FROM_SOURCE);
+
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 

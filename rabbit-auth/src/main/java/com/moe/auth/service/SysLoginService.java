@@ -72,10 +72,9 @@ public class SysLoginService {
             throw new ServiceException("很遗憾，访问IP已被列入系统黑名单");
         }
         // 查询用户信息
-        R<LoginUser> userResult = remoteSysUserService.getUserInfo(username, SecurityConstants.INNER);
+        R<LoginUser> userResult = remoteSysUserService.getUserInfo(username);
 
-        if (R.FAIL == userResult.getCode())
-        {
+        if (R.FAIL == userResult.getCode()) {
             throw new ServiceException(userResult.getMsg());
         }
 
@@ -113,7 +112,7 @@ public class SysLoginService {
         sysUser.setLoginIp(IpUtils.getIpAddr());
         // 更新用户登录时间
         sysUser.setLoginDate(DateUtils.getNowDate());
-        remoteSysUserService.recordUserLogin(sysUser, SecurityConstants.INNER);
+        remoteSysUserService.recordUserLogin(sysUser);
     }
 
     public void logout(String loginName)
@@ -147,7 +146,7 @@ public class SysLoginService {
         sysUser.setUserName(username);
         sysUser.setNickName(username);
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
-        R<?> registerResult = remoteSysUserService.registerUserInfo(sysUser, SecurityConstants.INNER);
+        R<?> registerResult = remoteSysUserService.registerUserInfo(sysUser);
 
         if (R.FAIL == registerResult.getCode())
         {

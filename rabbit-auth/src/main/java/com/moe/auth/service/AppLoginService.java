@@ -30,9 +30,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AppLoginService {
 
-    //验证码有效时间
-    private static final long CODE_TIMEOUT = 60L;
-    private static final Logger log = LoggerFactory.getLogger(AppLoginService.class);
+    //验证码有效时间  5分钟内有效
+    private static final long CODE_TIMEOUT = 300L;
+    //可重发时间  1分钟后可重发
+    private static final long CODE_RETRY = 60L;
 
     @Autowired
     private RedisService redisService;
@@ -74,14 +75,21 @@ public class AppLoginService {
         String redisKey = CacheConstants.VERIFY_CODE_KEY + phoneNumber;
 
         Long ttl = redisService.getExpire(redisKey, TimeUnit.SECONDS);
-        if(ttl != null && ttl > 0){
-            return R.fail(ttl,"验证码未到期");
+        //一分钟内不可重发
+        if(ttl != null && CODE_TIMEOUT - ttl < CODE_RETRY){
+            return R.fail(ttl,"请稍后发送");
         }
 
-        Random random = new Random();
         StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            code.append(random.nextInt(10));
+        if(ttl != null && ttl > 0){
+            //旧的验证码
+            code.append(redisService.getCacheObject(redisKey).toString());
+        }else {
+            //重新生成验证码
+            Random random = new Random();
+            for (int i = 0; i < 6; i++) {
+                code.append(random.nextInt(10));
+            }
         }
 
         Map<String,String> param = new HashMap<>();
@@ -92,7 +100,7 @@ public class AppLoginService {
         dto.setParam(param);
         R<?> r = remoteSmsService.sendOne(dto);
         r.check();
-
+        //刷新过期时间
         redisService.setCacheObject(redisKey, code.toString(), CODE_TIMEOUT, TimeUnit.SECONDS);
         return R.ok(CODE_TIMEOUT,"验证码已发送");
     }
