@@ -20,8 +20,8 @@ public class GlobalConfigController {
     private GlobalConfigService globalConfigService;
 
     @RequiresPermissions("admin:globalConfig:query")
-    @GetMapping("/{id}")
-    public AjaxResult detail(@PathVariable("id") Integer configType)
+    @GetMapping("/{configType}")
+    public AjaxResult detail(@PathVariable("configType") Integer configType)
     {
         return AjaxResult.success(globalConfigService.selectGlobalConfigByConfigType(configType));
     }
