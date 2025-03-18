@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/userInvite")
+@RequestMapping("/userInvite")
 public class UserInviteController extends BaseController {
 
     @Autowired

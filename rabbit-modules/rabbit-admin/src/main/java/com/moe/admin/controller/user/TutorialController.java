@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/tutorial")
+@RequestMapping("/tutorial")
 public class TutorialController extends BaseController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class TutorialController extends BaseController {
 
     @RequiresPermissions("admin:tutorial:query")
     @GetMapping("/{id}")
-    public AjaxResult list(@PathVariable("id") Long id)
+    public AjaxResult detail(@PathVariable("id") Long id)
     {
         return AjaxResult.success(tutorialService.selectByTutorialId(id));
     }

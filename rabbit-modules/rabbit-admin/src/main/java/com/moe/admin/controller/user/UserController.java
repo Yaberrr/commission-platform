@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
     @Autowired
