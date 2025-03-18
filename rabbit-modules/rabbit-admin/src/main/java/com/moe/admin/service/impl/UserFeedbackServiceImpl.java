@@ -1,5 +1,7 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.UserFeedbackMapper;
 import com.moe.admin.service.UserFeedbackService;
 import com.moe.admin.domain.dto.user.UserFeedBackDTO;
@@ -17,8 +19,8 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
     private UserFeedbackMapper userFeedbackMapper;
 
     @Override
-    public List<UserFeedbackVO> selectUserFeedbackByDTO(UserFeedBackDTO userFeedBackDTO) {
-        return userFeedbackMapper.selectUserFeedbackByDTO(userFeedBackDTO);
+    public Page<UserFeedbackVO> selectUserFeedbackByDTO(IPage page, UserFeedBackDTO userFeedBackDTO) {
+        return userFeedbackMapper.selectUserFeedbackByDTO(page, userFeedBackDTO);
     }
 
     @Override

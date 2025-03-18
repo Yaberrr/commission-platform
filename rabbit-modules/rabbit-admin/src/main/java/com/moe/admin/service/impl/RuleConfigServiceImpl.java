@@ -1,5 +1,7 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.RuleConfigMapper;
 import com.moe.admin.service.RuleConfigService;
 import com.moe.admin.domain.dto.rule.RuleConfigDTO;
@@ -16,8 +18,8 @@ public class RuleConfigServiceImpl implements RuleConfigService {
     private RuleConfigMapper ruleConfigMapper;
 
     @Override
-    public List<RuleConfigVO> selectRuleConfigVOByUser(RuleConfigDTO ruleConfigDTO) {
-        return ruleConfigMapper.selectRuleConfigByDTO(ruleConfigDTO);
+    public Page<RuleConfigVO> selectRuleConfigVOByUser(IPage page, RuleConfigDTO ruleConfigDTO) {
+        return ruleConfigMapper.selectRuleConfigByDTO(page, ruleConfigDTO);
     }
 
     @Override

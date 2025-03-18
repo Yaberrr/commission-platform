@@ -1,5 +1,7 @@
 package com.moe.admin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.rule.RuleConfigDTO;
 import com.moe.admin.domain.vo.rule.RuleConfigVO;
 
@@ -7,7 +9,7 @@ import java.util.List;
 
 public interface RuleConfigService {
 
-    List<RuleConfigVO> selectRuleConfigVOByUser(RuleConfigDTO ruleConfigDTO);
+    Page<RuleConfigVO> selectRuleConfigVOByUser(IPage page, RuleConfigDTO ruleConfigDTO);
 
     RuleConfigVO selectRuleConfigVOById(Long id);
 

@@ -1,5 +1,7 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.OrderMapper;
 import com.moe.admin.service.ISysOrderService;
 import com.moe.admin.domain.dto.order.OrderListDTO;
@@ -16,7 +18,7 @@ public class SysOrderServiceImpl implements ISysOrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public List<OrderVO> selectOrder(OrderListDTO orderListDTO) {
-        return orderMapper.selectOrderVOByDTO(orderListDTO);
+    public Page<OrderVO> selectOrder(IPage page, OrderListDTO orderListDTO) {
+        return orderMapper.selectOrderVOByDTO(page, orderListDTO);
     }
 }

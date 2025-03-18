@@ -1,5 +1,7 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.UserMessageMapper;
 import com.moe.admin.service.UserMessageService;
 import com.moe.admin.domain.dto.user.UserMessageDTO;
@@ -16,8 +18,8 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Autowired
     private UserMessageMapper userMessageMapper;
     @Override
-    public List<UserMessageVO> selectUserMessageVOByDTO(UserMessageDTO userMessageDTO) {
-        return userMessageMapper.selectUserMessageVOByDTO(userMessageDTO);
+    public Page<UserMessageVO> selectUserMessageVOByDTO(IPage page, UserMessageDTO userMessageDTO) {
+        return userMessageMapper.selectUserMessageVOByDTO(page, userMessageDTO);
     }
 
     @Override

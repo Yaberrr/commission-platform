@@ -1,5 +1,7 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.PolicyConfigMapper;
 import com.moe.admin.service.PolicyConfigService;
 import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
@@ -17,8 +19,8 @@ public class PolicyConfigServiceImpl implements PolicyConfigService {
 
 
     @Override
-    public List<PolicyConfigVO> selectPolicyConfigByDTO(PolicyConfigDTO policyConfigDTO) {
-        return policyConfigMapper.selectPolicyConfigVOByDTO(policyConfigDTO);
+    public Page<PolicyConfigVO> selectPolicyConfigByDTO(IPage page, PolicyConfigDTO policyConfigDTO) {
+        return policyConfigMapper.selectPolicyConfigVOByDTO(page, policyConfigDTO);
     }
 
     @Override

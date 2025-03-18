@@ -1,5 +1,7 @@
 package com.moe.admin.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.user.UserFeedBackDTO;
 import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
 import com.moe.admin.domain.vo.user.UserFeedbackVO;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public interface UserFeedbackMapper {
 
-    List<UserFeedbackVO> selectUserFeedbackByDTO(@Param("dto") UserFeedBackDTO userFeedBackDTO);
+    Page<UserFeedbackVO> selectUserFeedbackByDTO(IPage page, @Param("dto") UserFeedBackDTO userFeedBackDTO);
 
     UserFeedbackVO selectUserFeedbackById(@Param("id") Long id);
 

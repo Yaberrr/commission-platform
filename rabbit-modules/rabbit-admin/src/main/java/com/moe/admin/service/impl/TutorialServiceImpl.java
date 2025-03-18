@@ -1,5 +1,7 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.TutorialMapper;
 import com.moe.admin.service.TutorialService;
 import com.moe.common.core.domain.config.Tutorial;
@@ -20,8 +22,8 @@ public class TutorialServiceImpl implements TutorialService {
     private TutorialMapper tutorialMapper;
 
     @Override
-    public List<TutorialVO> getAllTutorial() {
-        return tutorialMapper.selectAllTutorial();
+    public Page<TutorialVO> getAllTutorial(IPage page) {
+        return tutorialMapper.selectAllTutorial(page);
     }
 
     @Override

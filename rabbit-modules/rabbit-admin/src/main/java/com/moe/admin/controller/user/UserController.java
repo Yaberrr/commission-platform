@@ -1,5 +1,6 @@
 package com.moe.admin.controller.user;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.UserService;
 import com.moe.admin.domain.dto.user.UserDTO;
 import com.moe.admin.domain.vo.user.UserVO;
@@ -7,6 +8,7 @@ import com.moe.common.core.utils.poi.ExcelUtil;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/adminUser")
 public class UserController extends BaseController {
 
     @Autowired
@@ -28,8 +30,7 @@ public class UserController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(UserDTO userDTO)
     {
-        startPage();
-        List<UserVO> list = userService.selectUserVOByDTO(userDTO);
+        Page<UserVO> list = userService.selectUserVOByDTO(TableSupport.buildPageRequest().buildPage(), userDTO);
         return getDataTable(list);
     }
 
@@ -51,9 +52,10 @@ public class UserController extends BaseController {
     @GetMapping("/export")
     public void export(HttpServletResponse response, UserDTO userDTO)
     {
-        List<UserVO> list = userService.selectUserVOByDTO(userDTO);
+        Page page = new Page<>(1, 20000);
+        Page<UserVO> list = userService.selectUserVOByDTO(page, userDTO);
         ExcelUtil<UserVO> util = new ExcelUtil<UserVO>(UserVO.class);
-        util.exportExcel(response, list, "用户表");
+        util.exportExcel(response, list.getRecords(), "用户表");
     }
 
     @RequiresPermissions("admin:user:query")

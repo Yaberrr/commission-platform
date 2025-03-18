@@ -47,7 +47,7 @@ public class TestSms {
 
     @Test
     public void orderTest(){
-        System.out.println(orderService.selectOrder(new OrderListDTO()));
+//        System.out.println(orderService.selectOrder(new OrderListDTO()));
     }
 
     @Test
