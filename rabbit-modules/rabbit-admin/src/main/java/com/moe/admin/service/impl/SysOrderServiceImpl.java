@@ -1,9 +1,11 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.OrderMapper;
 import com.moe.admin.service.ISysOrderService;
-import com.moe.common.core.domain.dto.order.OrderListDTO;
-import com.moe.common.core.domain.vo.order.OrderVO;
+import com.moe.admin.domain.dto.order.OrderListDTO;
+import com.moe.admin.domain.vo.order.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class SysOrderServiceImpl implements ISysOrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public List<OrderVO> selectOrder(OrderListDTO orderListDTO) {
-        return orderMapper.selectOrderVOByDTO(orderListDTO);
+    public Page<OrderVO> selectOrder(IPage page, OrderListDTO orderListDTO) {
+        return orderMapper.selectOrderVOByDTO(page, orderListDTO);
     }
 }

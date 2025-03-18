@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moe.admin.mapper.GlobalConfigMapper">
 
-    <select id="selectGlobalConfigByConfigType" resultType="com.moe.common.core.domain.vo.rule.GlobalConfigVO">
+    <select id="selectGlobalConfigByConfigType" resultType="com.moe.admin.domain.vo.rule.GlobalConfigVO">
         SELECT id, config_type, config_json
         FROM rb_global_config
         WHERE config_type = #{configType}
@@ -12,7 +12,7 @@
     </select>
 
     <!-- 插入或更新通用配置 -->
-    <insert id="addOrUpdateGlobalConfigByConfigType" parameterType="com.moe.common.core.domain.dto.rule.GlobalConfigDTO">
+    <insert id="addOrUpdateGlobalConfigByConfigType" parameterType="com.moe.admin.domain.dto.rule.GlobalConfigDTO">
         INSERT INTO rb_global_config (config_type, config_json, create_by, create_time, update_by, update_time, remark)
         VALUES (#{dto.configType}, #{dto.configJson}, #{dto.createBy}, NOW(), #{dto.updateBy}, NOW(), #{dto.remark})
             ON DUPLICATE KEY UPDATE

@@ -1,15 +1,13 @@
 package com.moe.admin.controller.rule;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.PolicyConfigService;
-import com.moe.admin.service.RuleConfigService;
-import com.moe.admin.service.impl.PolicyConfigServiceImpl;
-import com.moe.common.core.domain.dto.rule.PolicyConfigDTO;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.PolicyConfigVO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
+import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
+import com.moe.admin.domain.vo.rule.PolicyConfigVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +25,7 @@ public class PolicyConfigController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(PolicyConfigDTO policyConfigDTO)
     {
-        startPage();
-        List<PolicyConfigVO> list = policyConfigService.selectPolicyConfigByDTO(policyConfigDTO);
+        Page<PolicyConfigVO> list = policyConfigService.selectPolicyConfigByDTO(TableSupport.buildPageRequest().buildPage(), policyConfigDTO);
         return getDataTable(list);
     }
 

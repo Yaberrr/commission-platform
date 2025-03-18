@@ -1,11 +1,13 @@
 package com.moe.admin.controller.order;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.ISysOrderService;
-import com.moe.common.core.domain.dto.order.OrderListDTO;
-import com.moe.common.core.domain.vo.order.OrderVO;
+import com.moe.admin.domain.dto.order.OrderListDTO;
+import com.moe.admin.domain.vo.order.OrderVO;
 import com.moe.common.core.utils.poi.ExcelUtil;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +28,7 @@ public class OrderController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(OrderListDTO orderListDTO)
     {
-        startPage();
-        List<OrderVO> list = orderService.selectOrder(orderListDTO);
+        Page<OrderVO> list = orderService.selectOrder(TableSupport.buildPageRequest().buildPage(),orderListDTO);
         return getDataTable(list);
     }
 
@@ -35,8 +36,9 @@ public class OrderController extends BaseController {
     @GetMapping("/export")
     public void export(HttpServletResponse response, OrderListDTO orderListDTO)
     {
-        List<OrderVO> list = orderService.selectOrder(orderListDTO);
+        Page page = new Page<>(1, 20000);
+        Page<OrderVO> list = orderService.selectOrder(page, orderListDTO);
         ExcelUtil<OrderVO> util = new ExcelUtil<OrderVO>(OrderVO.class);
-        util.exportExcel(response, list, "订单表");
+        util.exportExcel(response, list.getRecords(), "订单表");
     }
 }

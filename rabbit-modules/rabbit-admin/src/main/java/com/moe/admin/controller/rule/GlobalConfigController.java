@@ -1,19 +1,13 @@
 package com.moe.admin.controller.rule;
 
 import com.moe.admin.service.GlobalConfigService;
-import com.moe.common.core.domain.dto.rule.GlobalConfigDTO;
-import com.moe.common.core.domain.dto.rule.InviteModelDTO;
-import com.moe.common.core.domain.dto.rule.QRCodeDTO;
-import com.moe.common.core.domain.dto.user.MemberShipDTO;
-import com.moe.common.core.domain.dto.user.UserFeedBackDTO;
-import com.moe.common.core.domain.vo.user.UserFeedbackVO;
+import com.moe.admin.domain.dto.rule.InviteModelDTO;
+import com.moe.admin.domain.dto.rule.QRCodeDTO;
+import com.moe.admin.domain.dto.user.MemberShipDTO;
 import com.moe.common.core.web.domain.AjaxResult;
-import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/globalConfig")

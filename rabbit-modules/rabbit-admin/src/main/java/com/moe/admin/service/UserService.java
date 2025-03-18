@@ -1,15 +1,17 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.dto.user.UserDTO;
-import com.moe.common.core.domain.vo.user.InviteUserVO;
-import com.moe.common.core.domain.vo.user.UserDetailVO;
-import com.moe.common.core.domain.vo.user.UserVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moe.admin.domain.dto.user.UserDTO;
+import com.moe.admin.domain.vo.user.InviteUserVO;
+import com.moe.admin.domain.vo.user.UserDetailVO;
+import com.moe.admin.domain.vo.user.UserVO;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<UserVO> selectUserVOByDTO(UserDTO userDTO);
+    Page<UserVO> selectUserVOByDTO(IPage page, UserDTO userDTO);
 
     List<InviteUserVO> selectInviteUserVOByDTO(UserDTO userDTO);
 

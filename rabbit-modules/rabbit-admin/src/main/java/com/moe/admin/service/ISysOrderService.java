@@ -1,13 +1,15 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.dto.order.OrderListDTO;
-import com.moe.common.core.domain.vo.order.OrderVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moe.admin.domain.dto.order.OrderListDTO;
+import com.moe.admin.domain.vo.order.OrderVO;
 
 import java.util.List;
 
 public interface ISysOrderService {
 
-    List<OrderVO> selectOrder(OrderListDTO orderListDTO);
+    Page<OrderVO> selectOrder(IPage page, OrderListDTO orderListDTO);
 
 
 }

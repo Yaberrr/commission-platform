@@ -5,7 +5,7 @@
 <mapper namespace="com.moe.admin.mapper.OrderMapper">
 
 
-    <select id="selectOrderVOByDTO" resultType="com.moe.common.core.domain.vo.order.OrderVO">
+    <select id="selectOrderVOByDTO" resultType="com.moe.admin.domain.vo.order.OrderVO">
         select id, user_id, order_no, status, product_name, product_img, order_amount, platform_type, platform_commission, commission, parent_commission, grand_parent_commission, order_time
         from rb_order
         <where>

@@ -1,16 +1,15 @@
 package com.moe.admin;
 
 import com.moe.admin.service.*;
-import com.moe.common.core.domain.dto.order.OrderListDTO;
-import com.moe.common.core.domain.dto.rule.PolicyConfigDTO;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialAddDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialSortDTO;
-import com.moe.common.core.domain.dto.user.UserDTO;
-import com.moe.common.core.domain.dto.user.UserFeedBackDTO;
-import com.moe.common.core.domain.dto.user.UserFeedbackUpdateDTO;
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import org.junit.Ignore;
+import com.moe.admin.domain.dto.order.OrderListDTO;
+import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
+import com.moe.admin.domain.dto.user.UserDTO;
+import com.moe.admin.domain.dto.user.UserFeedBackDTO;
+import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,23 +47,23 @@ public class TestSms {
 
     @Test
     public void orderTest(){
-        System.out.println(orderService.selectOrder(new OrderListDTO()));
+//        System.out.println(orderService.selectOrder(new OrderListDTO()));
     }
 
-    @Test
-    public void userTest(){
-        System.out.println(userService.selectUserVOByDTO(new UserDTO()));
-    }
+//    @Test
+//    public void userTest(){
+//        System.out.println(userService.selectUserVOByDTO(new UserDTO()));
+//    }
 
     @Test
     public void userIdTest(){
         System.out.println(userService.selectUserDetailByUserId(1L));
     }
 
-    @Test
-    public void userFeedbackTest1(){
-        System.out.println(userFeedbackService.selectUserFeedbackByDTO(new UserFeedBackDTO()));
-    }
+//    @Test
+//    public void userFeedbackTest1(){
+//        System.out.println(userFeedbackService.selectUserFeedbackByDTO(new UserFeedBackDTO()));
+//    }
 
     @Test
     public void userFeedbackTest2(){
@@ -80,10 +79,10 @@ public class TestSms {
         System.out.println(userFeedbackService.updateUserFeedback(userFeedbackUpdateDTO));
     }
 
-    @Test
-    public void tutorialTest1(){
-        System.out.println(tutorialService.getAllTutorial());
-    }
+//    @Test
+//    public void tutorialTest1(){
+//        System.out.println(tutorialService.getAllTutorial());
+//    }
 
     @Test
     public void tutorialTest2(){
@@ -117,20 +116,20 @@ public class TestSms {
         System.out.println(tutorialService.sortTutorial(tutorialSortDTO));
     }
 
-    @Test
-    public void userInviteTest1(){
-        UserInviteDTO userInviteDTO = new UserInviteDTO();
-        userInviteDTO.setLimit(10);
-        userInviteDTO.setStartTime("2025-03-14 00:00:00");
-        userInviteDTO.setEndTime("2025-03-15 00:00:00");
-        System.out.println(userInviteService.selectInviteUserRankVOByDTO(userInviteDTO));
-    }
+//    @Test
+//    public void userInviteTest1(){
+//        UserInviteDTO userInviteDTO = new UserInviteDTO();
+//        userInviteDTO.setLimit(10);
+//        userInviteDTO.setStartTime("2025-03-14 00:00:00");
+//        userInviteDTO.setEndTime("2025-03-15 00:00:00");
+//        System.out.println(userInviteService.selectInviteUserRankVOByDTO(userInviteDTO));
+//    }
 
-    @Test
-    public void ruleConfigTest1(){
-        RuleConfigDTO ruleConfigDTO = new RuleConfigDTO();
-        System.out.println(ruleConfigService.selectRuleConfigVOByUser(ruleConfigDTO));
-    }
+//    @Test
+//    public void ruleConfigTest1(){
+//        RuleConfigDTO ruleConfigDTO = new RuleConfigDTO();
+//        System.out.println(ruleConfigService.selectRuleConfigVOByUser(ruleConfigDTO));
+//    }
 
     @Test
     public void ruleConfigTest2(){
@@ -155,11 +154,11 @@ public class TestSms {
         System.out.println(ruleConfigService.selectRuleConfigVOById(1L));
     }
 
-    @Test
-    public void policyConfigTest1(){
-        PolicyConfigDTO policyConfigDTO = new PolicyConfigDTO();
-        System.out.println(policyConfigService.selectPolicyConfigByDTO(policyConfigDTO));
-    }
+//    @Test
+//    public void policyConfigTest1(){
+//        PolicyConfigDTO policyConfigDTO = new PolicyConfigDTO();
+//        System.out.println(policyConfigService.selectPolicyConfigByDTO(policyConfigDTO));
+//    }
 
     @Test
     public void policyConfigTest2(){

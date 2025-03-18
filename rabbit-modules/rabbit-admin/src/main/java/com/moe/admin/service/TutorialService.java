@@ -1,16 +1,17 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.config.Tutorial;
-import com.moe.common.core.domain.dto.tutorial.TutorialAddDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialSortDTO;
-import com.moe.common.core.domain.vo.user.TutorialDetailVO;
-import com.moe.common.core.domain.vo.user.TutorialVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
+import com.moe.admin.domain.vo.user.TutorialDetailVO;
+import com.moe.admin.domain.vo.user.TutorialVO;
 
 import java.util.List;
 
 public interface TutorialService {
 
-    List<TutorialVO> getAllTutorial();
+    Page<TutorialVO> getAllTutorial(IPage page);
 
     TutorialDetailVO selectByTutorialId(Long id);
 

@@ -28,13 +28,13 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="selectAllTutorial" resultType="com.moe.common.core.domain.vo.user.TutorialVO">
+    <select id="selectAllTutorial" resultType="com.moe.admin.domain.vo.user.TutorialVO">
         SELECT id, video_name AS videoName, video_cover AS videoCover, view_count AS viewCount, create_time AS createTime
         FROM rb_tutorial
         ORDER BY sort ASC
     </select>
 
-    <select id="selectTutorialById" resultType="com.moe.common.core.domain.vo.user.TutorialDetailVO">
+    <select id="selectTutorialById" resultType="com.moe.admin.domain.vo.user.TutorialDetailVO">
         SELECT id, video_name AS videoName, video_cover AS videoCover, video_url AS videoUrl
         FROM rb_tutorial
         WHERE id = #{id}

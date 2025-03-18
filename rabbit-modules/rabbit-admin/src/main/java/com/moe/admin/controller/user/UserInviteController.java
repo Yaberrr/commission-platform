@@ -1,17 +1,16 @@
 package com.moe.admin.controller.user;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.UserInviteService;
-import com.moe.common.core.domain.dto.user.UserFeedBackDTO;
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import com.moe.common.core.domain.vo.user.InviteUserRankVO;
-import com.moe.common.core.domain.vo.user.UserFeedbackVO;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
+import com.moe.admin.domain.vo.user.InviteUserRankVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +27,7 @@ public class UserInviteController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(UserInviteDTO userInviteDTO)
     {
-        startPage();
-        List<InviteUserRankVO> list = userInviteService.selectInviteUserRankVOByDTO(userInviteDTO);
+        Page<InviteUserRankVO> list = userInviteService.selectInviteUserRankVOByDTO(TableSupport.buildPageRequest().buildPage(), userInviteDTO);
         return getDataTable(list);
     }
 

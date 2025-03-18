@@ -1,12 +1,14 @@
 package com.moe.admin.controller.user;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.UserFeedbackService;
-import com.moe.common.core.domain.dto.user.UserFeedBackDTO;
-import com.moe.common.core.domain.dto.user.UserFeedbackUpdateDTO;
-import com.moe.common.core.domain.vo.user.UserFeedbackVO;
+import com.moe.admin.domain.dto.user.UserFeedBackDTO;
+import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
+import com.moe.admin.domain.vo.user.UserFeedbackVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,7 @@ public class UserFeedbackController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(UserFeedBackDTO userFeedBackDTO)
     {
-        startPage();
-        List<UserFeedbackVO> list = userFeedbackService.selectUserFeedbackByDTO(userFeedBackDTO);
+        Page<UserFeedbackVO> list = userFeedbackService.selectUserFeedbackByDTO(TableSupport.buildPageRequest().buildPage(), userFeedBackDTO);
         return getDataTable(list);
     }
 

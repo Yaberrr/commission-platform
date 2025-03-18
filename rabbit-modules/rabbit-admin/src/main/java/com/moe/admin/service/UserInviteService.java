@@ -1,14 +1,16 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import com.moe.common.core.domain.vo.user.InviteUserRankVO;
-import com.moe.common.core.domain.vo.user.InviteUserVO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
+import com.moe.admin.domain.vo.user.InviteUserRankVO;
+import com.moe.admin.domain.vo.user.InviteUserVO;
 
 import java.util.List;
 
 public interface UserInviteService {
 
-    List<InviteUserRankVO> selectInviteUserRankVOByDTO(UserInviteDTO userInviteDTO);
+    Page<InviteUserRankVO> selectInviteUserRankVOByDTO(IPage page, UserInviteDTO userInviteDTO);
 
     List<InviteUserVO> selectInviteUserVOByPeriod(UserInviteDTO userInviteDTO);
 }

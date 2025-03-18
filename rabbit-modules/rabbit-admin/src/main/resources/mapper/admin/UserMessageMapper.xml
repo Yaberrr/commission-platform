@@ -5,7 +5,7 @@
 <mapper namespace="com.moe.admin.mapper.UserMessageMapper">
 
 
-    <select id="selectUserMessageVOByDTO" resultType="com.moe.common.core.domain.vo.user.UserMessageVO">
+    <select id="selectUserMessageVOByDTO" resultType="com.moe.admin.domain.vo.user.UserMessageVO">
         select id, title, content_form, send_time, send_type, status
         from rb_system_message
         <where>
@@ -23,7 +23,7 @@
     </select>
 
     <select id="selectUserMessageDetailVOById"
-            resultType="com.moe.common.core.domain.vo.user.UserMessageDetailVO">
+            resultType="com.moe.admin.domain.vo.user.UserMessageDetailVO">
         select id, title, content_form, content, cover, send_time, send_type, send_user
         from rb_system_message
         where id = #{id}

@@ -1,10 +1,12 @@
 package com.moe.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.UserMapper;
 import com.moe.admin.service.UserInviteService;
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import com.moe.common.core.domain.vo.user.InviteUserRankVO;
-import com.moe.common.core.domain.vo.user.InviteUserVO;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
+import com.moe.admin.domain.vo.user.InviteUserRankVO;
+import com.moe.admin.domain.vo.user.InviteUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,8 @@ public class UserInviteServiceImpl implements UserInviteService {
     private UserMapper userMapper;
 
     @Override
-    public List<InviteUserRankVO> selectInviteUserRankVOByDTO(UserInviteDTO userInviteDTO) {
-        return userMapper.selectInviteUserRankVOByDTO(userInviteDTO);
+    public Page<InviteUserRankVO> selectInviteUserRankVOByDTO(IPage page, UserInviteDTO userInviteDTO) {
+        return userMapper.selectInviteUserRankVOByDTO(page, userInviteDTO);
     }
 
     @Override

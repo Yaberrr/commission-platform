@@ -1,14 +1,14 @@
 package com.moe.admin.controller.user;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.TutorialService;
-import com.moe.common.core.domain.dto.tutorial.TutorialAddDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialSortDTO;
-import com.moe.common.core.domain.dto.user.UserDTO;
-import com.moe.common.core.domain.vo.user.TutorialVO;
-import com.moe.common.core.domain.vo.user.UserVO;
+import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
+import com.moe.admin.domain.vo.user.TutorialVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +26,7 @@ public class TutorialController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list()
     {
-        startPage();
-        List<TutorialVO> list = tutorialService.getAllTutorial();
+        Page<TutorialVO> list = tutorialService.getAllTutorial(TableSupport.buildPageRequest().buildPage());
         return getDataTable(list);
     }
 

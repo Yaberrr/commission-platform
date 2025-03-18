@@ -1,12 +1,13 @@
 package com.moe.admin.controller.rule;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.service.RuleConfigService;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
-import com.moe.common.core.domain.vo.user.TutorialVO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.vo.rule.RuleConfigVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,7 @@ public class RuleConfigController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(RuleConfigDTO ruleConfigDTO)
     {
-        startPage();
-        List<RuleConfigVO> list = ruleConfigService.selectRuleConfigVOByUser(ruleConfigDTO);
+        Page<RuleConfigVO> list = ruleConfigService.selectRuleConfigVOByUser(TableSupport.buildPageRequest().buildPage(), ruleConfigDTO);
         return getDataTable(list);
     }
 
