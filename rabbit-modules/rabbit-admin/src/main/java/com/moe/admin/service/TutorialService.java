@@ -1,10 +1,9 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.config.Tutorial;
-import com.moe.common.core.domain.dto.tutorial.TutorialAddDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialSortDTO;
-import com.moe.common.core.domain.vo.user.TutorialDetailVO;
-import com.moe.common.core.domain.vo.user.TutorialVO;
+import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
+import com.moe.admin.domain.vo.user.TutorialDetailVO;
+import com.moe.admin.domain.vo.user.TutorialVO;
 
 import java.util.List;
 

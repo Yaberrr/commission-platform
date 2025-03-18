@@ -2,10 +2,9 @@ package com.moe.admin.service.impl;
 
 import com.moe.admin.mapper.UserMessageMapper;
 import com.moe.admin.service.UserMessageService;
-import com.moe.common.core.domain.dto.user.UserMessageDTO;
-import com.moe.common.core.domain.message.UserMessage;
-import com.moe.common.core.domain.vo.user.UserMessageDetailVO;
-import com.moe.common.core.domain.vo.user.UserMessageVO;
+import com.moe.admin.domain.dto.user.UserMessageDTO;
+import com.moe.admin.domain.vo.user.UserMessageDetailVO;
+import com.moe.admin.domain.vo.user.UserMessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

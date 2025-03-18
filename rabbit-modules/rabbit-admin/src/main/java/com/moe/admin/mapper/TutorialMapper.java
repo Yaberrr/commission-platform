@@ -1,9 +1,9 @@
 package com.moe.admin.mapper;
 
 import com.moe.common.core.domain.config.Tutorial;
-import com.moe.common.core.domain.dto.tutorial.TutorialAddDTO;
-import com.moe.common.core.domain.vo.user.TutorialDetailVO;
-import com.moe.common.core.domain.vo.user.TutorialVO;
+import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
+import com.moe.admin.domain.vo.user.TutorialDetailVO;
+import com.moe.admin.domain.vo.user.TutorialVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

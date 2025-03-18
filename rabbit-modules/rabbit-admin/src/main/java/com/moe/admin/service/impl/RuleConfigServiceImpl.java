@@ -2,8 +2,8 @@ package com.moe.admin.service.impl;
 
 import com.moe.admin.mapper.RuleConfigMapper;
 import com.moe.admin.service.RuleConfigService;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.vo.rule.RuleConfigVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

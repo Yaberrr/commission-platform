@@ -2,9 +2,9 @@ package com.moe.admin.service.impl;
 
 import com.moe.admin.mapper.UserFeedbackMapper;
 import com.moe.admin.service.UserFeedbackService;
-import com.moe.common.core.domain.dto.user.UserFeedBackDTO;
-import com.moe.common.core.domain.dto.user.UserFeedbackUpdateDTO;
-import com.moe.common.core.domain.vo.user.UserFeedbackVO;
+import com.moe.admin.domain.dto.user.UserFeedBackDTO;
+import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
+import com.moe.admin.domain.vo.user.UserFeedbackVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

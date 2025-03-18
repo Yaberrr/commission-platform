@@ -1,12 +1,8 @@
 package com.moe.admin.controller.rule;
 
 import com.moe.admin.service.PolicyConfigService;
-import com.moe.admin.service.RuleConfigService;
-import com.moe.admin.service.impl.PolicyConfigServiceImpl;
-import com.moe.common.core.domain.dto.rule.PolicyConfigDTO;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.PolicyConfigVO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
+import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
+import com.moe.admin.domain.vo.rule.PolicyConfigVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;

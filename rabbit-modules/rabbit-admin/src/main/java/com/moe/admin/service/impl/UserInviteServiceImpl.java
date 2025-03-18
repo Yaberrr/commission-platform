@@ -2,9 +2,9 @@ package com.moe.admin.service.impl;
 
 import com.moe.admin.mapper.UserMapper;
 import com.moe.admin.service.UserInviteService;
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import com.moe.common.core.domain.vo.user.InviteUserRankVO;
-import com.moe.common.core.domain.vo.user.InviteUserVO;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
+import com.moe.admin.domain.vo.user.InviteUserRankVO;
+import com.moe.admin.domain.vo.user.InviteUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

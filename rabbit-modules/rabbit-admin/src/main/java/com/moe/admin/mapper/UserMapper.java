@@ -1,11 +1,11 @@
 package com.moe.admin.mapper;
 
-import com.moe.common.core.domain.dto.user.UserDTO;
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import com.moe.common.core.domain.vo.user.InviteUserRankVO;
-import com.moe.common.core.domain.vo.user.InviteUserVO;
-import com.moe.common.core.domain.vo.user.UserDetailVO;
-import com.moe.common.core.domain.vo.user.UserVO;
+import com.moe.admin.domain.dto.user.UserDTO;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
+import com.moe.admin.domain.vo.user.InviteUserRankVO;
+import com.moe.admin.domain.vo.user.InviteUserVO;
+import com.moe.admin.domain.vo.user.UserDetailVO;
+import com.moe.admin.domain.vo.user.UserVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

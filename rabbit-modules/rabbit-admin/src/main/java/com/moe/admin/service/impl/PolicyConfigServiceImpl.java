@@ -2,8 +2,8 @@ package com.moe.admin.service.impl;
 
 import com.moe.admin.mapper.PolicyConfigMapper;
 import com.moe.admin.service.PolicyConfigService;
-import com.moe.common.core.domain.dto.rule.PolicyConfigDTO;
-import com.moe.common.core.domain.vo.rule.PolicyConfigVO;
+import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
+import com.moe.admin.domain.vo.rule.PolicyConfigVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

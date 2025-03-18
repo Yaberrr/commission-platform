@@ -22,7 +22,7 @@
     </delete>
 
 
-    <select id="selectPolicyConfigVOByDTO" resultType="com.moe.common.core.domain.vo.rule.PolicyConfigVO">
+    <select id="selectPolicyConfigVOByDTO" resultType="com.moe.admin.domain.vo.rule.PolicyConfigVO">
         SELECT id, policy_type, policy_name, policy_desc, create_by, create_time, update_by, update_time, remark
         FROM rb_policy_config
         <where>
@@ -33,7 +33,7 @@
         ORDER BY update_time DESC
     </select>
 
-    <select id="selectPolicyConfigVOById" resultType="com.moe.common.core.domain.vo.rule.PolicyConfigVO">
+    <select id="selectPolicyConfigVOById" resultType="com.moe.admin.domain.vo.rule.PolicyConfigVO">
         SELECT id, policy_type, policy_name, policy_desc, create_by, create_time, update_by, update_time, remark
         FROM rb_policy_config
         WHERE id = #{id}

@@ -1,16 +1,15 @@
 package com.moe.admin;
 
 import com.moe.admin.service.*;
-import com.moe.common.core.domain.dto.order.OrderListDTO;
-import com.moe.common.core.domain.dto.rule.PolicyConfigDTO;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialAddDTO;
-import com.moe.common.core.domain.dto.tutorial.TutorialSortDTO;
-import com.moe.common.core.domain.dto.user.UserDTO;
-import com.moe.common.core.domain.dto.user.UserFeedBackDTO;
-import com.moe.common.core.domain.dto.user.UserFeedbackUpdateDTO;
-import com.moe.common.core.domain.dto.user.UserInviteDTO;
-import org.junit.Ignore;
+import com.moe.admin.domain.dto.order.OrderListDTO;
+import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
+import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
+import com.moe.admin.domain.dto.user.UserDTO;
+import com.moe.admin.domain.dto.user.UserFeedBackDTO;
+import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
+import com.moe.admin.domain.dto.user.UserInviteDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

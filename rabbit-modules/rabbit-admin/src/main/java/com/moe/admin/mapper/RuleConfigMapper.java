@@ -1,8 +1,8 @@
 package com.moe.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.vo.rule.RuleConfigVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

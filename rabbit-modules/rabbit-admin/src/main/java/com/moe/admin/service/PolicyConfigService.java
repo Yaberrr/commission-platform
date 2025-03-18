@@ -1,7 +1,7 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.dto.rule.PolicyConfigDTO;
-import com.moe.common.core.domain.vo.rule.PolicyConfigVO;
+import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
+import com.moe.admin.domain.vo.rule.PolicyConfigVO;
 
 import java.util.List;
 

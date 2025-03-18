@@ -12,7 +12,7 @@
         WHERE id = #{dto.id}
     </update>
 
-    <select id="selectUserFeedbackByDTO" resultType="com.moe.common.core.domain.vo.user.UserFeedbackVO">
+    <select id="selectUserFeedbackByDTO" resultType="com.moe.admin.domain.vo.user.UserFeedbackVO">
         SELECT uf.id, uf.user_id, ru.user_name as userName, ru.wechat, ru.phone_number as phoneNumber,
         uf.feedback_content, uf.feedback_img AS feedbackImgStr, uf.feedback_time,
         uf.feedback_count, uf.status
@@ -44,7 +44,7 @@
         ORDER BY uf.feedback_time DESC
     </select>
 
-    <select id="selectUserFeedbackById" resultType="com.moe.common.core.domain.vo.user.UserFeedbackVO">
+    <select id="selectUserFeedbackById" resultType="com.moe.admin.domain.vo.user.UserFeedbackVO">
         SELECT uf.id, uf.user_id, ru.user_name as userName, ru.wechat, ru.phone_number as phoneNumber,
                uf.feedback_content, uf.feedback_img AS feedbackImgStr, uf.feedback_time,
                uf.feedback_count, uf.status, uf.reply_content, uf.reply_img

@@ -1,9 +1,8 @@
 package com.moe.admin.controller.rule;
 
 import com.moe.admin.service.RuleConfigService;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
-import com.moe.common.core.domain.vo.user.TutorialVO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.vo.rule.RuleConfigVO;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;

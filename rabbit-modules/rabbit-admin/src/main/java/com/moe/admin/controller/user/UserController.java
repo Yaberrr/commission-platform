@@ -1,8 +1,8 @@
 package com.moe.admin.controller.user;
 
 import com.moe.admin.service.UserService;
-import com.moe.common.core.domain.dto.user.UserDTO;
-import com.moe.common.core.domain.vo.user.UserVO;
+import com.moe.admin.domain.dto.user.UserDTO;
+import com.moe.admin.domain.vo.user.UserVO;
 import com.moe.common.core.utils.poi.ExcelUtil;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;

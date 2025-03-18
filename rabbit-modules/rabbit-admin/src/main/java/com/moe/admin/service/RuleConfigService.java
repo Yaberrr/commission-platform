@@ -1,8 +1,7 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.config.RuleConfig;
-import com.moe.common.core.domain.dto.rule.RuleConfigDTO;
-import com.moe.common.core.domain.vo.rule.RuleConfigVO;
+import com.moe.admin.domain.dto.rule.RuleConfigDTO;
+import com.moe.admin.domain.vo.rule.RuleConfigVO;
 
 import java.util.List;
 

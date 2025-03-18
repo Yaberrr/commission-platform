@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.moe.admin.mapper.UserMapper">
 
-    <select id="selectUserVOByUserDTO" resultType="com.moe.common.core.domain.vo.user.UserVO">
+    <select id="selectUserVOByUserDTO" resultType="com.moe.admin.domain.vo.user.UserVO">
         SELECT
         u.id,
         u.user_name AS userName,
@@ -95,19 +95,19 @@
         GROUP BY u.id
     </select>
 
-    <select id="selectInviteUserVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
+    <select id="selectInviteUserVOByDTO" resultType="com.moe.admin.domain.vo.user.InviteUserVO">
         select id, user_name, wechat, phone_number, sex, area
         from rb_user
         where parent_id = #{dto.id}
     </select>
 
-    <select id="selectGrandInviteUserVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
+    <select id="selectGrandInviteUserVOByDTO" resultType="com.moe.admin.domain.vo.user.InviteUserVO">
         SELECT id, user_name, wechat, phone_number, sex, area
         FROM rb_user
         WHERE grandparent_id IN (SELECT id FROM rb_user WHERE parent_id = #{dto.id})
     </select>
 
-    <select id="selectUserDetailByUserId" resultType="com.moe.common.core.domain.vo.user.UserDetailVO">
+    <select id="selectUserDetailByUserId" resultType="com.moe.admin.domain.vo.user.UserDetailVO">
         SELECT
         u.id,
         u.user_name AS userName,
@@ -139,7 +139,7 @@
         where u.id = #{id}
     </select>
 
-    <select id="selectInviteUserRankVOByDTO" resultType="com.moe.common.core.domain.vo.user.InviteUserRankVO">
+    <select id="selectInviteUserRankVOByDTO" resultType="com.moe.admin.domain.vo.user.InviteUserRankVO">
         SELECT
             u.id AS userId,
             u.user_name AS userName,
@@ -166,7 +166,7 @@
         ORDER BY periodInviteCount DESC
     </select>
 
-    <select id="selectInviteUserVOByPeriod" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
+    <select id="selectInviteUserVOByPeriod" resultType="com.moe.admin.domain.vo.user.InviteUserVO">
         select id, user_name, wechat, phone_number, sex, area
         from rb_user
         where parent_id = #{dto.userId}
