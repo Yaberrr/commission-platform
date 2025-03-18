@@ -3,6 +3,7 @@ package com.moe.gateway.filter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.moe.common.core.constant.HttpStatus;
+import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.RSAUtils;
 import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
@@ -48,19 +49,18 @@ public class SignFilter implements GlobalFilter, Ordered {
         if (StringUtils.matches(url, ignoreWhite.getSigns())) {
             return chain.filter(exchange);
         }
-        return exchange.getFormData().flatMap(
-                formData -> {
-                     try {
-                         String encryptStr = formData.getFirst("encryptStr");
-                         if(StringUtils.isEmpty(encryptStr) || !this.checkSign(encryptStr)){
-                            return forbiddenResponse(exchange, "密文有误");
-                         }
-                    }catch (Exception e){
-                        return forbiddenResponse(exchange, "校验密文出错");
-                    }
-                    return chain.filter(exchange);
-                }
-        );
+        try {
+            String encryptStr = exchange.getRequest().getHeaders().getFirst(SecurityConstants.ENCRYPT_STR);
+            if(StringUtils.isBlank(encryptStr)){
+                return forbiddenResponse(exchange, "密文为空");
+            }
+            if(!checkSign(encryptStr)){
+                return forbiddenResponse(exchange, "密文有误");
+            }
+            return chain.filter(exchange);
+        }catch (Exception e){
+            return forbiddenResponse(exchange, "解析密文出现异常");
+        }
     }
 
     /**
@@ -69,10 +69,8 @@ public class SignFilter implements GlobalFilter, Ordered {
      * @return
      * @throws Exception
      */
-    public boolean checkSign(String encryptStr) throws Exception {
-        System.out.println(RSAUtils.rsaEncrypt("{time:"+System.currentTimeMillis()+",randomStr:123}","classpath:rsa/public_key.pem"));
-
-        JSONObject validParam = JSON.parseObject(RSAUtils.rsaDecrypt(encryptStr, "classpath:rsa/private_key.pem"));
+    public boolean checkSign(String encryptStr){
+        JSONObject validParam = JSON.parseObject(RSAUtils.rsaDecrypt(encryptStr, "rsa/private_key.pem"));
         Long timestamp = validParam.getLong("time");
         String randomStr = validParam.getString("randomStr");
 

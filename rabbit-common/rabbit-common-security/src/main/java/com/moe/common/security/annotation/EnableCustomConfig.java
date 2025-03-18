@@ -12,7 +12,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import com.moe.common.security.config.ApplicationConfig;
-import com.moe.common.security.feign.InnerFeignConfiguration;
+import com.moe.common.security.feign.GlobalFeignConfiguration;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -25,7 +25,7 @@ import com.moe.common.security.feign.InnerFeignConfiguration;
 // 开启线程异步执行
 @EnableAsync
 // 自动加载类
-@Import({ ApplicationConfig.class, InnerFeignConfiguration.class})
+@Import({ ApplicationConfig.class, GlobalFeignConfiguration.class})
 public @interface EnableCustomConfig
 {
 

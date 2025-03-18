@@ -5,7 +5,6 @@ import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 用户服务
@@ -21,6 +20,6 @@ public interface RemoteUserService {
      * @return
      */
     @PostMapping("/saveUser")
-    R<User> saveUser(@RequestBody User user);
+    R<User> saveUser(User user);
 
 }
