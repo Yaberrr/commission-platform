@@ -1,13 +1,23 @@
 package com.moe.admin.service;
 
-import com.moe.common.core.domain.dto.rule.GlobalConfigDTO;
-import com.moe.common.core.domain.vo.rule.GlobalConfigVO;
-
-import java.util.List;
+import com.moe.common.core.domain.dto.rule.InviteModelDTO;
+import com.moe.common.core.domain.dto.rule.QRCodeDTO;
+import com.moe.common.core.domain.dto.user.MemberShipDTO;
+import com.moe.common.core.domain.vo.rule.InviteModelVO;
+import com.moe.common.core.domain.vo.rule.QRCodeVO;
+import com.moe.common.core.domain.vo.user.MemberShipVO;
 
 public interface GlobalConfigService {
 
-    GlobalConfigVO selectGlobalConfigByConfigType(Integer configType);
+    MemberShipVO selectMemberShip();
 
-    int updateGlobalConfigByConfigType(GlobalConfigDTO globalConfigDTO);
+    int addOrUpdateMemberShip(MemberShipDTO memberShipDTO);
+
+    QRCodeVO selectQRCode();
+
+    int addOrUpdateQRCode(QRCodeDTO qrCodeDTO);
+
+    InviteModelVO selectInviteModel();
+
+    int addOrUpdateInviteModel(InviteModelDTO inviteModelDTO);
 }
