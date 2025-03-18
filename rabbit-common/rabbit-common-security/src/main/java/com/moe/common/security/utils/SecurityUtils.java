@@ -28,14 +28,16 @@ public class SecurityUtils
      */
     public static LoginUser getLoginUser()
     {
-        return Optional.ofNullable(SecurityContextHolder.get(SecurityConstants.LOGIN_USER, LoginUser.class)).orElseThrow(() -> new ServiceException("用户未登录"));
+        return SecurityContextHolder.get(SecurityConstants.LOGIN_USER, LoginUser.class);
+
     }
 
     /**
      * 获取admin用户信息
      */
     public static SysUser getSysUser(){
-        return Optional.ofNullable(getLoginUser().getSysUser()).orElseThrow(() -> new ServiceException("用户未登录"));
+        LoginUser loginUser = getLoginUser();
+        return loginUser != null?loginUser.getSysUser():null;
     }
 
     /**
@@ -43,7 +45,8 @@ public class SecurityUtils
      * @return
      */
     public static User getAppUser(){
-        return Optional.ofNullable(getLoginUser().getAppUser()).orElseThrow(() -> new ServiceException("用户未登录"));
+        LoginUser loginUser = getLoginUser();
+        return loginUser != null?loginUser.getAppUser():null;
     }
 
 
