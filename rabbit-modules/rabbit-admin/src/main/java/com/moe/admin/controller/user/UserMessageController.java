@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/userMessage")
+@RequestMapping("/userMessage")
 public class UserMessageController extends BaseController {
 
     @Autowired

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/ruleConfig")
+@RequestMapping("/ruleConfig")
 public class RuleConfigController extends BaseController {
 
     @Autowired
