@@ -1,14 +1,14 @@
 package com.moe.common.security.feign;
 
-import org.springframework.context.annotation.Bean;
 import feign.RequestInterceptor;
+import org.springframework.context.annotation.Bean;
 
 /**
- * Feign 配置注册
+ * Feign 全局配置
  *
  * @author ruoyi
  **/
-public class InnerFeignConfiguration
+public class GlobalFeignConfiguration
 {
     @Bean
     public RequestInterceptor requestInterceptor()

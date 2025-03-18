@@ -1,7 +1,10 @@
 package com.moe.common.security.feign;
 
+import java.util.Collection;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import cn.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Component;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.ServletUtils;
@@ -21,9 +24,8 @@ public class FeignRequestInterceptor implements RequestInterceptor
     @Override
     public void apply(RequestTemplate requestTemplate)
     {
-        //内部调用
+        //内部调用标识
         requestTemplate.header(SecurityConstants.FROM_SOURCE, SecurityConstants.INNER);
-
         HttpServletRequest httpServletRequest = ServletUtils.getRequest();
         if (StringUtils.isNotNull(httpServletRequest))
         {

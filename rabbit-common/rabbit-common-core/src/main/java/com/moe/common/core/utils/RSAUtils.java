@@ -1,13 +1,16 @@
 package com.moe.common.core.utils;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
 import javax.crypto.Cipher;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.security.*;
@@ -25,34 +28,37 @@ public class RSAUtils {
 
     // 获取公钥
     public static PublicKey getPublicKey(String filePath) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        File file = ResourceUtils.getFile(filePath);
-        String keyStr = new String(Files.readAllBytes(file.toPath()), Charset.defaultCharset());
+        ClassPathResource resource = new ClassPathResource(filePath);
+        try (InputStream inputStream = resource.getInputStream()) {
+            String keyStr = new String(IOUtils.toByteArray(inputStream));
+            String publicKeyPem = keyStr
+                    .replace("-----BEGIN PUBLIC KEY-----", "")
+                    .replaceAll(System.lineSeparator(), "")
+                    .replace("-----END PUBLIC KEY-----", "");
 
-        String publicKeyPem = keyStr
-                .replace("-----BEGIN PUBLIC KEY-----", "")
-                .replaceAll(System.lineSeparator(), "")
-                .replace("-----END PUBLIC KEY-----", "");
-
-        byte[] encoded = Base64.decodeBase64(publicKeyPem);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(encoded);
-        return keyFactory.generatePublic(keySpec);
-
+            byte[] encoded = Base64.decodeBase64(publicKeyPem);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(encoded);
+            return keyFactory.generatePublic(keySpec);
+        }
     }
 
     // 获取私钥
     public static PrivateKey getPrivateKey(String filePath) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        File file = ResourceUtils.getFile(filePath);
-        String keyStr = new String(Files.readAllBytes(file.toPath()), Charset.defaultCharset());
-        String privateKeyPem = keyStr
-                .replace("-----BEGIN PRIVATE KEY-----", "")
-                .replaceAll(System.lineSeparator(), "")
-                .replace("-----END PRIVATE KEY-----", "");
+        ClassPathResource resource = new ClassPathResource(filePath);
+        try (InputStream inputStream = resource.getInputStream()) {
+            String keyStr = new String(IOUtils.toByteArray(inputStream));
+            String privateKeyPem = keyStr
+                    .replace("-----BEGIN PRIVATE KEY-----", "")
+                    .replaceAll(System.lineSeparator(), "")
+                    .replace("-----END PRIVATE KEY-----", "");
 
-        byte[] encoded = Base64.decodeBase64(privateKeyPem);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);
-        return keyFactory.generatePrivate(keySpec);
+            byte[] encoded = Base64.decodeBase64(privateKeyPem);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);
+            return keyFactory.generatePrivate(keySpec);
+        }
+
     }
 
     /**

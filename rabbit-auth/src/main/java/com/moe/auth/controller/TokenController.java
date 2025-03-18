@@ -68,6 +68,12 @@ public class TokenController
         return appLoginService.sendCode(phoneNumber);
     }
 
+    @Operation(description = "App一键登录")
+    @PostMapping("quickLogin")
+    public R<?> quickLogin(@Parameter(description="极光token") String loginToken){
+        LoginUser loginUser = appLoginService.quickLogin(loginToken);
+        return R.ok(tokenService.createToken(loginUser));
+    }
 
     @Operation(description = "登出")
     @DeleteMapping("logout")

@@ -23,6 +23,11 @@ public class SecurityConstants
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     /**
+     * 密文字段
+     */
+    public static final String ENCRYPT_STR = "EncryptStr";
+
+    /**
      * 请求来源
      */
     public static final String FROM_SOURCE = "from-source";

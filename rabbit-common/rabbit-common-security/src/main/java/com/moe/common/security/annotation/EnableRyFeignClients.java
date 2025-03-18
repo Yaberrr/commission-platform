@@ -1,6 +1,6 @@
 package com.moe.common.security.annotation;
 
-import com.moe.common.security.feign.InnerFeignConfiguration;
+import com.moe.common.security.feign.GlobalFeignConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import java.lang.annotation.*;
 
@@ -22,7 +22,7 @@ public @interface EnableRyFeignClients
 
     Class<?>[] basePackageClasses() default {};
 
-    Class<?>[] defaultConfiguration() default { InnerFeignConfiguration.class };
+    Class<?>[] defaultConfiguration() default { GlobalFeignConfiguration.class };
 
     Class<?>[] clients() default {};
 }
