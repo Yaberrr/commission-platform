@@ -26,4 +26,7 @@ public class Tutorial extends BaseEntity {
 
     // 播放量
     private Integer viewCount;
+
+    // 排序
+    private Integer sort;
 }

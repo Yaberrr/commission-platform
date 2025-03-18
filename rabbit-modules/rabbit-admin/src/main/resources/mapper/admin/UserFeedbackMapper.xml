@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.UserFeedbackMapper">
+
+    <update id="updateUserFeedbackById">
+        UPDATE rb_user_feedback
+        SET reply_content = #{dto.replyContent},
+            reply_img = #{dto.replyImg},
+            status = 1
+        WHERE id = #{dto.id}
+    </update>
+
+    <select id="selectUserFeedbackByDTO" resultType="com.moe.common.core.domain.vo.user.UserFeedbackVO">
+        SELECT uf.id, uf.user_id, ru.user_name as userName, ru.wechat, ru.phone_number as phoneNumber,
+        uf.feedback_content, uf.feedback_img AS feedbackImgStr, uf.feedback_time,
+        uf.feedback_count, uf.status
+        FROM rb_user_feedback uf
+        LEFT JOIN rb_user ru ON uf.user_id = ru.id
+        <where>
+            <if test="dto.userId != null">
+                AND uf.user_id = #{dto.userId}
+            </if>
+            <if test="dto.userName != null and dto.userName != ''">
+                AND ru.user_name LIKE CONCAT('%', #{dto.userName}, '%')
+            </if>
+            <if test="dto.wechat != null and dto.wechat != ''">
+                AND ru.wechat LIKE CONCAT('%', #{dto.wechat}, '%')
+            </if>
+            <if test="dto.phoneNumber != null and dto.phoneNumber != ''">
+                AND ru.phone_number LIKE CONCAT('%', #{dto.phoneNumber}, '%')
+            </if>
+            <if test="dto.minFeedbackTime != null and dto.minFeedbackTime != ''">
+                AND uf.feedback_time >= #{dto.minFeedbackTime}
+            </if>
+            <if test="dto.maxFeedbackTime != null and dto.maxFeedbackTime != ''">
+                AND uf.feedback_time &lt;= #{dto.maxFeedbackTime}
+            </if>
+            <if test="dto.status != null">
+                AND uf.status = #{dto.status}
+            </if>
+        </where>
+        ORDER BY uf.feedback_time DESC
+    </select>
+
+    <select id="selectUserFeedbackById" resultType="com.moe.common.core.domain.vo.user.UserFeedbackVO">
+        SELECT uf.id, uf.user_id, ru.user_name as userName, ru.wechat, ru.phone_number as phoneNumber,
+               uf.feedback_content, uf.feedback_img AS feedbackImgStr, uf.feedback_time,
+               uf.feedback_count, uf.status, uf.reply_content, uf.reply_img
+        FROM rb_user_feedback uf
+                 LEFT JOIN rb_user ru ON uf.user_id = ru.id
+        WHERE uf.id = #{id}
+    </select>
+</mapper>
