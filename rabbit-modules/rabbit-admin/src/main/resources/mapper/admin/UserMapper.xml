@@ -164,13 +164,12 @@
         GROUP BY u.id
         HAVING periodInviteCount > 0
         ORDER BY periodInviteCount DESC
-        LIMIT #{dto.limit}
     </select>
 
     <select id="selectInviteUserVOByPeriod" resultType="com.moe.common.core.domain.vo.user.InviteUserVO">
-        select id, user_name, wechat, phoneNumber, sex, area
+        select id, user_name, wechat, phone_number, sex, area
         from rb_user
-        where parent_id = #{dto.id}
+        where parent_id = #{dto.userId}
         AND register_time BETWEEN #{dto.startTime} AND #{dto.endTime}
     </select>
 </mapper>

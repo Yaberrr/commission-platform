@@ -9,8 +9,15 @@
         select id, title, content_form, send_time, send_type, status
         from rb_system_message
         <where>
-            AND send_time BETWEEN #{dto.startTime} AND #{dto.endTime}
-            AND title LIKE CONCAT('%', #{dto.title}, '%')
+            <if test="dto.startTime != null and dto.startTime != ''">
+                AND send_time BETWEEN #{dto.startTime}
+            </if>
+            <if test="dto.endTime != null and dto.endTime != ''">
+                AND #{dto.endTime}
+            </if>
+            <if test="dto.title != null and dto.title != ''">
+                AND title LIKE CONCAT('%', #{dto.title}, '%')
+            </if>
         </where>
         ORDER BY send_time DESC
     </select>
