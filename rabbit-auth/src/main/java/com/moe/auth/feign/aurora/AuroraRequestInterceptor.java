@@ -7,7 +7,6 @@ import feign.RequestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -26,7 +25,7 @@ public class AuroraRequestInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         requestTemplate.removeHeader(SecurityConstants.AUTHORIZATION_HEADER);
-        requestTemplate.header(SecurityConstants.AUTHORIZATION_HEADER, "Basic " + Base64.encode(appKey + ":" + masterSecret, StandardCharsets.UTF_8));
-        System.out.println(appKey+":"+masterSecret);
+        requestTemplate.header(SecurityConstants.AUTHORIZATION_HEADER,
+                "Basic " + Base64.encode(appKey + ":" + masterSecret, StandardCharsets.UTF_8));
     }
 }

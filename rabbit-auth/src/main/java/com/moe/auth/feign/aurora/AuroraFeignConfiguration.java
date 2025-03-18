@@ -1,18 +1,9 @@
 package com.moe.auth.feign.aurora;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.moe.auth.feign.aurora.vo.AuroraLoginVo;
-import com.moe.common.core.exception.ServiceException;
 import feign.Logger;
 import feign.RequestInterceptor;
-import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
 
 /**
  * 极光API配置
@@ -28,10 +19,12 @@ public class AuroraFeignConfiguration {
         return new AuroraRequestInterceptor();
     }
 
-   /* @Bean
+/*
+    @Bean
     Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
-    }*/
+    }
+*/
 
     /*@Bean
     public ErrorDecoder feignErrorDecoder() {

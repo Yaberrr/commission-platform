@@ -3,10 +3,9 @@ package com.moe.auth.controller;
 import com.moe.auth.body.LoginBody;
 import com.moe.auth.service.AppLoginService;
 import com.moe.auth.service.SysLoginService;
-import com.moe.common.core.domain.TokenVO;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.R;
-import com.moe.common.core.utils.JwtUtils;
+import com.moe.common.core.domain.TokenVO;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.security.auth.AuthUtil;
 import com.moe.common.security.service.TokenService;
@@ -53,6 +52,11 @@ public class TokenController
         sysLoginService.register(registerBody.getUsername(), registerBody.getPassword());
         return R.ok();
     }*/
+    @Operation(description = "App发送手机验证码")
+    @PostMapping("sendCode")
+    public R<?> sendCode(@Parameter(description="手机号")@RequestParam String phoneNumber){
+        return appLoginService.sendCode(phoneNumber);
+    }
 
     @Operation(description = "App手机登录")
     @PostMapping("mobileLogin")
@@ -60,12 +64,6 @@ public class TokenController
                             @Parameter(description="验证码")@RequestParam String code){
         LoginUser loginUser = appLoginService.mobileLogin(phoneNumber, code);
         return R.ok(tokenService.createToken(loginUser));
-    }
-
-    @Operation(description = "App发送手机验证码")
-    @PostMapping("sendCode")
-    public R<?> sendCode(@Parameter(description="手机号")@RequestParam String phoneNumber){
-        return appLoginService.sendCode(phoneNumber);
     }
 
     @Operation(description = "App一键登录")
@@ -82,11 +80,11 @@ public class TokenController
         String accessToken = SecurityUtils.getAccessToken(request);
         if (StringUtils.isNotEmpty(accessToken))
         {
-            String username = JwtUtils.getUserName(accessToken);
+//            String username = JwtUtils.getUserName(accessToken);
             // 删除用户缓存记录
             AuthUtil.logoutByToken(accessToken);
-            // 记录用户退出日志
-            sysLoginService.logout(username);
+          /*  // 记录用户退出日志
+            sysLoginService.logout(username);*/
         }
         return R.ok();
     }
