@@ -42,4 +42,11 @@ public class UserMessageController extends BaseController {
     {
         return AjaxResult.success(userMessageService.deleteUserMessageById(id));
     }
+
+    @RequiresPermissions("admin:userMessage:list")
+    @GetMapping("/detail/{userId}")
+    public AjaxResult detailByUserId(@PathVariable("userId") Long userId)
+    {
+        return AjaxResult.success(userMessageService.selectMessageVOByUserId(TableSupport.buildPageRequest().buildPage(), userId));
+    }
 }

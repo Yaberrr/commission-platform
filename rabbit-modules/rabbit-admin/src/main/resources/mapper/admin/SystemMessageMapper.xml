@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.SystemMessageMapper">
+
+
+    <select id="selectUserMessageVOByDTO" resultType="com.moe.admin.domain.vo.user.UserMessageVO">
+        select id, title, content_form, send_time, send_type, status
+        from rb_system_message
+        <where>
+            <if test="dto.startTime != null and dto.startTime != ''">
+                AND send_time BETWEEN #{dto.startTime}
+            </if>
+            <if test="dto.endTime != null and dto.endTime != ''">
+                AND #{dto.endTime}
+            </if>
+            <if test="dto.title != null and dto.title != ''">
+                AND title LIKE CONCAT('%', #{dto.title}, '%')
+            </if>
+        </where>
+        ORDER BY send_time DESC
+    </select>
+
+    <select id="selectUserMessageDetailVOById"
+            resultType="com.moe.admin.domain.vo.user.UserMessageDetailVO">
+        select id, title, content_form, content, cover, send_time, send_type, send_user
+        from rb_system_message
+        where id = #{id}
+    </select>
+</mapper>

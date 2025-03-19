@@ -6,18 +6,16 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserMessageVO {
+public class MessageVO {
 
     private Long id;
 
     private String title;
 
-    private Integer contentForm;
+    private String content;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date sendTime;
-
-    private Integer sendType;
+    private Date createTime;
 
     private Integer status;
 }

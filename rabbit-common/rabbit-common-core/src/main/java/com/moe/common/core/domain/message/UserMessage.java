@@ -33,4 +33,7 @@ public class UserMessage extends BaseEntity {
 
     // 流水记录id
     private Long walletRecordId;
+
+    // 状态 0未读 1已读
+    private Integer status;
 }
