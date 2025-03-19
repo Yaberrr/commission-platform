@@ -21,7 +21,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adminUser")
-public class UserController extends BaseController {
+public class
+UserController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -63,5 +64,12 @@ public class UserController extends BaseController {
     public AjaxResult getDetail(@PathVariable("id") Long id)
     {
         return AjaxResult.success(userService.selectUserDetailByUserId(id));
+    }
+
+    @RequiresPermissions("admin:user:list")
+    @GetMapping("/Menu")
+    public AjaxResult menu()
+    {
+        return AjaxResult.success(userService.selectUserListVO());
     }
 }

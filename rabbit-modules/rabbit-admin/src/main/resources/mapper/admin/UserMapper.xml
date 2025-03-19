@@ -172,4 +172,9 @@
         where parent_id = #{dto.userId}
         AND register_time BETWEEN #{dto.startTime} AND #{dto.endTime}
     </select>
+
+    <select id="selectUserListVO" resultType="com.moe.admin.domain.vo.user.UserListVO">
+        select id, user_name
+        from rb_user
+    </select>
 </mapper>
