@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AliyunSmsServiceImpl implements ISmsService {
 
-    private static final Logger log = LoggerFactory.getLogger(AliyunSmsServiceImpl.class);
     @Autowired
     private Client smsClient;
     @Value("${aliyun.sms.signName}")

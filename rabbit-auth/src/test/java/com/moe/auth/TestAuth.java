@@ -29,10 +29,10 @@ public class TestAuth {
 
     @Test
     public void testSendCode(){
-        User user = new User();
+       /* User user = new User();
         user.setPhoneNumber("13316022418");
-        userApi.saveUser(user);
-//        appLoginService.sendCode("19073170919");
+        userApi.saveUser(user);*/
+        appLoginService.sendCode("19073170919");
     }
 
     public static void main(String[] args) {

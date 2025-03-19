@@ -16,7 +16,7 @@ import com.moe.admin.factory.LogApiFallback;
  *
  * @author ruoyi
  */
-@FeignClient(value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = LogApiFallback.class)
+@FeignClient(contextId = "logApi", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = LogApiFallback.class)
 public interface LogApi
 {
     /**

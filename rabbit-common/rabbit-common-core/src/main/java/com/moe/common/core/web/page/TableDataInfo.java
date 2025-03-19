@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.constant.HttpStatus;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 表格分页数据对象
- * 
+ *
  * @author ruoyi
  */
 public class TableDataInfo<T> implements Serializable
@@ -36,7 +37,7 @@ public class TableDataInfo<T> implements Serializable
 
     /**
      * 分页
-     * 
+     *
      * @param list 列表数据
      * @param total 总记录数
      */
@@ -52,6 +53,15 @@ public class TableDataInfo<T> implements Serializable
         rspData.setMsg("查询成功");
         rspData.setRows(page.getRecords());
         rspData.setTotal(page.getTotal());
+        return rspData;
+    }
+
+    public static <T> TableDataInfo<T> error() {
+        TableDataInfo<T> rspData = new TableDataInfo<>();
+        rspData.setCode(HttpStatus.ERROR);
+        rspData.setMsg("查询失败");
+        rspData.setRows(null);
+        rspData.setTotal(0);
         return rspData;
     }
 

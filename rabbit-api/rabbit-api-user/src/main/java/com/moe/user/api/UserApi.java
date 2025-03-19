@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author tangyabo
  * @date 2025/3/12
  */
-@FeignClient(value = ServiceNameConstants.USER_SERVICE)
+@FeignClient(contextId = "userApi", value = ServiceNameConstants.USER_SERVICE)
 public interface UserApi {
 
     /**
