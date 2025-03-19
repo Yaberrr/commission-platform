@@ -3,7 +3,7 @@ package com.moe.common.core.domain.config;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.moe.common.core.enums.PlatformType;
+import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
