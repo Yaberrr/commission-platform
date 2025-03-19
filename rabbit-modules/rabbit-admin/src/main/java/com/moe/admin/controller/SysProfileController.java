@@ -21,7 +21,7 @@ import com.moe.common.log.annotation.Log;
 import com.moe.common.log.enums.BusinessType;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.admin.api.RemoteFileService;
+import com.moe.admin.api.FileApi;
 import com.moe.common.core.domain.sys.SysFile;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.LoginUser;
@@ -43,7 +43,7 @@ public class SysProfileController extends BaseController
     private TokenService tokenService;
 
     @Autowired
-    private RemoteFileService remoteFileService;
+    private FileApi fileApi;
 
     /**
      * 个人信息
@@ -135,7 +135,7 @@ public class SysProfileController extends BaseController
             {
                 return error("文件格式不正确，请上传" + Arrays.toString(MimeTypeUtils.IMAGE_EXTENSION) + "格式");
             }
-            R<SysFile> fileResult = remoteFileService.upload(file);
+            R<SysFile> fileResult = fileApi.upload(file);
             if (StringUtils.isNull(fileResult) || StringUtils.isNull(fileResult.getData()))
             {
                 return error("文件服务异常，请联系管理员");

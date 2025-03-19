@@ -1,1 +1,1 @@
-com.moe.message.factory.RemoteSmsFallback
+com.moe.message.factory.SmsApiFallback

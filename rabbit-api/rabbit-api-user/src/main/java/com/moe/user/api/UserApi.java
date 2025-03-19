@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2025/3/12
  */
 @FeignClient(value = ServiceNameConstants.USER_SERVICE)
-public interface RemoteUserService {
+public interface UserApi {
 
     /**
      * 保存用户信息

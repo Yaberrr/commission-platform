@@ -6,7 +6,7 @@ import com.moe.common.core.constant.Constants;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.utils.ip.IpUtils;
-import com.moe.admin.api.RemoteLogService;
+import com.moe.admin.api.LogApi;
 import com.moe.common.core.domain.sys.SysLogininfor;
 
 /**
@@ -18,7 +18,7 @@ import com.moe.common.core.domain.sys.SysLogininfor;
 public class SysRecordLogService
 {
     @Autowired
-    private RemoteLogService remoteLogService;
+    private LogApi logApi;
 
     /**
      * 记录登录信息
@@ -43,6 +43,6 @@ public class SysRecordLogService
         {
             logininfor.setStatus(Constants.LOGIN_FAIL_STATUS);
         }
-        remoteLogService.saveLogininfor(logininfor, SecurityConstants.INNER);
+        logApi.saveLogininfor(logininfor, SecurityConstants.INNER);
     }
 }

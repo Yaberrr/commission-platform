@@ -12,10 +12,10 @@ import com.moe.common.core.enums.user.Gender;
 import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.RSAUtils;
 import com.moe.common.redis.service.RedisService;
-import com.moe.message.api.RemoteSmsService;
+import com.moe.message.api.SmsApi;
 import com.moe.message.body.SmsBody;
 import com.moe.message.enums.SmsTemplate;
-import com.moe.user.api.RemoteUserService;
+import com.moe.user.api.UserApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,9 +43,9 @@ public class AppLoginService {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private RemoteSmsService remoteSmsService;
+    private SmsApi smsApi;
     @Autowired
-    private RemoteUserService remoteUserService;
+    private UserApi userApi;
     @Autowired
     private AuroraApi auroraApi;
 
@@ -81,7 +81,7 @@ public class AppLoginService {
         dto.setPhoneNumber(phoneNumber);
         dto.setTemplate(SmsTemplate.VERIFY_CODE);
         dto.setParam(param);
-        R<?> r = remoteSmsService.sendOne(dto);
+        R<?> r = smsApi.sendOne(dto);
         r.check();
         //刷新过期时间
 
@@ -124,7 +124,7 @@ public class AppLoginService {
         user.setUserName("元宝宝" + phoneNumber.substring(phoneNumber.length()-4));
         user.setSex(Gender.UNKNOWN);
         user.setPhoneNumber(phoneNumber);
-        R<User> r = remoteUserService.saveUser(user);
+        R<User> r = userApi.saveUser(user);
         r.check();
 
         //返回用户信息

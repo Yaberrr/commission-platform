@@ -1,13 +1,12 @@
 package com.moe.auth.service;
 
-import com.moe.admin.api.RemoteSysUserService;
+import com.moe.admin.api.SysUserApi;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.enums.SystemType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.constant.Constants;
-import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.UserConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.enums.UserStatus;
@@ -28,7 +27,7 @@ import com.moe.common.core.domain.sys.SysUser;
 @Component
 public class SysLoginService {
     @Autowired
-    private RemoteSysUserService remoteSysUserService;
+    private SysUserApi sysUserApi;
 
     @Autowired
     private SysPasswordService passwordService;
@@ -72,7 +71,7 @@ public class SysLoginService {
             throw new ServiceException("很遗憾，访问IP已被列入系统黑名单");
         }
         // 查询用户信息
-        R<LoginUser> userResult = remoteSysUserService.getUserInfo(username);
+        R<LoginUser> userResult = sysUserApi.getUserInfo(username);
 
         if (R.FAIL == userResult.getCode()) {
             throw new ServiceException(userResult.getMsg());
@@ -112,7 +111,7 @@ public class SysLoginService {
         sysUser.setLoginIp(IpUtils.getIpAddr());
         // 更新用户登录时间
         sysUser.setLoginDate(DateUtils.getNowDate());
-        remoteSysUserService.recordUserLogin(sysUser);
+        sysUserApi.recordUserLogin(sysUser);
     }
 
     public void logout(String loginName)
@@ -146,7 +145,7 @@ public class SysLoginService {
         sysUser.setUserName(username);
         sysUser.setNickName(username);
         sysUser.setPassword(SecurityUtils.encryptPassword(password));
-        R<?> registerResult = remoteSysUserService.registerUserInfo(sysUser);
+        R<?> registerResult = sysUserApi.registerUserInfo(sysUser);
 
         if (R.FAIL == registerResult.getCode())
         {

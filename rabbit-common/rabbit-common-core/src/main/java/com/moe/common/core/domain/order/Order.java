@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.moe.common.core.enums.PlatformType;
+import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.enums.order.OrderStatus;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;

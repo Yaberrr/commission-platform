@@ -2,7 +2,7 @@ package com.moe.auth;
 
 import com.moe.auth.service.AppLoginService;
 import com.moe.common.core.domain.user.User;
-import com.moe.user.api.RemoteUserService;
+import com.moe.user.api.UserApi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class TestAuth {
     @Autowired
     private AppLoginService appLoginService;
     @Autowired
-    private RemoteUserService remoteUserService;
+    private UserApi userApi;
 
     private static final Pattern PHONE_PATTERN = Pattern.compile("^1[3-9]\\d*$");
 
@@ -30,8 +30,8 @@ public class TestAuth {
     @Test
     public void testSendCode(){
         User user = new User();
-        user.setPhoneNumber("aaa");
-        remoteUserService.saveUser(user);
+        user.setPhoneNumber("13316022418");
+        userApi.saveUser(user);
 //        appLoginService.sendCode("19073170919");
     }
 

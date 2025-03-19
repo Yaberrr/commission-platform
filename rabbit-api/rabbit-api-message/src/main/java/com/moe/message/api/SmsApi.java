@@ -3,7 +3,7 @@ package com.moe.message.api;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.message.body.SmsBody;
-import com.moe.message.factory.RemoteSmsFallback;
+import com.moe.message.factory.SmsApiFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author tangyabo
  * @date 2025/3/11
  */
-@FeignClient(value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = RemoteSmsFallback.class)
-public interface RemoteSmsService {
+@FeignClient(value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
+public interface SmsApi {
 
     /**
      * 发送单条短信
