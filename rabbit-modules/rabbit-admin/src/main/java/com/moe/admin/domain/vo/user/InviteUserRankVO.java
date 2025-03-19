@@ -1,5 +1,6 @@
 package com.moe.admin.domain.vo.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -21,7 +22,9 @@ public class InviteUserRankVO {
 
     private Integer inviteCount;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
 }

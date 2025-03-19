@@ -1,6 +1,9 @@
 package com.moe.admin.domain.vo.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class UserMessageDetailVO {
@@ -17,7 +20,8 @@ public class UserMessageDetailVO {
 
     private Integer sendType;
 
-    private String sendTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date sendTime;
 
     private String sendUser;
 }

@@ -5,27 +5,10 @@
 <mapper namespace="com.moe.admin.mapper.UserMessageMapper">
 
 
-    <select id="selectUserMessageVOByDTO" resultType="com.moe.admin.domain.vo.user.UserMessageVO">
-        select id, title, content_form, send_time, send_type, status
-        from rb_system_message
-        <where>
-            <if test="dto.startTime != null and dto.startTime != ''">
-                AND send_time BETWEEN #{dto.startTime}
-            </if>
-            <if test="dto.endTime != null and dto.endTime != ''">
-                AND #{dto.endTime}
-            </if>
-            <if test="dto.title != null and dto.title != ''">
-                AND title LIKE CONCAT('%', #{dto.title}, '%')
-            </if>
-        </where>
-        ORDER BY send_time DESC
+    <select id="selectMessageByUserId" resultType="com.moe.admin.domain.vo.user.MessageVO">
+        select id, title, content, create_time, status
+        from rb_user_message
+        where user_id = #{userId}
     </select>
 
-    <select id="selectUserMessageDetailVOById"
-            resultType="com.moe.admin.domain.vo.user.UserMessageDetailVO">
-        select id, title, content_form, content, cover, send_time, send_type, send_user
-        from rb_system_message
-        where id = #{id}
-    </select>
 </mapper>
