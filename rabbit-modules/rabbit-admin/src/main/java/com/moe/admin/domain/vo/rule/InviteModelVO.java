@@ -9,7 +9,7 @@ public class InviteModelVO {
 
     private Long id;
 
-    private String cover;
+    private List<String> cover;
 
     private List<Integer> invitePlatform;
 

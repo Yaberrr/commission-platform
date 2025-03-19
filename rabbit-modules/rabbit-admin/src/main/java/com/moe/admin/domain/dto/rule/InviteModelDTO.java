@@ -8,7 +8,7 @@ import java.util.List;
 public class InviteModelDTO {
     private Long id;
 
-    private String cover;
+    private List<String> cover;
 
     private List<Integer> invitePlatform;
 
