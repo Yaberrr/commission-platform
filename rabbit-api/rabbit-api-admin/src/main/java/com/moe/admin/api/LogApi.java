@@ -9,15 +9,15 @@ import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.sys.SysOperLog;
-import com.moe.admin.factory.RemoteLogFallbackFactory;
+import com.moe.admin.factory.LogApiFallback;
 
 /**
  * 日志服务
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteLogService", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = RemoteLogFallbackFactory.class)
-public interface RemoteLogService
+@FeignClient(value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = LogApiFallback.class)
+public interface LogApi
 {
     /**
      * 保存系统日志

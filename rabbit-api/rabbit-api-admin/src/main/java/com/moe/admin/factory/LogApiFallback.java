@@ -1,6 +1,6 @@
 package com.moe.admin.factory;
 
-import com.moe.admin.api.RemoteLogService;
+import com.moe.admin.api.LogApi;
 import com.moe.common.core.domain.sys.SysLogininfor;
 import com.moe.common.core.domain.sys.SysOperLog;
 import org.slf4j.Logger;
@@ -15,15 +15,15 @@ import com.moe.common.core.domain.R;
  * @author ruoyi
  */
 @Component
-public class RemoteLogFallbackFactory implements FallbackFactory<RemoteLogService>
+public class LogApiFallback implements FallbackFactory<LogApi>
 {
-    private static final Logger log = LoggerFactory.getLogger(RemoteLogFallbackFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(LogApiFallback.class);
 
     @Override
-    public RemoteLogService create(Throwable throwable)
+    public LogApi create(Throwable throwable)
     {
         log.error("日志服务调用失败:{}", throwable.getMessage());
-        return new RemoteLogService()
+        return new LogApi()
         {
             @Override
             public R<Boolean> saveLog(SysOperLog sysOperLog, String source)

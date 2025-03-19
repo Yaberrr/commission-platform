@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.moe.common.core.constant.SecurityConstants;
-import com.moe.admin.api.RemoteLogService;
+import com.moe.admin.api.LogApi;
 import com.moe.common.core.domain.sys.SysOperLog;
 
 /**
@@ -16,7 +16,7 @@ import com.moe.common.core.domain.sys.SysOperLog;
 public class AsyncLogService
 {
     @Autowired
-    private RemoteLogService remoteLogService;
+    private LogApi logApi;
 
     /**
      * 保存系统日志记录
@@ -24,6 +24,6 @@ public class AsyncLogService
     @Async
     public void saveSysLog(SysOperLog sysOperLog) throws Exception
     {
-        remoteLogService.saveLog(sysOperLog, SecurityConstants.INNER);
+        logApi.saveLog(sysOperLog, SecurityConstants.INNER);
     }
 }

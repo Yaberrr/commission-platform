@@ -1,6 +1,6 @@
 package com.moe.admin.factory;
 
-import com.moe.admin.api.RemoteSysUserService;
+import com.moe.admin.api.SysUserApi;
 import com.moe.common.core.domain.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,15 +15,15 @@ import com.moe.common.core.domain.sys.SysUser;
  * @author ruoyi
  */
 @Component
-public class RemoteUserFallbackFactory implements FallbackFactory<RemoteSysUserService>
+public class SysUserApiFallback implements FallbackFactory<SysUserApi>
 {
-    private static final Logger log = LoggerFactory.getLogger(RemoteUserFallbackFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(SysUserApiFallback.class);
 
     @Override
-    public RemoteSysUserService create(Throwable throwable)
+    public SysUserApi create(Throwable throwable)
     {
         log.error("用户服务调用失败:{}", throwable.getMessage());
-        return new RemoteSysUserService()
+        return new SysUserApi()
         {
             @Override
             public R<LoginUser> getUserInfo(String username)
