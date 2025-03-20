@@ -3,7 +3,7 @@ package com.moe.platform.api;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.body.SearchBody;
-import com.moe.platform.vo.PlatformProductVO;
+import com.moe.platform.vo.ProductVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +22,7 @@ public interface PlatformProductApi {
      * @return
      */
     @PostMapping("/product/search")
-    TableDataInfo<PlatformProductVO> search(@RequestBody SearchBody body);
+    TableDataInfo<ProductVO> search(@RequestBody SearchBody body);
 
 
 }

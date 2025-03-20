@@ -2,6 +2,7 @@ package com.moe.common.core.web.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.constant.HttpStatus;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@ToString
 public class TableDataInfo<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -41,8 +43,10 @@ public class TableDataInfo<T> implements Serializable
      * @param list 列表数据
      * @param total 总记录数
      */
-    public TableDataInfo(List<?> list, int total)
+    public TableDataInfo(List<T> list, int total)
     {
+        this.code = HttpStatus.SUCCESS;
+        this.setMsg("查询成功");
         this.rows = list;
         this.total = total;
     }

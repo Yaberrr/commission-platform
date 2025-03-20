@@ -1,14 +1,10 @@
-package com.moe.platform;
+package com.moe.product;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
-import com.moe.platform.MoePlatformApplication;
+import com.moe.platform.api.PlatformProductApi;
 import com.moe.platform.body.SearchBody;
 import com.moe.platform.body.SearchParam;
-import com.moe.platform.controller.ProductController;
-import com.moe.platform.service.impl.PddProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +15,17 @@ import java.util.Collections;
 
 /**
  * @author tangyabo
- * @date 2025/3/6
+ * @date 2025/3/20
  */
-@SpringBootTest(classes = MoePlatformApplication.class)
+@SpringBootTest(classes = MoeProductApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TestPDD {
+public class TestProduct {
 
     @Autowired
-    private ProductController productController;
+    private PlatformProductApi platformProductApi;
 
     @Test
-    public void testSearch() throws JsonProcessingException {
+    public void testProduct(){
         SearchBody body = new SearchBody();
         body.setPageNo(1);
         body.setPageSize(50);
@@ -38,7 +34,6 @@ public class TestPDD {
         param.setTagType(PlatformDictType.LABEL);
         param.setTagValue("15");
         body.setParamList(Collections.singletonList(param));
-        System.out.println(new ObjectMapper().writeValueAsString(productController.search(body)));
+        System.out.println(platformProductApi.search(body));
     }
-
 }

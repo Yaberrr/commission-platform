@@ -3,7 +3,7 @@ package com.moe.platform.service;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.body.SearchBody;
 import com.moe.platform.body.SearchParam;
-import com.moe.platform.vo.PlatformProductVO;
+import com.moe.platform.vo.ProductVO;
 
 /**
  * 商品
@@ -12,6 +12,6 @@ import com.moe.platform.vo.PlatformProductVO;
  */
 public interface ProductService {
 
-    TableDataInfo<PlatformProductVO> search(SearchBody body, SearchParam param);
+    TableDataInfo<ProductVO> search(SearchBody body, SearchParam param);
 
 }

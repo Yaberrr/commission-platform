@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PddConfig {
 
-    @Value("pdd.clientId}")
+    @Value("${pdd.clientId}")
     private String clientId;
 
     @Value("${pdd.clientSecret}")
