@@ -58,8 +58,8 @@ public class UserMessageServiceImpl implements UserMessageService {
         ObjectMapper objectMapper = new ObjectMapper();
         SystemMessage systemMessage = new SystemMessage();
         BeanUtils.copyProperties(userMessageAddDTO, systemMessage);
-        systemMessage.setContentForm(MessageContentType.fromCode(userMessageAddDTO.getContentForm()));
-        systemMessage.setSendType(MessageSendType.fromCode(userMessageAddDTO.getSendType()));
+//        systemMessage.setContentForm(MessageContentType.fromCode(userMessageAddDTO.getContentForm()));
+//        systemMessage.setSendType(MessageSendType.fromCode(userMessageAddDTO.getSendType()));
         try {
             systemMessage.setSendTime(sdf.parse(userMessageAddDTO.getSendTime()));
         } catch (ParseException e) {
@@ -81,8 +81,8 @@ public class UserMessageServiceImpl implements UserMessageService {
         ObjectMapper objectMapper = new ObjectMapper();
         SystemMessage systemMessage = new SystemMessage();
         BeanUtils.copyProperties(userMessageAddDTO, systemMessage);
-        systemMessage.setContentForm(MessageContentType.fromCode(userMessageAddDTO.getContentForm()));
-        systemMessage.setSendType(MessageSendType.fromCode(userMessageAddDTO.getSendType()));
+//        systemMessage.setContentForm(MessageContentType.fromCode(userMessageAddDTO.getContentForm()));
+//        systemMessage.setSendType(MessageSendType.fromCode(userMessageAddDTO.getSendType()));
         try {
             systemMessage.setSendTime(sdf.parse(userMessageAddDTO.getSendTime()));
         } catch (ParseException e) {
