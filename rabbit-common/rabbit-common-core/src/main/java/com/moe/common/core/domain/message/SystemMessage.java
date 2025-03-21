@@ -26,7 +26,7 @@ public class SystemMessage extends BaseEntity {
     private String content;
 
     // 消息格式 1上下图文 2左右图文 3纯文字
-    private MessageContentType contentForm;
+    private Integer contentForm;
 
     // 消息图片
     private String cover;
@@ -36,7 +36,7 @@ public class SystemMessage extends BaseEntity {
     private Date sendTime;
 
     // 发送人群  1全体用户 2指定用户
-    private MessageSendType sendType;
+    private Integer sendType;
 
     // 发送用户
     private String sendUser;
