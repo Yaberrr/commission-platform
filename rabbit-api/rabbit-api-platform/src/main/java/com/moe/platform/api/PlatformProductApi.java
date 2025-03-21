@@ -2,7 +2,7 @@ package com.moe.platform.api;
 
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.web.page.TableDataInfo;
-import com.moe.platform.body.SearchBody;
+import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.vo.ProductVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,11 +18,11 @@ public interface PlatformProductApi {
 
     /**
      * 商品查询
-     * @param body
+     * @param dto
      * @return
      */
-    @PostMapping("/product/search")
-    TableDataInfo<ProductVO> search(@RequestBody SearchBody body);
+    @PostMapping("/product/list")
+    TableDataInfo<ProductVO> list(@RequestBody PlatformProductDTO dto);
 
 
 }

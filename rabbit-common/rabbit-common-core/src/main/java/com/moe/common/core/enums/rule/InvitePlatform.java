@@ -23,7 +23,8 @@ public enum InvitePlatform {
         this.desc = desc;
     }
     @JsonCreator
-    public static InvitePlatform fromCode(int code) {
+    public static InvitePlatform fromCode(Integer code){
+        if(code == null) return null;
         for (InvitePlatform e : InvitePlatform.values()) {
             if (e.code == code) {
                 return e;

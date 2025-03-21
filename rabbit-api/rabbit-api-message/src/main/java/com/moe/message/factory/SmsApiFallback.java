@@ -2,7 +2,7 @@ package com.moe.message.factory;
 
 import com.moe.common.core.domain.R;
 import com.moe.message.api.SmsApi;
-import com.moe.message.body.SmsBody;
+import com.moe.message.dto.SmsDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 /**
@@ -17,7 +17,7 @@ public class SmsApiFallback implements FallbackFactory<SmsApi> {
 
         return new SmsApi() {
             @Override
-            public R<?> sendOne(SmsBody dto) {
+            public R<?> sendOne(SmsDTO dto) {
                 return R.fail("发送单条短信服务异常");
             }
         };

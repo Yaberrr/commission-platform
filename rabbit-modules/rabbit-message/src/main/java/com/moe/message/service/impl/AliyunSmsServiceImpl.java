@@ -5,10 +5,8 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.common.core.domain.R;
-import com.moe.message.body.SmsBody;
+import com.moe.message.dto.SmsDTO;
 import com.moe.message.service.ISmsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,7 @@ public class AliyunSmsServiceImpl implements ISmsService {
     private String signName;
 
     @Override
-    public R<?> sendOne(SmsBody body) {
+    public R<?> sendOne(SmsDTO body) {
         try {
             SendSmsRequest request = new SendSmsRequest()
                     .setPhoneNumbers(body.getPhoneNumber())

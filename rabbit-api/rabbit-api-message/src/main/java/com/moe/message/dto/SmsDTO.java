@@ -1,4 +1,4 @@
-package com.moe.message.body;
+package com.moe.message.dto;
 
 import com.moe.message.enums.SmsTemplate;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.Map;
  * @date 2025/3/12
  */
 @Data
-public class SmsBody {
+public class SmsDTO {
 
     //手机号
     private String phoneNumber;

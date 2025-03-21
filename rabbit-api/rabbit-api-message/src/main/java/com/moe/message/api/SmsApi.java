@@ -2,7 +2,7 @@ package com.moe.message.api;
 
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
-import com.moe.message.body.SmsBody;
+import com.moe.message.dto.SmsDTO;
 import com.moe.message.factory.SmsApiFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +20,6 @@ public interface SmsApi {
      * 发送单条短信
      */
     @PostMapping("/sms/sendOne")
-    R<?> sendOne(@RequestBody SmsBody dto);
+    R<?> sendOne(@RequestBody SmsDTO dto);
 
 }

@@ -13,7 +13,7 @@ import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.RSAUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.message.api.SmsApi;
-import com.moe.message.body.SmsBody;
+import com.moe.message.dto.SmsDTO;
 import com.moe.message.enums.SmsTemplate;
 import com.moe.user.api.UserApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +77,7 @@ public class AppLoginService {
 
         Map<String,String> param = new HashMap<>();
         param.put("code",code.toString());
-        SmsBody dto = new SmsBody();
+        SmsDTO dto = new SmsDTO();
         dto.setPhoneNumber(phoneNumber);
         dto.setTemplate(SmsTemplate.VERIFY_CODE);
         dto.setParam(param);

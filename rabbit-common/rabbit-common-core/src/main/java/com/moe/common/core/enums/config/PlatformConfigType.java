@@ -25,7 +25,8 @@ public enum PlatformConfigType {
     }
 
     @JsonCreator
-    public static PlatformConfigType fromCode(int code) {
+    public static PlatformConfigType fromCode(Integer code){
+        if(code == null) return null;
         for (PlatformConfigType e : PlatformConfigType.values()) {
             if (e.code == code) {
                 return e;

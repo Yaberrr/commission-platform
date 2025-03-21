@@ -28,7 +28,8 @@ public enum OrderStatus {
     }
 
     @JsonCreator
-    public static OrderStatus fromCode(int code) {
+    public static OrderStatus fromCode(Integer code){
+        if(code == null) return null;
         for (OrderStatus e : OrderStatus.values()) {
             if (e.code == code) {
                 return e;

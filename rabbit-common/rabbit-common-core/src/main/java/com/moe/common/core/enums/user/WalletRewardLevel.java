@@ -27,7 +27,8 @@ public enum WalletRewardLevel {
     }
 
     @JsonCreator
-    public static WalletRewardLevel fromCode(int code) {
+    public static WalletRewardLevel fromCode(Integer code){
+        if(code == null) return null;
         for (WalletRewardLevel e : WalletRewardLevel.values()) {
             if (e.code == code) {
                 return e;

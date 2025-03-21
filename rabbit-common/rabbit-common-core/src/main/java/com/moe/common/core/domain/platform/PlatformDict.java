@@ -23,7 +23,7 @@ public class PlatformDict extends BaseEntity {
     private PlatformType platformType;
 
     //字典类型
-    private PlatformDictType platformDictType;
+    private PlatformDictType dictType;
 
     //字典标签
     private String dictText;

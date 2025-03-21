@@ -14,12 +14,12 @@ import java.util.Optional;
  * @date 2025/3/19
  */
 @Component
-public class ProductServiceFactory {
+public class PlatformProductServiceFactory {
 
-    private final Map<PlatformType, ProductService> productServiceMap = new HashMap<>();
+    private final Map<PlatformType, PlatformProductService> productServiceMap = new HashMap<>();
 
     @Autowired
-    public ProductServiceFactory(Map<String, ProductService> serviceMap) {
+    public PlatformProductServiceFactory(Map<String, PlatformProductService> serviceMap) {
         serviceMap.forEach((name, service) -> {
             try {
                 //匹配枚举名称
@@ -31,8 +31,8 @@ public class ProductServiceFactory {
         });
     }
 
-    public ProductService getProductService(PlatformType platformType) {
+    public PlatformProductService getProductService(PlatformType platformType) {
         return Optional.ofNullable(productServiceMap.get(platformType))
-                .orElseThrow(() -> new ServiceException("未找到对应的商品服务: " + platformType.getDesc()));
+                .orElseThrow(() -> new ServiceException("未找到对应平台的商品服务: " + platformType.getDesc()));
     }
 }

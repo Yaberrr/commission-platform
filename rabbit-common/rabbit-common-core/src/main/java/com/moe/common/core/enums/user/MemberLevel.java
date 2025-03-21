@@ -27,7 +27,8 @@ public enum MemberLevel {
     }
 
     @JsonCreator
-    public static MemberLevel fromCode(int code) {
+    public static MemberLevel fromCode(Integer code){
+        if(code == null) return null;
         for (MemberLevel e : MemberLevel.values()) {
             if (e.code == code) {
                 return e;

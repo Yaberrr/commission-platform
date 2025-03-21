@@ -27,7 +27,8 @@ public enum WalletRecordStatus {
     }
 
     @JsonCreator
-    public static WalletRecordStatus fromCode(int code) {
+    public static WalletRecordStatus fromCode(Integer code){
+        if(code == null) return null;
         for (WalletRecordStatus e : WalletRecordStatus.values()) {
             if (e.code == code) {
                 return e;

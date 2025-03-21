@@ -26,7 +26,8 @@ public enum MessageType {
     }
 
     @JsonCreator
-    public static MessageType fromCode(int code) {
+    public static MessageType fromCode(Integer code){
+        if(code == null) return null;
         for (MessageType e : MessageType.values()) {
             if (e.code == code) {
                 return e;

@@ -26,7 +26,8 @@ public enum UserConfigType {
     }
 
     @JsonCreator
-    public static UserConfigType fromCode(int code) {
+    public static UserConfigType fromCode(Integer code){
+        if(code == null) return null;
         for (UserConfigType e : UserConfigType.values()) {
             if (e.code == code) {
                 return e;

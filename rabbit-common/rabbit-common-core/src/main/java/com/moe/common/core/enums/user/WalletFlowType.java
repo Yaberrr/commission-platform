@@ -26,7 +26,8 @@ public enum WalletFlowType {
     }
 
     @JsonCreator
-    public static WalletFlowType fromCode(int code) {
+    public static WalletFlowType fromCode(Integer code){
+        if(code == null) return null;
         for (WalletFlowType e : WalletFlowType.values()) {
             if (e.code == code) {
                 return e;

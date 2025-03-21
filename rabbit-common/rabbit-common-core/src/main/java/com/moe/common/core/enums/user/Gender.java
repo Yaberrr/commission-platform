@@ -27,7 +27,8 @@ public enum Gender {
     }
 
     @JsonCreator
-    public static Gender fromCode(int code) {
+    public static Gender fromCode(Integer code){
+        if(code == null) return null;
         for (Gender e : Gender.values()) {
             if (e.code == code) {
                 return e;

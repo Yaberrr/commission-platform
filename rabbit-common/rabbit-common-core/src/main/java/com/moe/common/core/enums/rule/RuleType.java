@@ -28,7 +28,8 @@ public enum RuleType {
     }
 
     @JsonCreator
-    public static RuleType fromCode(int code) {
+    public static RuleType fromCode(Integer code){
+        if(code == null) return null;
         for (RuleType e : RuleType.values()) {
             if (e.code == code) {
                 return e;

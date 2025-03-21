@@ -27,7 +27,8 @@ public enum GlobalConfigType {
     }
 
     @JsonCreator
-    public static GlobalConfigType fromCode(int code) {
+    public static GlobalConfigType fromCode(Integer code){
+        if(code == null) return null;
         for (GlobalConfigType e : GlobalConfigType.values()) {
             if (e.code == code) {
                 return e;

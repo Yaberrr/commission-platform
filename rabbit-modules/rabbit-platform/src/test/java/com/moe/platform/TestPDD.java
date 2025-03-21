@@ -4,18 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
-import com.moe.platform.MoePlatformApplication;
-import com.moe.platform.body.SearchBody;
-import com.moe.platform.body.SearchParam;
-import com.moe.platform.controller.ProductController;
+import com.moe.platform.dto.PlatformProductDTO;
+import com.moe.platform.dto.PlatformParam;
 import com.moe.platform.service.impl.PddProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Collections;
 
 /**
  * @author tangyabo
@@ -26,19 +22,18 @@ import java.util.Collections;
 public class TestPDD {
 
     @Autowired
-    private ProductController productController;
+    private PddProductService pddProductService;
 
     @Test
     public void testSearch() throws JsonProcessingException {
-        SearchBody body = new SearchBody();
-        body.setPageNo(1);
+        PlatformProductDTO body = new PlatformProductDTO();
+        body.setPageNum(1);
         body.setPageSize(50);
-        SearchParam param = new SearchParam();
+        PlatformParam param = new PlatformParam();
         param.setPlatformType(PlatformType.PDD);
-        param.setTagType(PlatformDictType.LABEL);
-        param.setTagValue("15");
-        body.setParamList(Collections.singletonList(param));
-        System.out.println(new ObjectMapper().writeValueAsString(productController.search(body)));
+        param.setDictType(PlatformDictType.LABEL);
+        param.setDictValue("15");
+        System.out.println(new ObjectMapper().writeValueAsString(pddProductService.productList(body,param)));
     }
 
 }

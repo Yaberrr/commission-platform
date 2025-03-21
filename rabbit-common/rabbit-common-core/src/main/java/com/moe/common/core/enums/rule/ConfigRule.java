@@ -25,7 +25,8 @@ public enum ConfigRule {
     }
 
     @JsonCreator
-    public static ConfigRule fromCode(int code) {
+    public static ConfigRule fromCode(Integer code){
+        if(code == null) return null;
         for (ConfigRule e : ConfigRule.values()) {
             if (e.code == code) {
                 return e;

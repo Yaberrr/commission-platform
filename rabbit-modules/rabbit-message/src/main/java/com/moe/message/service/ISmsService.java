@@ -1,7 +1,7 @@
 package com.moe.message.service;
 
 import com.moe.common.core.domain.R;
-import com.moe.message.body.SmsBody;
+import com.moe.message.dto.SmsDTO;
 
 /**
  * @author tangyabo
@@ -12,6 +12,6 @@ public interface ISmsService {
     /**
      * 发送单条短信
      */
-    R<?> sendOne(SmsBody body);
+    R<?> sendOne(SmsDTO body);
 
 }

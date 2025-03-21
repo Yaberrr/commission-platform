@@ -37,4 +37,5 @@ public class UserController implements UserApi {
     public R<User> saveUser(User user) {
         return R.ok(userService.saveUser(user));
     }
+
 }

@@ -25,7 +25,8 @@ public enum PolicyType {
     }
 
     @JsonCreator
-    public static PolicyType fromCode(int code) {
+    public static PolicyType fromCode(Integer code){
+        if(code == null) return null;
         for (PolicyType e : PolicyType.values()) {
             if (e.code == code) {
                 return e;

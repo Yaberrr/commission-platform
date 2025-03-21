@@ -1,19 +1,19 @@
-package com.moe.platform.body;
+package com.moe.platform.dto;
 
 import lombok.Data;
 
 import java.util.List;
 
 /**
- * 搜索body
+ * 商品分页查询dto
  * @author tangyabo
  * @date 2025/3/19
  */
 @Data
-public class SearchBody {
+public class PlatformProductDTO {
 
     //页号
-    private int pageNo = 1;
+    private int pageNum = 1;
 
     //页大小
     private int pageSize = 10;
@@ -24,10 +24,7 @@ public class SearchBody {
     //排序顺序 asc/desc
     private String sort;
 
-    //关键词
-    private String keyword;
-
     //平台私有参数： 必传，用于指定查询平台
-    private List<SearchParam> paramList;
+    private List<PlatformParam> paramList;
 
 }
