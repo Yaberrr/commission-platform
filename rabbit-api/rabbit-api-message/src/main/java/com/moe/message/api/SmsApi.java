@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author tangyabo
  * @date 2025/3/11
  */
-@FeignClient(value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
+@FeignClient(contextId = "smsApi", value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
 public interface SmsApi {
 
     /**

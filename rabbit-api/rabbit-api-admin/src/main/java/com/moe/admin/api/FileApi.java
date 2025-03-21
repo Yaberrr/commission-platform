@@ -15,7 +15,7 @@ import com.moe.common.core.domain.R;
  *
  * @author ruoyi
  */
-@FeignClient(value = ServiceNameConstants.FILE_SERVICE, fallbackFactory = FileApiFallback.class)
+@FeignClient(contextId = "fileApi", value = ServiceNameConstants.FILE_SERVICE, fallbackFactory = FileApiFallback.class)
 public interface FileApi
 {
     /**

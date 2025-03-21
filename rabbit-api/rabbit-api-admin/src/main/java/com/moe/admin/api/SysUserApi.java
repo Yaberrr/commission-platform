@@ -17,7 +17,7 @@ import com.moe.common.core.domain.R;
  *
  * @author ruoyi
  */
-@FeignClient(contextId = "remoteSysUserService", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = SysUserApiFallback.class)
+@FeignClient(contextId = "sysUserApi", value = ServiceNameConstants.ADMIN_SERVICE, fallbackFactory = SysUserApiFallback.class)
 public interface SysUserApi
 {
     /**

@@ -2,15 +2,18 @@ package com.moe.common.core.web.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.constant.HttpStatus;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 表格分页数据对象
- * 
+ *
  * @author ruoyi
  */
+@ToString
 public class TableDataInfo<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -36,12 +39,14 @@ public class TableDataInfo<T> implements Serializable
 
     /**
      * 分页
-     * 
+     *
      * @param list 列表数据
      * @param total 总记录数
      */
-    public TableDataInfo(List<?> list, int total)
+    public TableDataInfo(List<T> list, int total)
     {
+        this.code = HttpStatus.SUCCESS;
+        this.setMsg("查询成功");
         this.rows = list;
         this.total = total;
     }
@@ -52,6 +57,15 @@ public class TableDataInfo<T> implements Serializable
         rspData.setMsg("查询成功");
         rspData.setRows(page.getRecords());
         rspData.setTotal(page.getTotal());
+        return rspData;
+    }
+
+    public static <T> TableDataInfo<T> error() {
+        TableDataInfo<T> rspData = new TableDataInfo<>();
+        rspData.setCode(HttpStatus.ERROR);
+        rspData.setMsg("查询失败");
+        rspData.setRows(null);
+        rspData.setTotal(0);
         return rspData;
     }
 

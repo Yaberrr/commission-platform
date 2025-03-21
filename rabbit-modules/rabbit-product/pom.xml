@@ -69,6 +69,10 @@
             <groupId>com.moe</groupId>
             <artifactId>rabbit-api-product</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-platform</artifactId>
+        </dependency>
 
     </dependencies>
 

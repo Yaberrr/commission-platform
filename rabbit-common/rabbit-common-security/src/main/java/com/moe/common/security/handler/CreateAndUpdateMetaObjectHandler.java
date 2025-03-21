@@ -65,7 +65,7 @@ public class CreateAndUpdateMetaObjectHandler implements MetaObjectHandler {
      */
     private String getUserKey(LoginUser loginUser){
         if(loginUser.getSystemType() == SystemType.ADMIN){
-            return "sys_" + loginUser.getSysUser().getUserId();
+            return "sys:" + loginUser.getSysUser().getUserId();
         }else{
             return loginUser.getAppUser().getId().toString();
         }
