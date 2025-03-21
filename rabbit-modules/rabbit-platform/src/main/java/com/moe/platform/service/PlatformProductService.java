@@ -3,6 +3,7 @@ package com.moe.platform.service;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.vo.ProductVO;
 
 /**
@@ -20,4 +21,10 @@ public interface PlatformProductService {
      */
     TableDataInfo<ProductVO> productList(PlatformProductDTO dto, PlatformParam param);
 
+    /**
+     * 商品搜索
+     * @param dto
+     * @return
+     */
+    TableDataInfo<ProductVO> productSearch(PlatformSearchDTO dto);
 }

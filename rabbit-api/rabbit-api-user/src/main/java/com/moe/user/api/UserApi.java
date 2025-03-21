@@ -1,5 +1,6 @@
 package com.moe.user.api;
 
+import com.moe.common.core.annotation.FeignResponseCheck;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author tangyabo
  * @date 2025/3/12
  */
+@FeignResponseCheck(serviceName = "用户")
 @FeignClient(contextId = "userApi", value = ServiceNameConstants.USER_SERVICE)
 public interface UserApi {
 

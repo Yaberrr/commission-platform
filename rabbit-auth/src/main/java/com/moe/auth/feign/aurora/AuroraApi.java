@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author tangyabo
  * @date 2025/3/18
  */
-@FeignClient(contextId = "auroraApi", url = "https://api.verification.jpush.cn", configuration = AuroraFeignConfiguration.class)
+@FeignClient(name = "auroraApi", contextId = "auroraApi", url = "https://api.verification.jpush.cn", configuration = AuroraFeignConfiguration.class)
 public interface AuroraApi {
 
     /**

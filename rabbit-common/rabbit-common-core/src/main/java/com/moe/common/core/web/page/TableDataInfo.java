@@ -2,6 +2,7 @@ package com.moe.common.core.web.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.constant.HttpStatus;
+import com.moe.common.core.exception.ServiceException;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -60,13 +61,19 @@ public class TableDataInfo<T> implements Serializable
         return rspData;
     }
 
-    public static <T> TableDataInfo<T> error() {
+    public static <T> TableDataInfo<T> error(String msg) {
         TableDataInfo<T> rspData = new TableDataInfo<>();
         rspData.setCode(HttpStatus.ERROR);
-        rspData.setMsg("查询失败");
+        rspData.setMsg("查询失败，" + msg);
         rspData.setRows(null);
         rspData.setTotal(0);
         return rspData;
+    }
+
+    public void check(){
+        if(this.code != HttpStatus.SUCCESS){
+            throw new ServiceException(this.msg);
+        }
     }
 
     public long getTotal()

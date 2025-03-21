@@ -11,12 +11,7 @@ import lombok.Getter;
 @Getter
 public enum PlatformType {
 
-    TAOBAO(1, "淘宝"),
-    JINGDONG(2,"京东"),
-    PDD(3,"拼多多"),
-    TIKTOK(4,"抖音"),
-    MEITUAN(5,"美团"),
-    WEIPINHUI(6,"唯品会");
+    PDD(1,"拼多多");
 
     @EnumValue
     @JsonValue

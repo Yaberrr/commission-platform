@@ -5,6 +5,7 @@ import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformParam;
 import com.moe.platform.convert.PddConvert;
+import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.PopClient;
@@ -55,10 +56,23 @@ public class PddProductService implements PlatformProductService {
             return this.invokeRequest(request);
         }catch (Exception e){
             log.error("拼多多商品查询api异常",e);
-            return TableDataInfo.error();
+            return TableDataInfo.error(e.getMessage());
         }
     }
 
+    @Override
+    public TableDataInfo<ProductVO> productSearch(PlatformSearchDTO dto) {
+        try {
+            PddDdkGoodsSearchRequest request = new PddDdkGoodsSearchRequest();
+            request.setKeyword(dto.getKeyword());
+            request.setPage(dto.getPageNum());
+            request.setPageSize(dto.getPageSize());
+            return this.invokeRequest(request);
+        }catch (Exception e){
+            log.error("拼多多商品搜索api异常",e);
+            return TableDataInfo.error(e.getMessage());
+        }
+    }
 
     /**
      * 调用api
@@ -66,7 +80,7 @@ public class PddProductService implements PlatformProductService {
     private TableDataInfo<ProductVO> invokeRequest(PddDdkGoodsSearchRequest request) throws Exception {
         PddDdkGoodsSearchResponse response = popClient.syncInvoke(request);
         if(response.getErrorResponse() != null){
-            throw new ServiceException(response.getErrorResponse().getErrorMsg());
+            throw new ServiceException(response.getErrorResponse().getErrorMsg() + "-" + response.getErrorResponse().getSubMsg());
         }
         //提取数据
         PddDdkGoodsSearchResponse.GoodsSearchResponse searchResponse = response.getGoodsSearchResponse();

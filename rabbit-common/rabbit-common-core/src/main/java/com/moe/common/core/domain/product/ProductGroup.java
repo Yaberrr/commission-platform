@@ -26,7 +26,7 @@ public class ProductGroup extends BaseEntity {
     private String groupName;
 
     //平台参数
-    @TableField(value = "platform_dict_ids", typeHandler = JacksonTypeHandler.class)
+    @TableField(typeHandler = JacksonTypeHandler.class)
     private List<Long> platformDictIds;
 
 }

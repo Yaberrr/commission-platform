@@ -1,5 +1,6 @@
 package com.moe.message.api;
 
+import com.moe.common.core.annotation.FeignResponseCheck;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.message.dto.SmsDTO;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author tangyabo
  * @date 2025/3/11
  */
+@FeignResponseCheck(serviceName = "短信")
 @FeignClient(contextId = "smsApi", value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
 public interface SmsApi {
 

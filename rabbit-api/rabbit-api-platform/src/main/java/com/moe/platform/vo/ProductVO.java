@@ -1,5 +1,6 @@
 package com.moe.platform.vo;
 
+import com.moe.common.core.enums.platform.PlatformType;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -44,5 +45,8 @@ public class ProductVO {
 
     //店铺名称
     private String shopName;
+
+    //平台类型
+    private PlatformType platformType;
 
 }

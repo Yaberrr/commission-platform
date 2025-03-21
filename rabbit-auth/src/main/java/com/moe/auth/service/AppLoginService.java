@@ -81,10 +81,9 @@ public class AppLoginService {
         dto.setPhoneNumber(phoneNumber);
         dto.setTemplate(SmsTemplate.VERIFY_CODE);
         dto.setParam(param);
-        R<?> r = smsApi.sendOne(dto);
-        r.check();
-        //刷新过期时间
+        smsApi.sendOne(dto);
 
+        //刷新过期时间
         redisService.setCacheObject(redisKey, code.toString(), CODE_TIMEOUT, TimeUnit.SECONDS);
         return R.ok(CODE_TIMEOUT,"验证码已发送");
     }
@@ -125,7 +124,6 @@ public class AppLoginService {
         user.setSex(Gender.UNKNOWN);
         user.setPhoneNumber(phoneNumber);
         R<User> r = userApi.saveUser(user);
-        r.check();
 
         //返回用户信息
         user = r.getData();

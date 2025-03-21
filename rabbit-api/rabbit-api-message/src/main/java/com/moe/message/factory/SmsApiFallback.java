@@ -13,12 +13,11 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 public class SmsApiFallback implements FallbackFactory<SmsApi> {
     @Override
     public SmsApi create(Throwable cause) {
-        log.error("短信服务触发降级",cause);
-
+        log.error("短信服务触发降级");
         return new SmsApi() {
             @Override
             public R<?> sendOne(SmsDTO dto) {
-                return R.fail("发送单条短信服务异常");
+                return R.fail(cause.getMessage());
             }
         };
     }
