@@ -31,9 +31,7 @@ public class ProductServiceImpl implements ProductService {
         platformDTO.setPageNum((int) page.getCurrent());
         platformDTO.setPageSize((int) page.getSize());
         platformDTO.setParamList(productGroupService.platformParamList(dto.getGroupId()));
-        TableDataInfo<ProductVO> list = platformProductApi.list(platformDTO);
-        list.check();
-        return list;
+        return platformProductApi.list(platformDTO);
     }
 
     @Override

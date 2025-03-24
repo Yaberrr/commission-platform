@@ -1,5 +1,6 @@
 package com.moe.product.controller;
 
+import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.core.web.page.TableSupport;
 import com.moe.platform.vo.ProductVO;
@@ -24,14 +25,14 @@ public class ProductController {
 
     @Operation(description = "商品列表")
     @PostMapping("/list")
-    public TableDataInfo<ProductVO> list(@Valid ProductListDTO dto){
-        return productService.productList(TableSupport.buildPageRequest().buildPage(),dto);
+    public R<TableDataInfo<ProductVO>> list(@Valid ProductListDTO dto){
+        return productService.productList(TableSupport.buildPageRequest().buildPage(),dto).toR();
     }
 
 
     @Operation(description = "商品搜索")
     @PostMapping("/search")
-    public TableDataInfo<ProductVO> search(@Valid ProductSearchDTO dto){
-        return productService.productSearch(TableSupport.buildPageRequest().buildPage(),dto);
+    public R<TableDataInfo<ProductVO>> search(@Valid ProductSearchDTO dto){
+        return productService.productSearch(TableSupport.buildPageRequest().buildPage(),dto).toR();
     }
 }

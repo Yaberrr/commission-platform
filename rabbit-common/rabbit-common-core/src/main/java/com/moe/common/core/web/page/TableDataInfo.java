@@ -1,7 +1,9 @@
 package com.moe.common.core.web.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.moe.common.core.constant.HttpStatus;
+import com.moe.common.core.domain.R;
 import com.moe.common.core.exception.ServiceException;
 import lombok.ToString;
 
@@ -14,7 +16,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TableDataInfo<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -26,7 +28,7 @@ public class TableDataInfo<T> implements Serializable
     private List<T> rows;
 
     /** 消息状态码 */
-    private int code;
+    private Integer code;
 
     /** 消息内容 */
     private String msg;
@@ -70,49 +72,45 @@ public class TableDataInfo<T> implements Serializable
         return rspData;
     }
 
-    public void check(){
-        if(this.code != HttpStatus.SUCCESS){
-            throw new ServiceException(this.msg);
-        }
-    }
-
-    public long getTotal()
-    {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(long total)
-    {
+    public void setTotal(long total) {
         this.total = total;
     }
 
-    public List<?> getRows()
-    {
+    public List<T> getRows() {
         return rows;
     }
 
-    public void setRows(List<T> rows)
-    {
+    public void setRows(List<T> rows) {
         this.rows = rows;
     }
 
-    public int getCode()
-    {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code)
-    {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
-    public String getMsg()
-    {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg)
-    {
+    public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public R<TableDataInfo<T>> toR() {
+        R<TableDataInfo<T>> r = new R<>();
+        r.setCode(this.code);
+        r.setMsg(this.msg);
+        this.setCode(null);
+        this.setMsg(null);
+        r.setData(this);
+        return r;
     }
 }

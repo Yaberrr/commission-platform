@@ -29,4 +29,8 @@ public class ProductGroup extends BaseEntity {
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<Long> platformDictIds;
 
+    //平台类型
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<Integer> platformTypes;
+
 }

@@ -1,5 +1,6 @@
 package com.moe.platform.convert;
 
+import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.platform.utils.PlatformUtils;
 import com.moe.platform.vo.CouponVO;
 import com.moe.platform.vo.ProductVO;
@@ -62,6 +63,7 @@ public class PddConvert {
             rate = BigDecimal.valueOf(item.getActivityPromotionRate());
         }
         vo.setCommission(vo.getLowestPrice().multiply(rate).divide(new BigDecimal("1000"),2, RoundingMode.DOWN));
+        vo.setPlatformType(PlatformType.PDD);
         return vo;
     }
 }
