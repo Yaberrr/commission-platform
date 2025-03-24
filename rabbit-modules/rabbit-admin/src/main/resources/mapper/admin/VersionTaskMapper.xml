@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.VersionTaskMapper">
+
+
+    <select id="selectAllVersionTask" resultType="com.moe.admin.domain.vo.user.VersionTaskVO">
+        select id, name, type, last_android_version, mandatory_android_version,
+               last_ios_version, mandatory_ios_version, content, create_time
+        from rb_version_task
+    </select>
+</mapper>
