@@ -1,6 +1,7 @@
 package com.moe.platform.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import com.moe.common.core.domain.R;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.annotation.InnerAuth;
@@ -9,7 +10,7 @@ import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformParam;
 import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.PlatformProductService;
-import com.moe.platform.service.PlatformProductServiceFactory;
+import com.moe.platform.service.PlatformServiceFactory;
 import com.moe.platform.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlatformProductController implements PlatformProductApi {
 
     @Autowired
-    private PlatformProductServiceFactory platformProductServiceFactory;
+    private PlatformServiceFactory platformProductServiceFactory;
 
     @InnerAuth
     @Override
@@ -48,4 +49,6 @@ public class PlatformProductController implements PlatformProductApi {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return productService.productSearch(dto);
     }
+
+
 }

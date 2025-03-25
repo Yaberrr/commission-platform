@@ -6,6 +6,8 @@ import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.exception.ServiceException;
+import com.moe.common.core.exception.auth.NotLoginException;
+import org.apache.ibatis.logging.Log;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.TokenConstants;
@@ -37,7 +39,7 @@ public class SecurityUtils
      */
     public static SysUser getSysUser(){
         LoginUser loginUser = getLoginUser();
-        return loginUser != null?loginUser.getSysUser():null;
+        return Optional.ofNullable(loginUser).orElseGet(LoginUser::new).getSysUser();
     }
 
     /**
@@ -46,9 +48,8 @@ public class SecurityUtils
      */
     public static User getAppUser(){
         LoginUser loginUser = getLoginUser();
-        return loginUser != null?loginUser.getAppUser():null;
+        return Optional.ofNullable(loginUser).orElseGet(LoginUser::new).getAppUser();
     }
-
 
     /**
      * 从请求头中获取访问令牌

@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2025/3/19
  */
 @FeignResponseCheck(serviceName = "平台商品")
-@FeignClient(contextId = "platformProductApi", value = ServiceNameConstants.PLATFORM_SERVICE)
+@FeignClient(path = "/platformProduct", contextId = "platformProductApi", value = ServiceNameConstants.PLATFORM_SERVICE)
 public interface PlatformProductApi {
+
     /**
      * 平台商品查询
      * @param dto
      * @return
      */
-    @PostMapping("/platformProduct/list")
+    @PostMapping("/list")
     TableDataInfo<ProductVO> list(@RequestBody PlatformProductDTO dto);
 
     /**
@@ -31,6 +32,7 @@ public interface PlatformProductApi {
      * @param dto
      * @return
      */
-    @PostMapping("/platformProduct/search")
+    @PostMapping("/search")
     TableDataInfo<ProductVO> search(@RequestBody PlatformSearchDTO dto);
+
 }

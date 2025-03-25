@@ -2,17 +2,16 @@ package com.moe.platform.service.impl;
 
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.web.page.TableDataInfo;
-import com.moe.platform.dto.PlatformProductDTO;
-import com.moe.platform.dto.PlatformParam;
 import com.moe.platform.convert.PddConvert;
+import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.PlatformProductService;
+import com.moe.platform.utils.PddUtils;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.PopClient;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsSearchRequest;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +26,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class PddProductService implements PlatformProductService {
-
-    private static final Logger log = LoggerFactory.getLogger(PddProductService.class);
 
     @Autowired
     private PopClient popClient;
@@ -53,10 +50,11 @@ public class PddProductService implements PlatformProductService {
             }
             request.setPage(dto.getPageNum());
             request.setPageSize(dto.getPageSize());
+            //todo: 暂时写死 只展示有券的
+            request.setWithCoupon(true);
             return this.invokeRequest(request);
         }catch (Exception e){
-            log.error("拼多多商品查询api异常",e);
-            return TableDataInfo.error(e.getMessage());
+            throw new ServiceException(e,"拼多多商品查询api异常:{}",e.getMessage());
         }
     }
 
@@ -69,8 +67,7 @@ public class PddProductService implements PlatformProductService {
             request.setPageSize(dto.getPageSize());
             return this.invokeRequest(request);
         }catch (Exception e){
-            log.error("拼多多商品搜索api异常",e);
-            return TableDataInfo.error(e.getMessage());
+            throw new ServiceException(e,"拼多多商品搜索api异常:{}",e.getMessage());
         }
     }
 
@@ -79,9 +76,7 @@ public class PddProductService implements PlatformProductService {
      */
     private TableDataInfo<ProductVO> invokeRequest(PddDdkGoodsSearchRequest request) throws Exception {
         PddDdkGoodsSearchResponse response = popClient.syncInvoke(request);
-        if(response.getErrorResponse() != null){
-            throw new ServiceException(response.getErrorResponse().getErrorMsg() + "-" + response.getErrorResponse().getSubMsg());
-        }
+        PddUtils.checkResponse(response);
         //提取数据
         PddDdkGoodsSearchResponse.GoodsSearchResponse searchResponse = response.getGoodsSearchResponse();
         List<ProductVO> productVOList = searchResponse.getGoodsList()

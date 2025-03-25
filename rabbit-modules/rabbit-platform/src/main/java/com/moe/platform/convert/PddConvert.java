@@ -1,10 +1,14 @@
 package com.moe.platform.convert;
 
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.common.core.exception.ServiceException;
 import com.moe.platform.utils.PlatformUtils;
+import com.moe.platform.vo.AuthUrlVO;
 import com.moe.platform.vo.CouponVO;
 import com.moe.platform.vo.ProductVO;
+import com.pdd.pop.sdk.http.PopBaseHttpResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
+import com.pdd.pop.sdk.http.api.pop.response.PddDdkRpPromUrlGenerateResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,6 +22,9 @@ import java.util.List;
  * @date 2025/3/20
  */
 public class PddConvert {
+
+    public final static BigDecimal HUNDRED = BigDecimal.valueOf(100);
+
 
     public static ProductVO toProductVO(PddDdkGoodsSearchResponse.GoodsSearchResponseGoodsListItem item) {
         ProductVO vo = new ProductVO();
@@ -35,15 +42,15 @@ public class PddConvert {
         if(item.getHasCoupon() && item.getCouponRemainQuantity() > 0){
             CouponVO couponVO = new CouponVO();
             couponVO.setDiscount(BigDecimal.valueOf(item.getCouponDiscount()));
-            couponVO.setStartTime(new Date(item.getCouponStartTime()));
-            couponVO.setEndTime(new Date(item.getCouponEndTime()));
+            couponVO.setStartTime(new Date(item.getCouponStartTime()*1000));
+            couponVO.setEndTime(new Date(item.getCouponEndTime()*1000));
             couponVOList.add(couponVO);
         }
         if(item.getHasMallCoupon() && item.getMallCouponRemainQuantity() > 0){
             CouponVO couponVO = new CouponVO();
             couponVO.setDiscount(BigDecimal.valueOf(item.getMallCouponMaxDiscountAmount()));
-            couponVO.setStartTime(new Date(item.getMallCouponStartTime()));
-            couponVO.setEndTime(new Date(item.getMallCouponEndTime()));
+            couponVO.setStartTime(new Date(item.getMallCouponStartTime()*1000));
+            couponVO.setEndTime(new Date(item.getMallCouponEndTime()*1000));
             couponVOList.add(couponVO);
         }
         vo.setBestCoupon(PlatformUtils.getBestCoupon(couponVOList));
@@ -64,6 +71,22 @@ public class PddConvert {
         }
         vo.setCommission(vo.getLowestPrice().multiply(rate).divide(new BigDecimal("1000"),2, RoundingMode.DOWN));
         vo.setPlatformType(PlatformType.PDD);
+
+        //分转为元
+        vo.setPrice(vo.getPrice().divide(HUNDRED,2,RoundingMode.DOWN));
+        vo.setLowestPrice(vo.getLowestPrice().divide(HUNDRED,2,RoundingMode.DOWN));
+        vo.setCommission(vo.getCommission().divide(HUNDRED,2,RoundingMode.DOWN));
+        if(vo.getBestCoupon() != null){
+            vo.getBestCoupon().setDiscount(vo.getBestCoupon().getDiscount().divide(HUNDRED,2,RoundingMode.DOWN));
+        }
+        return vo;
+    }
+
+
+    public static AuthUrlVO toAuthUrlVo( PddDdkRpPromUrlGenerateResponse.RpPromotionUrlGenerateResponseUrlListItem item){
+        AuthUrlVO vo = new AuthUrlVO();
+        vo.setH5Url(item.getUrl());
+        vo.setMobileUrl(item.getMobileUrl());
         return vo;
     }
 }

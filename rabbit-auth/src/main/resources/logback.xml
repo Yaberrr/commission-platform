@@ -68,6 +68,6 @@
         <appender-ref ref="file_error" />
 	</root>
 
-    <logger name="com.moe.message.api" level="DEBUG" />
-    <logger name="com.moe.auth.feign.aurora" level="DEBUG"/>
+<!--    <logger name="com.moe.message.api" level="DEBUG" />-->
+<!--    <logger name="com.moe.auth.feign.aurora" level="DEBUG"/>-->
 </configuration>

@@ -2,7 +2,7 @@ package com.moe.common.core.constant;
 
 /**
  * 返回状态码
- * 
+ *
  * @author ruoyi
  */
 public class HttpStatus
@@ -76,6 +76,11 @@ public class HttpStatus
      * 不支持的数据，媒体类型
      */
     public static final int UNSUPPORTED_TYPE = 415;
+
+    /**
+     * 平台未授权
+     */
+    public static final int PLATFORM_UNAUTHORIZED = 416;
 
     /**
      * 系统内部错误

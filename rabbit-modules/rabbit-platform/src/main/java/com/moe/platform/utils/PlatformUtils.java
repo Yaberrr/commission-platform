@@ -20,6 +20,7 @@ public class PlatformUtils {
      */
     public static CouponVO getBestCoupon(List<CouponVO> couponVOList){
         CouponVO bestCoupon = null;
+
         for (CouponVO coupon : couponVOList) {
             if(coupon.getStartTime()!=null && coupon.getStartTime().after(new Date())){
                 continue;
@@ -29,6 +30,12 @@ public class PlatformUtils {
             }
             if(bestCoupon == null || coupon.getDiscount().compareTo(bestCoupon.getDiscount())>0){
                 bestCoupon = coupon;
+            }
+        }
+        if(bestCoupon != null) {
+            bestCoupon.setCouponName("元宝宝专属优惠券");
+            if(bestCoupon.getEndTime() != null){
+                bestCoupon.setRemainSeconds((bestCoupon.getEndTime().getTime()-System.currentTimeMillis())/1000);
             }
         }
         return bestCoupon;

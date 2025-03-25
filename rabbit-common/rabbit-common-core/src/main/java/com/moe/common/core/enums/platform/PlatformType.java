@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public enum PlatformType {
 
-    PDD(1,"拼多多");
+    PDD(1,"拼多多", true);
 
     @EnumValue
     @JsonValue
@@ -19,9 +19,13 @@ public enum PlatformType {
 
     private final String desc;
 
-    PlatformType(int code, String desc) {
+    //是否需要授权
+    private final boolean needAuth;
+
+    PlatformType(int code, String desc, boolean needAuth) {
         this.code = code;
         this.desc = desc;
+        this.needAuth = needAuth;
     }
 
     @JsonCreator
