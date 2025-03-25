@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.admin.mapper.ProductGroupMapper">
+
+
+    <select id="selectProductGroupVOByDTO" resultType="com.moe.admin.domain.vo.product.ProductGroupVO">
+        select id, group_name, platform_types as platformTypesStr, create_time
+        from rb_product_group
+        <where>
+            <if test="dto.groupName != null and dto.groupName != ''">
+                AND group_name LIKE CONCAT('%', #{dto.groupName}, '%')
+            </if>
+            <if test="dto.platformTypes != null and !dto.platformTypes.isEmpty()">
+                <foreach item="platformType" collection="dto.platformTypes" open="AND (" separator=" OR " close=")">
+                    JSON_CONTAINS(platform_types, CAST(#{platformType} AS JSON))
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

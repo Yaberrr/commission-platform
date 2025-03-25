@@ -45,6 +45,9 @@ public class TestSms {
     @Autowired
     private PolicyConfigService policyConfigService;
 
+    @Autowired
+    private ProductGroupService productGroupService;
+
     @Test
     public void orderTest(){
 //        System.out.println(orderService.selectOrder(new OrderListDTO()));
@@ -187,5 +190,10 @@ public class TestSms {
     @Test
     public void policyConfigTest5(){
         System.out.println(policyConfigService.deletePolicyConfig(1L));
+    }
+
+    @Test
+    public void ProductGroupTest1() {
+        System.out.println(productGroupService.selectProductGroupDetailById(1L));
     }
 }
