@@ -1,6 +1,7 @@
 package com.moe.platform.service;
 
 import com.moe.common.core.domain.platform.PlatformAuth;
+import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.platform.vo.AuthUrlVO;
 

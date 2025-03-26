@@ -49,6 +49,6 @@ public class PlatformServiceFactory {
 
     public PlatformAuthService getAuthService(PlatformType platformType) {
         return Optional.ofNullable(authServiceMap.get(platformType))
-                .orElseThrow(() -> new ServiceException("未找到对应平台的用户服务: " + platformType.getDesc()));
+                .orElseThrow(() -> new ServiceException("未找到对应平台的认证服务: " + platformType.getDesc()));
     }
 }

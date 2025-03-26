@@ -8,8 +8,9 @@ import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.platform.vo.AuthUrlVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author tangyabo
@@ -20,28 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface PlatformAuthApi {
 
     /**
-     * 生成授权信息
-     * @param platformType 平台类型
-     * @return
-     */
-    @PostMapping("/createAuth")
-    R<PlatformAuth> createAuth(@RequestParam("platformType") PlatformType platformType,
-                               @RequestParam("userId") Long userId);
-
-    /**
-     * 检查授权状态
-     * @param auth 授权信息
-     * @return
-     */
-    @PostMapping("/checkAuth")
-    R<Boolean> checkAuth(@RequestBody PlatformAuth auth);
-
-    /**
      * 生成授权链接
-     * @param auth 授权信息
+     * @param platformType
      * @return
      */
     @PostMapping("/generateAuthUrl")
-    R<AuthUrlVO> generateAuthUrl(@RequestBody PlatformAuth auth);
+    R<AuthUrlVO> generateAuthUrl(@RequestParam("platformType") PlatformType platformType);
+
+    /**
+     * 查询授权信息
+     * @return
+     */
+    @PostMapping("/authList")
+    R<List<PlatformAuth>> authList(@RequestParam("userId") Long userId);
+
 
 }

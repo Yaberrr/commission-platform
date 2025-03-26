@@ -11,7 +11,10 @@ import lombok.Getter;
 @Getter
 public enum PlatformType {
 
-    PDD(1,"拼多多", true);
+    PDD(1,"拼多多"),
+    JD(2,"京东"),
+    TAOBAO(3,"淘宝"),
+    TIKTOK(4,"抖音");
 
     @EnumValue
     @JsonValue
@@ -19,13 +22,10 @@ public enum PlatformType {
 
     private final String desc;
 
-    //是否需要授权
-    private final boolean needAuth;
 
-    PlatformType(int code, String desc, boolean needAuth) {
+    PlatformType(int code, String desc) {
         this.code = code;
         this.desc = desc;
-        this.needAuth = needAuth;
     }
 
     @JsonCreator

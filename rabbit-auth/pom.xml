@@ -70,6 +70,10 @@
             <groupId>com.moe</groupId>
             <artifactId>rabbit-api-user</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-platform</artifactId>
+        </dependency>
 
         <!-- Test -->
         <dependency>

@@ -31,7 +31,6 @@ public class SecurityUtils
     public static LoginUser getLoginUser()
     {
         return SecurityContextHolder.get(SecurityConstants.LOGIN_USER, LoginUser.class);
-
     }
 
     /**
