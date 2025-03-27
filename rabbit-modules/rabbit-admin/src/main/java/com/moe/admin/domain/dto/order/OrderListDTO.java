@@ -4,14 +4,15 @@ import com.moe.common.core.annotation.Excel;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class OrderListDTO {
     private String orderNo;
 
-    private Integer status;
+    private List<Integer> status;
 
-    private Integer platformType;
+    private List<Integer> platformType;
 
     private String orderStartTime;
 
