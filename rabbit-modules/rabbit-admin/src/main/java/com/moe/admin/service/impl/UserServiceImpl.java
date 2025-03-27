@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserListVO> selectUserListVO() {
-        return userMapper.selectUserListVO();
+    public List<UserListVO> selectUserListVO(UserDTO userDTO) {
+        return userMapper.selectUserListVO(userDTO);
     }
 }
