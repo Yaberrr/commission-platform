@@ -64,7 +64,7 @@ UserController extends BaseController {
     }
 
     @RequiresPermissions("admin:user:list")
-    @GetMapping("/Menu")
+    @GetMapping("/userSearch")
     public AjaxResult menu(UserDTO userDTO)
     {
         return AjaxResult.success(userService.selectUserListVO(userDTO));
