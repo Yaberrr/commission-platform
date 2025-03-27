@@ -1,12 +1,18 @@
 package com.moe.common.core.domain;
 
-import java.io.Serializable;
-import java.util.Set;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.SystemType;
+import com.moe.common.core.enums.platform.PlatformType;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 用户信息
@@ -65,9 +71,18 @@ public class LoginUser implements Serializable
     private User appUser;
 
     /**
+     * app平台授权信息
+     */
+    private List<PlatformAuth> appAuthList;
+
+    /**
      * 系统类型
      */
     private SystemType systemType;
+
+    public PlatformAuth getPlatformAuth(PlatformType platformType){
+        return appAuthList.stream().filter(p -> platformType.equals(p.getPlatformType())).findFirst().orElse(null);
+    }
 
 }
 

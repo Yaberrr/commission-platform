@@ -6,11 +6,14 @@ import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.PlatformProductDetailDTO;
+import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.impl.PddProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -25,7 +28,7 @@ public class TestPDD {
     private PddProductService pddProductService;
 
     @Test
-    public void testSearch() throws JsonProcessingException {
+    public void testList() throws JsonProcessingException {
         PlatformProductDTO body = new PlatformProductDTO();
         body.setPageNum(1);
         body.setPageSize(50);
@@ -34,6 +37,22 @@ public class TestPDD {
         param.setDictType(PlatformDictType.LABEL);
         param.setDictValue("15");
         System.out.println(new ObjectMapper().writeValueAsString(pddProductService.productList(body,param)));
+    }
+
+    @Test
+    public void testSearch() throws JsonProcessingException {
+        PlatformSearchDTO body = new PlatformSearchDTO();
+        body.setPageNum(1);
+        body.setPageSize(50);
+        body.setKeyword("aaaa");
+        System.out.println(new ObjectMapper().writeValueAsString(pddProductService.productSearch(body)));
+    }
+
+    @Test
+    public void testDetail() {
+        PlatformProductDetailDTO dto = new PlatformProductDetailDTO();
+        dto.setProductId("E9z2OUuET8xv4xnBwfDegsfxPvNaZYbW_JqUnwOTBD");
+        pddProductService.productDetail(dto);
     }
 
 }

@@ -50,6 +50,21 @@ public final class ServiceException extends RuntimeException
         this.message = StringUtils.format(messageTemplate, params);
     }
 
+    //message包含具体异常信息
+    public ServiceException(Throwable cause, String messageTemplate, Object... params) {
+        super(StringUtils.format(messageTemplate, params), cause);
+        this.message = super.getMessage();
+        //保留状态码
+        if(cause instanceof ServiceException){
+            this.code = ((ServiceException)cause).code;
+        }
+    }
+
+    public ServiceException(Integer code, String messageTemplate, Object... params){
+        this.message = StringUtils.format(messageTemplate, params);
+        this.code = code;
+    }
+
     public String getDetailMessage()
     {
         return detailMessage;
@@ -77,4 +92,6 @@ public final class ServiceException extends RuntimeException
         this.detailMessage = detailMessage;
         return this;
     }
+
+
 }

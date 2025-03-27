@@ -49,4 +49,7 @@ public class ProductVO {
     //平台类型
     private PlatformType platformType;
 
+    //查询参数  跳转详情及生成链接时回传
+    private String searchParam;
+
 }

@@ -6,6 +6,7 @@ import com.moe.auth.feign.aurora.vo.AuroraLoginVo;
 import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.R;
+import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.SystemType;
 import com.moe.common.core.enums.user.Gender;
@@ -15,15 +16,18 @@ import com.moe.common.redis.service.RedisService;
 import com.moe.message.api.SmsApi;
 import com.moe.message.dto.SmsDTO;
 import com.moe.message.enums.SmsTemplate;
+import com.moe.platform.api.PlatformAuthApi;
 import com.moe.user.api.UserApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author tangyabo
@@ -46,6 +50,8 @@ public class AppLoginService {
     private SmsApi smsApi;
     @Autowired
     private UserApi userApi;
+    @Autowired
+    private PlatformAuthApi platformAuthApi;
     @Autowired
     private AuroraApi auroraApi;
 
@@ -123,15 +129,17 @@ public class AppLoginService {
         user.setUserName("元宝宝" + phoneNumber.substring(phoneNumber.length()-4));
         user.setSex(Gender.UNKNOWN);
         user.setPhoneNumber(phoneNumber);
-        R<User> r = userApi.saveUser(user);
+        user = userApi.saveUser(user).getData();
 
-        //返回用户信息
-        user = r.getData();
+        //查询授权信息
+        List<PlatformAuth> authList = platformAuthApi.authList(user.getId()).getData();
+
         LoginUser loginUser = new LoginUser();
         loginUser.setAppUser(user);
         loginUser.setUsername(user.getUserName());
         loginUser.setLoginTime(user.getLastLoginTime().getTime());
         loginUser.setSystemType(SystemType.APP);
+        loginUser.setAppAuthList(authList);
         return loginUser;
     }
 }

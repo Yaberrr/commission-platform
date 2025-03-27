@@ -28,5 +28,8 @@ public class CouponVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
+    //剩余秒数
+    private Long remainSeconds;
+
 
 }

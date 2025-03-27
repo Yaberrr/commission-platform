@@ -104,13 +104,4 @@ public class TableDataInfo<T> implements Serializable
         this.msg = msg;
     }
 
-    public R<TableDataInfo<T>> toR() {
-        R<TableDataInfo<T>> r = new R<>();
-        r.setCode(this.code);
-        r.setMsg(this.msg);
-        this.setCode(null);
-        this.setMsg(null);
-        r.setData(this);
-        return r;
-    }
 }

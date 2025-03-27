@@ -11,13 +11,17 @@ import lombok.Getter;
 @Getter
 public enum PlatformType {
 
-    PDD(1,"拼多多");
+    PDD(1,"拼多多"),
+    JD(2,"京东"),
+    TAOBAO(3,"淘宝"),
+    TIKTOK(4,"抖音");
 
     @EnumValue
     @JsonValue
     private final int code;
 
     private final String desc;
+
 
     PlatformType(int code, String desc) {
         this.code = code;

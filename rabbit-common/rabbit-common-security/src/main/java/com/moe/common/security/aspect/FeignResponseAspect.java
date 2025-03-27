@@ -35,26 +35,25 @@ public class FeignResponseAspect {
      */
     @AfterReturning(pointcut = "feignResponseCheckPoint()", returning = "result")
     public void afterReturning(JoinPoint joinPoint, Object result) {
-        String errorMsg = null;
+        String msg = null;
+        Integer code = HttpStatus.SUCCESS;
         if (result instanceof TableDataInfo) {
             TableDataInfo<?> info = (TableDataInfo<?>) result;
-            if (info.getCode() != HttpStatus.SUCCESS) {
-                errorMsg = info.getMsg();
-            }
+            msg = info.getMsg();
+            code = info.getCode();
         }else if(result instanceof R){
             R<?> r = (R<?>) result;
-            if(r.isError()){
-                errorMsg = r.getMsg();
-            }
+            msg = r.getMsg();
+            code = r.getCode();
         }
-        if(StringUtils.isNotEmpty(errorMsg)) {
+        if(code != HttpStatus.SUCCESS) {
             Class<?> targetClass = joinPoint.getTarget().getClass();
             FeignResponseCheck annotation = AnnotationUtils.findAnnotation(targetClass, FeignResponseCheck.class);
             if(annotation == null){
                 MethodSignature signature = (MethodSignature) joinPoint.getSignature();
                 annotation = signature.getMethod().getAnnotation(FeignResponseCheck.class);
             }
-            throw new ServiceException(annotation.serviceName() + "服务异常:{}", errorMsg);
+            throw new ServiceException(code, annotation.serviceName() + "服务异常:{}", msg);
         }
     }
 

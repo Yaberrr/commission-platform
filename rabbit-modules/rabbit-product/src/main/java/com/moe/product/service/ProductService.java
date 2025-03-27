@@ -1,8 +1,11 @@
 package com.moe.product.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
+import com.moe.product.domain.dto.ProductDetailDTO;
 import com.moe.product.domain.dto.ProductListDTO;
 import com.moe.product.domain.dto.ProductSearchDTO;
 
@@ -29,4 +32,10 @@ public interface ProductService {
      */
     TableDataInfo<ProductVO> productSearch(IPage page, ProductSearchDTO dto);
 
+    /**
+     * 商品详情
+     * @param dto
+     * @return
+     */
+    R<ProductDetailVO> productDetail(ProductDetailDTO dto);
 }

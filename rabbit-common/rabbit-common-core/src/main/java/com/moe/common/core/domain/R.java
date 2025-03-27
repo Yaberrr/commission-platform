@@ -3,6 +3,7 @@ package com.moe.common.core.domain;
 import java.io.Serializable;
 import com.moe.common.core.constant.Constants;
 import com.moe.common.core.exception.ServiceException;
+import com.moe.common.core.web.page.TableDataInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,13 @@ public class R<T> implements Serializable
     public static <T> R<T> ok(T data)
     {
         return restResult(data, SUCCESS, null);
+    }
+
+    public static <T> R<TableDataInfo<T>> ok(TableDataInfo<T> data){
+        R<TableDataInfo<T>> r = restResult(data, data.getCode(), data.getMsg());
+        data.setCode(null);
+        data.setMsg(null);
+        return r;
     }
 
     public static <T> R<T> ok(T data, String msg)
