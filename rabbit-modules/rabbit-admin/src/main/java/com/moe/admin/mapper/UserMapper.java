@@ -23,5 +23,5 @@ public interface UserMapper {
 
     List<InviteUserVO> selectInviteUserVOByPeriod(@Param("dto") UserInviteDTO userInviteDTO);
 
-    List<UserListVO> selectUserListVO();
+    List<UserListVO> selectUserListVO(@Param("dto") UserDTO userDTO);
 }

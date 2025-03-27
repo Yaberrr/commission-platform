@@ -11,6 +11,7 @@ import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class OrderController extends BaseController {
     }
 
     @RequiresPermissions("system:order:export")
-    @GetMapping("/export")
+    @PostMapping("/export")
     public void export(HttpServletResponse response, OrderListDTO orderListDTO)
     {
         Page page = new Page<>(1, 20000);

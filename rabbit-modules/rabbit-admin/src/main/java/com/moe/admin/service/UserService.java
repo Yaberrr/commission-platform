@@ -20,6 +20,6 @@ public interface UserService {
 
     UserDetailVO selectUserDetailByUserId(Long id);
 
-    List<UserListVO> selectUserListVO();
+    List<UserListVO> selectUserListVO(UserDTO userDTO);
 
 }
