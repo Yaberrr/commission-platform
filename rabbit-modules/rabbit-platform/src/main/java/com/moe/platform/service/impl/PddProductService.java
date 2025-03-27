@@ -113,6 +113,7 @@ public class PddProductService implements PlatformProductService {
         try {
             PddDdkGoodsDetailRequest request = new PddDdkGoodsDetailRequest();
             request.setGoodsSign(dto.getProductId());
+            request.setSearchId(dto.getSearchParam());
             //可选授权信息，判断比价
             platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService)
                     .ifPresent(auth -> {
@@ -122,7 +123,9 @@ public class PddProductService implements PlatformProductService {
             PddDdkGoodsDetailResponse response = popClient.syncInvoke(request);
             PddUtils.checkResponse(response);
             //提取数据
-            return PddConvert.toProductDetailVO(response.getGoodsDetailResponse().getGoodsDetails().get(0));
+            ProductDetailVO vo = PddConvert.toProductDetailVO(response.getGoodsDetailResponse().getGoodsDetails().get(0));
+            vo.setSearchParam(dto.getSearchParam());
+            return vo;
         }catch (Exception e){
             throw new ServiceException(e,"拼多多商品详情查询失败:{}",e.getMessage());
         }

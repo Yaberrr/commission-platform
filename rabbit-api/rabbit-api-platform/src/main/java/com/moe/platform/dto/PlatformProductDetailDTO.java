@@ -16,4 +16,7 @@ public class PlatformProductDetailDTO {
     //平台类型
     private PlatformType platformType;
 
+    //查询参数
+    private String searchParam;
+
 }

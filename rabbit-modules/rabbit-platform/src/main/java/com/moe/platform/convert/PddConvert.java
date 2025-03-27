@@ -86,6 +86,9 @@ public class PddConvert {
         if(vo.getBestCoupon() != null){
             vo.getBestCoupon().setDiscount(vo.getBestCoupon().getDiscount().divide(HUNDRED,2,RoundingMode.DOWN));
         }
+
+        //搜索id，用于商品详情及生成链接时回传，提高收益
+        vo.setSearchParam(item.getSearchId());
         return vo;
     }
 

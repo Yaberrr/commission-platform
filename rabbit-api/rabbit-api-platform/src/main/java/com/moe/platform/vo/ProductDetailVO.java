@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2025/3/27
  */
 @Data
-public class ProductDetailVO extends ProductVO{
+public class ProductDetailVO extends ProductVO {
 
     //商品图片列表
     private List<String> imgList;

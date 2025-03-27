@@ -54,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
         PlatformProductDetailDTO platformDTO = new PlatformProductDetailDTO();
         platformDTO.setProductId(dto.getProductId());
         platformDTO.setPlatformType(dto.getPlatformType());
+        platformDTO.setSearchParam(dto.getSearchParam());
         return platformProductApi.detail(platformDTO);
     }
 }

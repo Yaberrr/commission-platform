@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class PlatformBaseDTO {
 
+    //平台类型
     @NotNull(message = "平台类型不可为空")
     private PlatformType platformType;
 
