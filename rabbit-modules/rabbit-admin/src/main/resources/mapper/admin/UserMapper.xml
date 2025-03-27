@@ -177,8 +177,9 @@
         select id, user_name
         from rb_user
         <where>
-            <if test="dto.userName != null and dto.userName != ''">
-                AND user_name LIKE CONCAT('%', #{dto.userName}, '%')
+            <if test="userName != null and userName != ''">
+                AND (user_name LIKE CONCAT('%', #{userName}, '%')
+                OR phone_number LIKE CONCAT('%', #{userName}, '%'))
             </if>
         </where>
         ORDER BY id DESC
