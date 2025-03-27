@@ -1,6 +1,7 @@
 package com.moe.platform.convert;
 
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.platform.domain.vo.PddGoodsListItemVO;
 import com.moe.platform.utils.PlatformUtils;
 import com.moe.platform.vo.AuthUrlVO;
@@ -64,11 +65,16 @@ public class PddConvert {
 
         //佣金计算
         BigDecimal rate = BigDecimal.ZERO;
-        if(item.getPromotionRate() != null){
-            rate = BigDecimal.valueOf(item.getPromotionRate());
-        }
-        if(item.getActivityPromotionRate() != null && item.getActivityPromotionRate() > rate.longValue()){
-            rate = BigDecimal.valueOf(item.getActivityPromotionRate());
+        if(item.getPredictPromotionRate() != null){
+            //优先使用比价预判佣金
+            rate = BigDecimal.valueOf(item.getPredictPromotionRate());
+        }else{
+            if(item.getPromotionRate() != null){
+                rate = BigDecimal.valueOf(item.getPromotionRate());
+            }
+            if(item.getActivityPromotionRate() != null && item.getActivityPromotionRate() > rate.longValue()){
+                rate = BigDecimal.valueOf(item.getActivityPromotionRate());
+            }
         }
         vo.setCommission(vo.getLowestPrice().multiply(rate).divide(new BigDecimal("1000"),2, RoundingMode.DOWN));
         vo.setPlatformType(PlatformType.PDD);
@@ -84,11 +90,12 @@ public class PddConvert {
     }
 
     public static ProductDetailVO toProductDetailVO(PddDdkGoodsDetailResponse.GoodsDetailResponseGoodsDetailsItem detailItem){
-        //先提取productVo相同字段
-        PddGoodsListItemVO packVO = PddCopier.INSTANCE.toItem(detailItem);
+        //先提取productVo的相同字段
+        PddGoodsListItemVO packVO = BeanCopyUtils.copy(detailItem, PddGoodsListItemVO.class);
         ProductVO productVO = toProductVO(packVO);
-        ProductDetailVO detailVO = PddCopier.INSTANCE.toDetailVo(productVO);
+
         //处理详情独有字段
+        ProductDetailVO detailVO = BeanCopyUtils.copy(productVO, ProductDetailVO.class);
         detailVO.setImgList(detailItem.getGoodsGalleryUrls());
         detailVO.setVideoList(detailItem.getVideoUrls());
         detailVO.setIntroduction(detailItem.getGoodsDesc());

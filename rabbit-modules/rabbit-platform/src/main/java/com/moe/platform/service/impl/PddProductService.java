@@ -65,6 +65,13 @@ public class PddProductService implements PlatformProductService {
             request.setPageSize(dto.getPageSize());
             //todo: 暂时 只展示有券的
             request.setWithCoupon(true);
+            //可选授权信息，用于判断比价
+            platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService)
+                    .ifPresent(auth -> {
+                        request.setPid(auth.getAuthId());
+                        request.setCustomParameters(PddUtils.getCustomParameter(auth));
+                    });
+
             return this.invokeRequest(request);
         }catch (Exception e){
             throw new ServiceException(e,"拼多多商品查询失败:{}",e.getMessage());
@@ -75,7 +82,7 @@ public class PddProductService implements PlatformProductService {
     public TableDataInfo<ProductVO> productSearch(PlatformSearchDTO dto) {
         try {
             PddDdkGoodsSearchRequest request = new PddDdkGoodsSearchRequest();
-            //获取授权信息
+            //必须授权
             PlatformAuth auth = platformUtils.checkPlatformAuth(PlatformType.PDD, platformAuthService);
             request.setPid(auth.getAuthId());
             request.setCustomParameters(PddUtils.getCustomParameter(auth));
