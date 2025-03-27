@@ -28,7 +28,7 @@ public class PddConvert {
     public final static BigDecimal HUNDRED = BigDecimal.valueOf(100);
 
 
-    public static ProductVO toProductVO(PddDdkGoodsSearchResponse.GoodsSearchResponseGoodsListItem item) {
+    public static ProductVO toProductVO(PddGoodsListItemVO item) {
         ProductVO vo = new ProductVO();
         vo.setProductId(item.getGoodsSign());
         vo.setShopName(item.getMallName());
@@ -41,14 +41,14 @@ public class PddConvert {
 
         //判断最优券
         List<CouponVO> couponVOList = new ArrayList<>();
-        if(item.getHasCoupon() && item.getCouponRemainQuantity() > 0){
+        if(item.getHasCoupon() != null && item.getHasCoupon() && item.getCouponRemainQuantity() > 0){
             CouponVO couponVO = new CouponVO();
             couponVO.setDiscount(BigDecimal.valueOf(item.getCouponDiscount()));
             couponVO.setStartTime(new Date(item.getCouponStartTime()*1000));
             couponVO.setEndTime(new Date(item.getCouponEndTime()*1000));
             couponVOList.add(couponVO);
         }
-        if(item.getHasMallCoupon() && item.getMallCouponRemainQuantity() > 0){
+        if(item.getHasMallCoupon() != null && item.getHasMallCoupon() && item.getMallCouponRemainQuantity() > 0){
             CouponVO couponVO = new CouponVO();
             couponVO.setDiscount(BigDecimal.valueOf(item.getMallCouponMaxDiscountAmount()));
             couponVO.setStartTime(new Date(item.getMallCouponStartTime()*1000));
@@ -92,6 +92,7 @@ public class PddConvert {
         return vo;
     }
 
+
     public static ProductDetailVO toProductDetailVO(PddDdkGoodsDetailResponse.GoodsDetailResponseGoodsDetailsItem detailItem){
         //先提取productVo的相同字段
         PddGoodsListItemVO packVO = BeanCopyUtils.copy(detailItem, PddGoodsListItemVO.class);
@@ -106,7 +107,7 @@ public class PddConvert {
         return detailVO;
     }
 
-    public static AuthUrlVO toAuthUrlVo( PddDdkRpPromUrlGenerateResponse.RpPromotionUrlGenerateResponseUrlListItem item){
+    public static AuthUrlVO toAuthUrlVo(PddDdkRpPromUrlGenerateResponse.RpPromotionUrlGenerateResponseUrlListItem item){
         AuthUrlVO vo = new AuthUrlVO();
         vo.setH5Url(item.getUrl());
         vo.setMobileUrl(item.getMobileUrl());

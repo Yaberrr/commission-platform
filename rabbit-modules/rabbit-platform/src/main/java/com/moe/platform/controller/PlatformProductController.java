@@ -6,10 +6,7 @@ import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.platform.api.PlatformProductApi;
-import com.moe.platform.dto.PlatformProductDTO;
-import com.moe.platform.dto.PlatformParam;
-import com.moe.platform.dto.PlatformProductDetailDTO;
-import com.moe.platform.dto.PlatformSearchDTO;
+import com.moe.platform.dto.product.*;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.service.PlatformServiceFactory;
 import com.moe.platform.vo.ProductDetailVO;
@@ -47,7 +44,7 @@ public class PlatformProductController implements PlatformProductApi {
     @InnerAuth
     @Override
     @PostMapping("/search")
-    public TableDataInfo<ProductVO> search(PlatformSearchDTO dto) {
+    public TableDataInfo<ProductVO> search(ProductSearchDTO dto) {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return productService.productSearch(dto);
     }
@@ -55,9 +52,15 @@ public class PlatformProductController implements PlatformProductApi {
     @InnerAuth
     @Override
     @PostMapping("/detail")
-    public R<ProductDetailVO> detail(PlatformProductDetailDTO dto) {
+    public R<ProductDetailVO> detail(ProductDetailDTO dto) {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return R.ok(productService.productDetail(dto));
+    }
+
+    @Override
+    public TableDataInfo<ProductVO> recommend(ProductRecommendDto dto) {
+        PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
+        return productService.productRecommend(dto);
     }
 
 

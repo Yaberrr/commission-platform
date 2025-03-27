@@ -1,4 +1,4 @@
-package com.moe.platform.dto;
+package com.moe.platform.dto.product;
 
 import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;

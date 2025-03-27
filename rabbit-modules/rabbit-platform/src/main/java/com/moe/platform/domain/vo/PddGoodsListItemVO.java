@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2025/3/27
  */
 @Data
-public class PddGoodsListItemVO extends PddDdkGoodsSearchResponse.GoodsSearchResponseGoodsListItem{
+public class PddGoodsListItemVO{
     @JsonProperty("activity_promotion_rate")
     private Long activityPromotionRate;
     @JsonProperty("activity_tags")

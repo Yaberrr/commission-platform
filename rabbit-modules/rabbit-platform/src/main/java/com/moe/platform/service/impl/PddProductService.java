@@ -3,12 +3,12 @@ package com.moe.platform.service.impl;
 import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
+import com.moe.common.core.utils.StringUtils;
+import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.convert.PddConvert;
-import com.moe.platform.dto.PlatformParam;
-import com.moe.platform.dto.PlatformProductDTO;
-import com.moe.platform.dto.PlatformProductDetailDTO;
-import com.moe.platform.dto.PlatformSearchDTO;
+import com.moe.platform.domain.vo.PddGoodsListItemVO;
+import com.moe.platform.dto.product.*;
 import com.moe.platform.service.PlatformAuthService;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.utils.PddUtils;
@@ -17,14 +17,17 @@ import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.PopClient;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsDetailRequest;
+import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsRecommendGetRequest;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsSearchRequest;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsDetailResponse;
+import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsRecommendGetResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -41,7 +44,6 @@ public class PddProductService implements PlatformProductService {
     private PlatformUtils platformUtils;
     @Autowired
     private PlatformAuthService platformAuthService;
-
 
     @Override
     public TableDataInfo<ProductVO> productList(PlatformProductDTO dto, PlatformParam param) {
@@ -65,12 +67,13 @@ public class PddProductService implements PlatformProductService {
             request.setPageSize(dto.getPageSize());
             //todo: 暂时 只展示有券的
             request.setWithCoupon(true);
-            //可选授权信息，用于判断比价
-            platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService)
-                    .ifPresent(auth -> {
-                        request.setPid(auth.getAuthId());
-                        request.setCustomParameters(PddUtils.getCustomParameter(auth));
-                    });
+
+            //可选授权信息，判断比价
+            PlatformAuth auth = platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService);
+            if(auth != null){
+                request.setPid(auth.getAuthId());
+                request.setCustomParameters(PddUtils.getCustomParameter(auth));
+            }
 
             return this.invokeRequest(request);
         }catch (Exception e){
@@ -79,7 +82,7 @@ public class PddProductService implements PlatformProductService {
     }
 
     @Override
-    public TableDataInfo<ProductVO> productSearch(PlatformSearchDTO dto) {
+    public TableDataInfo<ProductVO> productSearch(ProductSearchDTO dto) {
         try {
             PddDdkGoodsSearchRequest request = new PddDdkGoodsSearchRequest();
             //必须授权
@@ -102,24 +105,28 @@ public class PddProductService implements PlatformProductService {
         PddDdkGoodsSearchResponse response = popClient.syncInvoke(request);
         PddUtils.checkResponse(response);
         //提取数据
-        PddDdkGoodsSearchResponse.GoodsSearchResponse searchResponse = response.getGoodsSearchResponse();
-        List<ProductVO> productVOList = searchResponse.getGoodsList()
-                .stream().map(PddConvert::toProductVO).collect(Collectors.toList());
-        return new TableDataInfo<>(productVOList,searchResponse.getTotalCount());
+         List<ProductVO> productVOList = response.getGoodsSearchResponse().getGoodsList()
+                .stream().map(item ->  {
+                    PddGoodsListItemVO itemVo = BeanCopyUtils.copy(item, PddGoodsListItemVO.class);
+                    return PddConvert.toProductVO(itemVo);
+                }).collect(Collectors.toList());
+        return new TableDataInfo<>(productVOList,response.getGoodsSearchResponse().getTotalCount());
     }
 
     @Override
-    public ProductDetailVO productDetail(PlatformProductDetailDTO dto){
+    public ProductDetailVO productDetail(ProductDetailDTO dto){
         try {
             PddDdkGoodsDetailRequest request = new PddDdkGoodsDetailRequest();
             request.setGoodsSign(dto.getProductId());
             request.setSearchId(dto.getSearchParam());
+
             //可选授权信息，判断比价
-            platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService)
-                    .ifPresent(auth -> {
-                        request.setPid(auth.getAuthId());
-                        request.setCustomParameters(PddUtils.getCustomParameter(auth));
-                    });
+            PlatformAuth auth = platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService);
+            if(auth != null){
+                request.setPid(auth.getAuthId());
+                request.setCustomParameters(PddUtils.getCustomParameter(auth));
+            }
+
             PddDdkGoodsDetailResponse response = popClient.syncInvoke(request);
             PddUtils.checkResponse(response);
             //提取数据
@@ -131,6 +138,39 @@ public class PddProductService implements PlatformProductService {
         }
     }
 
+    @Override
+    public TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto) {
+        try {
+            PddDdkGoodsRecommendGetRequest request = new PddDdkGoodsRecommendGetRequest();
+            PlatformAuth auth = platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService);
+            if(auth != null){
+                //已授权 展示个性化推荐
+                request.setChannelType(4);
+                request.setPid(auth.getAuthId());
+                request.setCustomParameters(PddUtils.getCustomParameter(auth));
+            }else {
+                //未授权 展示热销爆款
+                request.setChannelType(5);
+            }
+
+            if(StringUtils.isNotEmpty(dto.getProductId())) {
+                //商品相似推荐
+                request.setChannelType(3);
+                request.setGoodsSignList(Collections.singletonList(dto.getProductId()));
+            }
+
+            PddDdkGoodsRecommendGetResponse response = popClient.syncInvoke(request);
+            PddUtils.checkResponse(response);
+            List<ProductVO> productVOList = response.getGoodsBasicDetailResponse().getList().stream()
+                    .map(item -> {
+                        PddGoodsListItemVO itemVo = BeanCopyUtils.copy(item, PddGoodsListItemVO.class);
+                        return PddConvert.toProductVO(itemVo);
+                    }).collect(Collectors.toList());
+            return new TableDataInfo<>(productVOList,response.getGoodsBasicDetailResponse().getTotal());
+        }catch (Exception e){
+            throw new ServiceException(e,"拼多多商品推荐查询失败:{}",e.getMessage());
+        }
+    }
 
 
 }

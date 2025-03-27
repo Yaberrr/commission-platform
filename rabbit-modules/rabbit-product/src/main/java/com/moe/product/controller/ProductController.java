@@ -3,11 +3,13 @@ package com.moe.product.controller;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.core.web.page.TableSupport;
+import com.moe.platform.dto.PlatformBaseDTO;
+import com.moe.platform.dto.product.ProductDetailDTO;
+import com.moe.platform.dto.product.ProductRecommendDto;
+import com.moe.platform.dto.product.ProductSearchDTO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
-import com.moe.product.domain.dto.ProductDetailDTO;
 import com.moe.product.domain.dto.ProductListDTO;
-import com.moe.product.domain.dto.ProductSearchDTO;
 import com.moe.product.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,17 +33,22 @@ public class ProductController {
         return R.ok(productService.productList(TableSupport.buildPageRequest().buildPage(),dto));
     }
 
-
     @Operation(description = "商品搜索")
     @PostMapping("/search")
     public R<TableDataInfo<ProductVO>> search(@Valid ProductSearchDTO dto){
-        return R.ok(productService.productSearch(TableSupport.buildPageRequest().buildPage(),dto));
+        return R.ok(productService.productSearch(dto));
     }
 
     @Operation(description = "商品详情")
     @PostMapping("/detail")
     public R<ProductDetailVO> detail(@Valid ProductDetailDTO dto){
         return productService.productDetail(dto);
+    }
+
+    @Operation(description = "商品推荐")
+    @PostMapping("/recommend")
+    public R<TableDataInfo<ProductVO>> recommend(@Valid ProductRecommendDto dto){
+        return R.ok(productService.productRecommend(dto));
     }
 
 }

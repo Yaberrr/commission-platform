@@ -1,13 +1,15 @@
 package com.moe.product.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.platform.dto.product.ProductDetailDTO;
+import com.moe.platform.dto.product.ProductRecommendDto;
+import com.moe.platform.dto.product.ProductSearchDTO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
-import com.moe.product.domain.dto.ProductDetailDTO;
 import com.moe.product.domain.dto.ProductListDTO;
-import com.moe.product.domain.dto.ProductSearchDTO;
 
 /**
  * 商品
@@ -26,11 +28,10 @@ public interface ProductService {
 
     /**
      * 商品搜索
-     * @param page
      * @param dto
      * @return
      */
-    TableDataInfo<ProductVO> productSearch(IPage page, ProductSearchDTO dto);
+    TableDataInfo<ProductVO> productSearch(ProductSearchDTO dto);
 
     /**
      * 商品详情
@@ -38,4 +39,11 @@ public interface ProductService {
      * @return
      */
     R<ProductDetailVO> productDetail(ProductDetailDTO dto);
+
+    /**
+     * 为你推荐
+     * @param dto
+     * @return
+     */
+    TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto);
 }

@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.api.PlatformProductApi;
-import com.moe.platform.dto.PlatformProductDTO;
-import com.moe.platform.dto.PlatformProductDetailDTO;
-import com.moe.platform.dto.PlatformSearchDTO;
+import com.moe.platform.dto.product.PlatformProductDTO;
+import com.moe.platform.dto.product.ProductDetailDTO;
+import com.moe.platform.dto.product.ProductRecommendDto;
+import com.moe.platform.dto.product.ProductSearchDTO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
-import com.moe.product.domain.dto.ProductDetailDTO;
 import com.moe.product.domain.dto.ProductListDTO;
-import com.moe.product.domain.dto.ProductSearchDTO;
 import com.moe.product.service.ProductGroupService;
 import com.moe.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,21 +39,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public TableDataInfo<ProductVO> productSearch(IPage page, ProductSearchDTO dto) {
-        PlatformSearchDTO platformDTO = new PlatformSearchDTO();
-        platformDTO.setPageNum((int) page.getCurrent());
-        platformDTO.setPageSize((int) page.getSize());
-        platformDTO.setKeyword(dto.getKeyword());
-        platformDTO.setPlatformType(dto.getPlatformType());
-        return platformProductApi.search(platformDTO);
+    public TableDataInfo<ProductVO> productSearch(ProductSearchDTO dto) {
+        return platformProductApi.search(dto);
     }
 
     @Override
     public R<ProductDetailVO> productDetail(ProductDetailDTO dto) {
-        PlatformProductDetailDTO platformDTO = new PlatformProductDetailDTO();
-        platformDTO.setProductId(dto.getProductId());
-        platformDTO.setPlatformType(dto.getPlatformType());
-        platformDTO.setSearchParam(dto.getSearchParam());
-        return platformProductApi.detail(platformDTO);
+        return platformProductApi.detail(dto);
     }
+
+    @Override
+    public TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto) {
+        return platformProductApi.recommend(dto);
+    }
+
 }

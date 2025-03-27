@@ -2,14 +2,13 @@ package com.moe.product.service.impl;
 
 import com.moe.common.core.domain.platform.PlatformDict;
 import com.moe.common.core.domain.product.ProductGroup;
-import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.product.PlatformParam;
 import com.moe.product.mapper.PlatformDictMapper;
 import com.moe.product.mapper.ProductGroupMapper;
 import com.moe.product.service.ProductGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

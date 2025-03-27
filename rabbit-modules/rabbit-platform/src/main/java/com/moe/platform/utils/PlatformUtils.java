@@ -34,15 +34,15 @@ public class PlatformUtils {
     private TokenService tokenService;
 
     /***
-     * 获取平台授权信息(允许为空)
+     * 获取平台授权信息(可能为空)
      * @param platformType 平台类型
      * @param platformAuthService 对应平台的service
      * @return
      */
-    public Optional<PlatformAuth> getPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
+    public PlatformAuth getPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if(loginUser == null){
-            return Optional.empty();
+            return null;
         }
         PlatformAuth auth = loginUser.getPlatformAuth(platformType);
         if(auth != null && auth.getStatus() != 1){
@@ -54,7 +54,7 @@ public class PlatformUtils {
                 tokenService.refreshToken(loginUser);
             }
         }
-        return Optional.ofNullable(auth);
+        return auth;
     }
 
     /**
@@ -68,11 +68,11 @@ public class PlatformUtils {
         if(loginUser == null){
             throw new ServiceException("用户未登录", HttpStatus.UNAUTHORIZED);
         }
-        Optional<PlatformAuth> auth = this.getPlatformAuth(platformType, platformAuthService);
-        if(auth.isPresent() && auth.get().getStatus() == 1){
-            return auth.get();
+        PlatformAuth auth = this.getPlatformAuth(platformType, platformAuthService);
+        if(auth == null || auth.getStatus() != 1) {
+            throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED);
         }
-        throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED);
+        return auth;
     }
 
 

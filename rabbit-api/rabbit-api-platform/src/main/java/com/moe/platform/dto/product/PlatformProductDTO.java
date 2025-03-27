@@ -1,6 +1,5 @@
-package com.moe.platform.dto;
+package com.moe.platform.dto.product;
 
-import com.moe.common.core.web.page.TableSupport;
 import lombok.Data;
 
 import java.util.List;

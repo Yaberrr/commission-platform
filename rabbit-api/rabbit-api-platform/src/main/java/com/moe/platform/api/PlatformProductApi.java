@@ -4,9 +4,10 @@ import com.moe.common.core.annotation.FeignResponseCheck;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
-import com.moe.platform.dto.PlatformProductDTO;
-import com.moe.platform.dto.PlatformProductDetailDTO;
-import com.moe.platform.dto.PlatformSearchDTO;
+import com.moe.platform.dto.product.PlatformProductDTO;
+import com.moe.platform.dto.product.ProductDetailDTO;
+import com.moe.platform.dto.product.ProductRecommendDto;
+import com.moe.platform.dto.product.ProductSearchDTO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -36,13 +37,21 @@ public interface PlatformProductApi {
      * @return
      */
     @PostMapping("/search")
-    TableDataInfo<ProductVO> search(@RequestBody PlatformSearchDTO dto);
+    TableDataInfo<ProductVO> search(@RequestBody ProductSearchDTO dto);
 
     /**
      * 平台商品详情
      * @return
      */
     @PostMapping("/detail")
-    R<ProductDetailVO> detail(@RequestBody PlatformProductDetailDTO dto);
+    R<ProductDetailVO> detail(@RequestBody ProductDetailDTO dto);
+
+    /**
+     * 平台商品推荐
+     * @param dto
+     * @return
+     */
+    @PostMapping("/recommend")
+    TableDataInfo<ProductVO> recommend(@RequestBody ProductRecommendDto dto);
 
 }

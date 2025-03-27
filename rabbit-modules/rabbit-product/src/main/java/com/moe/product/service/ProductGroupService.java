@@ -1,6 +1,6 @@
 package com.moe.product.service;
 
-import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.product.PlatformParam;
 
 import java.util.List;
 
