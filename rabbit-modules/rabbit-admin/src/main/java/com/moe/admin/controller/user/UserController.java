@@ -11,10 +11,7 @@ import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.core.web.page.TableSupport;
 import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -50,7 +47,7 @@ UserController extends BaseController {
     }
 
     @RequiresPermissions("admin:user:export")
-    @GetMapping("/export")
+    @PostMapping("/export")
     public void export(HttpServletResponse response, UserDTO userDTO)
     {
         Page page = new Page<>(1, 20000);
