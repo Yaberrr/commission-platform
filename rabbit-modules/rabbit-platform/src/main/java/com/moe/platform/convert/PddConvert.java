@@ -1,12 +1,13 @@
 package com.moe.platform.convert;
 
 import com.moe.common.core.enums.platform.PlatformType;
-import com.moe.common.core.exception.ServiceException;
+import com.moe.platform.domain.vo.PddGoodsListItemVO;
 import com.moe.platform.utils.PlatformUtils;
 import com.moe.platform.vo.AuthUrlVO;
 import com.moe.platform.vo.CouponVO;
+import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
-import com.pdd.pop.sdk.http.PopBaseHttpResponse;
+import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsDetailResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkRpPromUrlGenerateResponse;
 
@@ -82,6 +83,18 @@ public class PddConvert {
         return vo;
     }
 
+    public static ProductDetailVO toProductDetailVO(PddDdkGoodsDetailResponse.GoodsDetailResponseGoodsDetailsItem detailItem){
+        //先提取productVo相同字段
+        PddGoodsListItemVO packVO = PddCopier.INSTANCE.toItem(detailItem);
+        ProductVO productVO = toProductVO(packVO);
+        ProductDetailVO detailVO = PddCopier.INSTANCE.toDetailVo(productVO);
+        //处理详情独有字段
+        detailVO.setImgList(detailItem.getGoodsGalleryUrls());
+        detailVO.setVideoList(detailItem.getVideoUrls());
+        detailVO.setIntroduction(detailItem.getGoodsDesc());
+        detailVO.setTagList(detailItem.getUnifiedTags());
+        return detailVO;
+    }
 
     public static AuthUrlVO toAuthUrlVo( PddDdkRpPromUrlGenerateResponse.RpPromotionUrlGenerateResponseUrlListItem item){
         AuthUrlVO vo = new AuthUrlVO();

@@ -1,5 +1,6 @@
 package com.moe.platform.dto;
 
+import com.moe.common.core.web.page.TableSupport;
 import lombok.Data;
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 public class PlatformProductDTO {
 
     //页号
-    private int pageNum = 1;
+    private int pageNum;
 
     //页大小
-    private int pageSize = 10;
+    private int pageSize;
 
     //排序字段
     private String sortName;

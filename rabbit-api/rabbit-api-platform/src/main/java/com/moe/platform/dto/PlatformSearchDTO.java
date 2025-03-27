@@ -1,6 +1,7 @@
 package com.moe.platform.dto;
 
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.common.core.web.page.TableSupport;
 import lombok.Data;
 
 /**
@@ -11,10 +12,10 @@ import lombok.Data;
 public class PlatformSearchDTO {
 
     //页号
-    private int pageNum = 1;
+    private int pageNum;
 
     //页大小
-    private int pageSize = 10;
+    private int pageSize;
 
     //平台类型
     private PlatformType platformType;

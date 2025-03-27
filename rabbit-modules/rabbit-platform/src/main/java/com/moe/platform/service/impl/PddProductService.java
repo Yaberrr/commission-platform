@@ -7,14 +7,18 @@ import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.convert.PddConvert;
 import com.moe.platform.dto.PlatformParam;
 import com.moe.platform.dto.PlatformProductDTO;
+import com.moe.platform.dto.PlatformProductDetailDTO;
 import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.PlatformAuthService;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.utils.PddUtils;
 import com.moe.platform.utils.PlatformUtils;
+import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.PopClient;
+import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsDetailRequest;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsSearchRequest;
+import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsDetailResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,9 +75,10 @@ public class PddProductService implements PlatformProductService {
     public TableDataInfo<ProductVO> productSearch(PlatformSearchDTO dto) {
         try {
             PddDdkGoodsSearchRequest request = new PddDdkGoodsSearchRequest();
-            PlatformAuth auth = platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService);
+            //获取授权信息
+            PlatformAuth auth = platformUtils.checkPlatformAuth(PlatformType.PDD, platformAuthService);
             request.setPid(auth.getAuthId());
-            request.setCustomParameters(PddUtils.getCustomParameter(auth.getUserId()));
+            request.setCustomParameters(PddUtils.getCustomParameter(auth));
             request.setKeyword(dto.getKeyword());
             request.setPage(dto.getPageNum());
             request.setPageSize(dto.getPageSize());
@@ -84,7 +89,7 @@ public class PddProductService implements PlatformProductService {
     }
 
     /**
-     * 调用api
+     * 调用商品搜索api
      */
     private TableDataInfo<ProductVO> invokeRequest(PddDdkGoodsSearchRequest request) throws Exception {
         PddDdkGoodsSearchResponse response = popClient.syncInvoke(request);
@@ -95,4 +100,27 @@ public class PddProductService implements PlatformProductService {
                 .stream().map(PddConvert::toProductVO).collect(Collectors.toList());
         return new TableDataInfo<>(productVOList,searchResponse.getTotalCount());
     }
+
+    @Override
+    public ProductDetailVO productDetail(PlatformProductDetailDTO dto){
+        try {
+            PddDdkGoodsDetailRequest request = new PddDdkGoodsDetailRequest();
+            request.setGoodsSign(dto.getProductId());
+            //可选授权信息，判断比价
+            platformUtils.getPlatformAuth(PlatformType.PDD, platformAuthService)
+                    .ifPresent(auth -> {
+                        request.setPid(auth.getAuthId());
+                        request.setCustomParameters(PddUtils.getCustomParameter(auth));
+                    });
+            PddDdkGoodsDetailResponse response = popClient.syncInvoke(request);
+            PddUtils.checkResponse(response);
+            //提取数据
+            return PddConvert.toProductDetailVO(response.getGoodsDetailResponse().getGoodsDetails().get(0));
+        }catch (Exception e){
+            throw new ServiceException(e,"拼多多商品详情查询失败:{}",e.getMessage());
+        }
+    }
+
+
+
 }

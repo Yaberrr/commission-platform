@@ -1,15 +1,18 @@
 package com.moe.platform.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import com.moe.common.core.domain.R;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.platform.api.PlatformProductApi;
 import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.PlatformProductDetailDTO;
 import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.service.PlatformServiceFactory;
+import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +50,14 @@ public class PlatformProductController implements PlatformProductApi {
     public TableDataInfo<ProductVO> search(PlatformSearchDTO dto) {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return productService.productSearch(dto);
+    }
+
+    @InnerAuth
+    @Override
+    @PostMapping("/detail")
+    public R<ProductDetailVO> detail(PlatformProductDetailDTO dto) {
+        PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
+        return R.ok(productService.productDetail(dto));
     }
 
 

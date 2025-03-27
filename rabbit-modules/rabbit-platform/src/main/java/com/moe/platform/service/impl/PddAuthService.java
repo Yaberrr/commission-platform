@@ -66,7 +66,7 @@ public class PddAuthService implements PlatformAuthService {
         try {
             PddDdkMemberAuthorityQueryRequest request = new PddDdkMemberAuthorityQueryRequest();
             request.setPid(auth.getAuthId());
-            request.setCustomParameters(PddUtils.getCustomParameter(auth.getUserId()));
+            request.setCustomParameters(PddUtils.getCustomParameter(auth));
             PddDdkMemberAuthorityQueryResponse response = popClient.syncInvoke(request);
             PddUtils.checkResponse(response);
             //判断状态
@@ -81,7 +81,7 @@ public class PddAuthService implements PlatformAuthService {
         try {
             PddDdkRpPromUrlGenerateRequest request = new PddDdkRpPromUrlGenerateRequest();
             request.setChannelType(10);
-            request.setCustomParameters(PddUtils.getCustomParameter(auth.getUserId()));
+            request.setCustomParameters(PddUtils.getCustomParameter(auth));
             request.setPIdList(Collections.singletonList(auth.getAuthId()));
             PddDdkRpPromUrlGenerateResponse response = popClient.syncInvoke(request);
             PddUtils.checkResponse(response);

@@ -1,5 +1,6 @@
 package com.moe.platform.utils;
 
+import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.exception.ServiceException;
 import com.pdd.pop.sdk.http.PopBaseHttpResponse;
 
@@ -12,8 +13,8 @@ public class PddUtils {
      * 生成自定义参数
      * @return
      */
-    public static String getCustomParameter(Long userId){
-        return "{\"uid\":\""+userId+"\"}";
+    public static String getCustomParameter(PlatformAuth auth){
+        return "{\"uid\":\""+auth.getUserId()+"\"}";
     }
 
     /**

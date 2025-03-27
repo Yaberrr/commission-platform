@@ -6,12 +6,14 @@ import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.platform.dto.PlatformProductDTO;
 import com.moe.platform.dto.PlatformParam;
+import com.moe.platform.dto.PlatformProductDetailDTO;
 import com.moe.platform.dto.PlatformSearchDTO;
 import com.moe.platform.service.impl.PddProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -44,8 +46,13 @@ public class TestPDD {
         body.setPageSize(50);
         body.setKeyword("aaaa");
         System.out.println(new ObjectMapper().writeValueAsString(pddProductService.productSearch(body)));
+    }
 
-
+    @Test
+    public void testDetail() {
+        PlatformProductDetailDTO dto = new PlatformProductDetailDTO();
+        dto.setProductId("E9z2OUuET8xv4xnBwfDegsfxPvNaZYbW_JqUnwOTBD");
+        pddProductService.productDetail(dto);
     }
 
 }

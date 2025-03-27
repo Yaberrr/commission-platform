@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 平台公共工具类
@@ -33,34 +34,47 @@ public class PlatformUtils {
     private TokenService tokenService;
 
     /***
-     * 获取平台授权信息
+     * 获取平台授权信息(允许为空)
      * @param platformType 平台类型
      * @param platformAuthService 对应平台的service
      * @return
      */
-    public PlatformAuth getPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
+    public Optional<PlatformAuth> getPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if(loginUser == null){
-            throw new ServiceException("用户未登录", HttpStatus.UNAUTHORIZED);
+            return Optional.empty();
         }
         PlatformAuth auth = loginUser.getPlatformAuth(platformType);
-        if(auth == null){
-            throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED);
-        }
-
-        if(auth.getStatus() != 1){
+        if(auth != null && auth.getStatus() != 1){
             //检查授权状态
             if(platformAuthService.checkAuth(auth)){
                 auth.setStatus(1);
                 platformAuthMapper.updateById(auth);
                 //刷新缓存
                 tokenService.refreshToken(loginUser);
-            }else{
-                throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED);
             }
         }
-        return auth;
+        return Optional.ofNullable(auth);
     }
+
+    /**
+     * 检查平台授权信息(为空则抛出异常)
+     * @param platformType
+     * @param platformAuthService
+     * @return
+     */
+    public PlatformAuth checkPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
+        LoginUser loginUser = SecurityUtils.getLoginUser();
+        if(loginUser == null){
+            throw new ServiceException("用户未登录", HttpStatus.UNAUTHORIZED);
+        }
+        Optional<PlatformAuth> auth = this.getPlatformAuth(platformType, platformAuthService);
+        if(auth.isPresent() && auth.get().getStatus() == 1){
+            return auth.get();
+        }
+        throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED);
+    }
+
 
 
     /**
