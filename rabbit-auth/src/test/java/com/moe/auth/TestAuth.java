@@ -1,13 +1,9 @@
 package com.moe.auth;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.moe.auth.service.AppLoginService;
-import com.moe.common.core.domain.user.User;
 import com.moe.common.core.utils.RSAUtils;
-import com.moe.user.api.UserApi;
+import com.moe.user.api.IUserApi;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
 import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.regex.Pattern;
 
@@ -38,7 +29,7 @@ public class TestAuth {
     @Autowired
     private AppLoginService appLoginService;
     @Autowired
-    private UserApi userApi;
+    private IUserApi userApi;
     @Autowired
     private RSAUtils rsaUtils;
 

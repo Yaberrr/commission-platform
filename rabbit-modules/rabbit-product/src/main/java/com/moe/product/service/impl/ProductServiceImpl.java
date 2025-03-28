@@ -3,7 +3,7 @@ package com.moe.product.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
-import com.moe.platform.api.PlatformProductApi;
+import com.moe.platform.api.IPlatformProductApi;
 import com.moe.platform.dto.product.PlatformProductDTO;
 import com.moe.platform.dto.product.ProductDetailDTO;
 import com.moe.platform.dto.product.ProductRecommendDto;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private PlatformProductApi platformProductApi;
+    private IPlatformProductApi platformProductApi;
     @Autowired
     private ProductGroupService productGroupService;
 

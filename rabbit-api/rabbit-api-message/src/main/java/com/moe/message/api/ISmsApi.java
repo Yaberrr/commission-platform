@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignResponseCheck(serviceName = "短信")
 @FeignClient(path = "/sms", contextId = "smsApi", value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
-public interface SmsApi {
+public interface ISmsApi {
 
     /**
      * 发送单条短信

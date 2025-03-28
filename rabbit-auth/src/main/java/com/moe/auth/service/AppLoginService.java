@@ -13,11 +13,11 @@ import com.moe.common.core.enums.user.Gender;
 import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.RSAUtils;
 import com.moe.common.redis.service.RedisService;
-import com.moe.message.api.SmsApi;
+import com.moe.message.api.ISmsApi;
 import com.moe.message.dto.SmsDTO;
 import com.moe.message.enums.SmsTemplate;
-import com.moe.platform.api.PlatformAuthApi;
-import com.moe.user.api.UserApi;
+import com.moe.platform.api.IPlatformAuthApi;
+import com.moe.user.api.IUserApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * @author tangyabo
@@ -47,11 +46,11 @@ public class AppLoginService {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private SmsApi smsApi;
+    private ISmsApi smsApi;
     @Autowired
-    private UserApi userApi;
+    private IUserApi userApi;
     @Autowired
-    private PlatformAuthApi platformAuthApi;
+    private IPlatformAuthApi platformAuthApi;
     @Autowired
     private AuroraApi auroraApi;
 

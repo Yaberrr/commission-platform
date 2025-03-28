@@ -1,11 +1,7 @@
 package com.moe.common.security.feign;
 
-import java.util.Collection;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-
-import cn.hutool.core.collection.CollUtil;
-import org.springframework.stereotype.Component;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
@@ -18,7 +14,6 @@ import feign.RequestTemplate;
  *
  * @author ruoyi
  */
-@Component
 public class FeignRequestInterceptor implements RequestInterceptor
 {
     @Override

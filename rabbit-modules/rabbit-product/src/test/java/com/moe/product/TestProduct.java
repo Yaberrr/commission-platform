@@ -3,7 +3,7 @@ package com.moe.product;
 import com.moe.common.core.domain.product.ProductGroup;
 import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
-import com.moe.platform.api.PlatformProductApi;
+import com.moe.platform.api.IPlatformProductApi;
 import com.moe.platform.dto.product.PlatformProductDTO;
 import com.moe.platform.dto.product.PlatformParam;
 import com.moe.product.mapper.ProductGroupMapper;
@@ -25,7 +25,7 @@ import java.util.Collections;
 public class TestProduct {
 
     @Autowired
-    private PlatformProductApi platformProductApi;
+    private IPlatformProductApi platformProductApi;
     @Autowired
     private ProductGroupMapper productGroupMapper;
 

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignResponseCheck(serviceName = "平台商品")
 @FeignClient(path = "/platformProduct", contextId = "platformProductApi", value = ServiceNameConstants.PLATFORM_SERVICE)
-public interface PlatformProductApi {
+public interface IPlatformProductApi {
 
     /**
      * 平台商品查询

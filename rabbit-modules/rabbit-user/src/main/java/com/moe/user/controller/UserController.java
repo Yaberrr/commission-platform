@@ -9,9 +9,9 @@ import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.platform.api.PlatformAuthApi;
+import com.moe.platform.api.IPlatformAuthApi;
 import com.moe.platform.vo.PlatformUrlVO;
-import com.moe.user.api.UserApi;
+import com.moe.user.api.IUserApi;
 import com.moe.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,20 +32,12 @@ import java.util.List;
 @Tag(name = "用户")
 @RestController
 @RequestMapping
-public class UserController implements UserApi {
+public class UserController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
-    private PlatformAuthApi platformAuthApi;
+    private IPlatformAuthApi platformAuthApi;
     @Autowired
     private TokenService tokenService;
-
-    @InnerAuth
-    @Override
-    public R<User> saveUser(User user) {
-        return R.ok(userService.saveUser(user));
-    }
 
     @Operation(description = "用户信息")
     @PostMapping("/info")

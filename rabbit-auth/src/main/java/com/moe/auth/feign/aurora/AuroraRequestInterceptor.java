@@ -5,7 +5,6 @@ import com.moe.common.core.constant.SecurityConstants;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 
@@ -14,7 +13,6 @@ import java.nio.charset.StandardCharsets;
  * @author tangyabo
  * @date 2025/3/17
  */
-@Component
 public class AuroraRequestInterceptor implements RequestInterceptor {
 
     @Value("${aurora.appKey}")
@@ -24,7 +22,6 @@ public class AuroraRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
-        requestTemplate.removeHeader(SecurityConstants.AUTHORIZATION_HEADER);
         requestTemplate.header(SecurityConstants.AUTHORIZATION_HEADER,
                 "Basic " + Base64.encode(appKey + ":" + masterSecret, StandardCharsets.UTF_8));
     }

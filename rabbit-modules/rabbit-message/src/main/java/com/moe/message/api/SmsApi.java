@@ -1,12 +1,10 @@
-package com.moe.message.controller;
+package com.moe.message.api;
 
 import com.moe.common.core.domain.R;
 import com.moe.common.security.annotation.InnerAuth;
-import com.moe.message.api.SmsApi;
 import com.moe.message.dto.SmsDTO;
 import com.moe.message.service.ISmsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sms")
-public class SmsController implements SmsApi {
+public class SmsApi implements ISmsApi {
 
     @Autowired
     private ISmsService smsService;
@@ -27,4 +25,5 @@ public class SmsController implements SmsApi {
     public R<?> sendOne(@RequestBody SmsDTO dto) {
         return smsService.sendOne(dto);
     }
+
 }

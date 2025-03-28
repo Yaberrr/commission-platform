@@ -1,18 +1,16 @@
 package com.moe.common.security.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.moe.common.core.domain.LoginUser;
-import com.moe.common.core.enums.SystemType;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.context.SecurityContextHolder;
-import com.moe.common.core.utils.ServletUtils;
+import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.utils.StringUtils;
 import com.moe.common.security.auth.AuthUtil;
 import com.moe.common.security.utils.SecurityUtils;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**

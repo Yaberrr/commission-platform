@@ -18,7 +18,7 @@ import java.util.List;
  */
 @FeignResponseCheck(serviceName = "平台授权")
 @FeignClient(path = "/platformAuth", contextId = "platformAuthApi", value = ServiceNameConstants.PLATFORM_SERVICE)
-public interface PlatformAuthApi {
+public interface IPlatformAuthApi {
 
     /**
      * 生成授权链接

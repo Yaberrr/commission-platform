@@ -1,11 +1,10 @@
-package com.moe.platform.controller;
+package com.moe.platform.api;
 
 import cn.hutool.core.collection.CollUtil;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.annotation.InnerAuth;
-import com.moe.platform.api.PlatformProductApi;
 import com.moe.platform.dto.product.*;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.service.PlatformServiceFactory;
@@ -13,7 +12,6 @@ import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/platformProduct")
-public class PlatformProductController implements PlatformProductApi {
+public class PlatformProductApi implements IPlatformProductApi {
 
     @Autowired
     private PlatformServiceFactory platformProductServiceFactory;

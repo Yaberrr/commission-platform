@@ -1,16 +1,13 @@
 package com.moe.auth.feign.aurora;
 
-import feign.Logger;
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * 极光API配置
  * @author tangyabo
  * @date 2025/3/17
  */
-@Configuration
 public class AuroraFeignConfiguration {
 
     @Bean
@@ -19,14 +16,16 @@ public class AuroraFeignConfiguration {
         return new AuroraRequestInterceptor();
     }
 
-/*
-    @Bean
+   /* @Bean
     Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
-    }
-*/
+    }*/
 
-    /*@Bean
+   /* *//**
+     * 手动解压异常信息
+     * @return
+     *//*
+    @Bean
     public ErrorDecoder feignErrorDecoder() {
         return (response, type) -> {
             // 打印请求体

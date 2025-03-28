@@ -1,7 +1,6 @@
 package com.moe.platform.domain.vo;
 
 import com.pdd.pop.ext.fasterxml.jackson.annotation.JsonProperty;
-import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
 import lombok.Data;
 
 import java.util.List;

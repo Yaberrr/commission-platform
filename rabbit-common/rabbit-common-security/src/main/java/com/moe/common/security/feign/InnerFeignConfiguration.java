@@ -4,11 +4,11 @@ import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Feign 全局配置
+ * 内部调用Feign配置类
  *
  * @author ruoyi
  **/
-public class GlobalFeignConfiguration
+public class InnerFeignConfiguration
 {
     @Bean
     public RequestInterceptor requestInterceptor()
@@ -16,4 +16,8 @@ public class GlobalFeignConfiguration
         return new FeignRequestInterceptor();
     }
 
+  /*  @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }*/
 }

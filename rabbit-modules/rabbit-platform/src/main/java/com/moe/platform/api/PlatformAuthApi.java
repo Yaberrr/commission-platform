@@ -1,4 +1,4 @@
-package com.moe.platform.controller;
+package com.moe.platform.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.moe.common.core.domain.LoginUser;
@@ -9,7 +9,6 @@ import com.moe.common.core.utils.Assert;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.platform.api.PlatformAuthApi;
 import com.moe.platform.mapper.PlatformAuthMapper;
 import com.moe.platform.service.PlatformAuthService;
 import com.moe.platform.service.PlatformServiceFactory;
@@ -17,7 +16,6 @@ import com.moe.platform.vo.PlatformUrlVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +29,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/platformAuth")
-public class PlatformAuthController implements PlatformAuthApi {
+public class PlatformAuthApi implements IPlatformAuthApi {
 
-    private static final Logger log = LoggerFactory.getLogger(PlatformAuthController.class);
+    private static final Logger log = LoggerFactory.getLogger(PlatformAuthApi.class);
     @Autowired
     private PlatformServiceFactory platformServiceFactory;
     @Autowired

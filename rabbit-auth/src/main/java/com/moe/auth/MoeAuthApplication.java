@@ -7,7 +7,7 @@ import com.moe.common.security.annotation.EnableRyFeignClients;
 
 /**
  * 认证授权中心
- * 
+ *
  * @author ruoyi
  */
 @EnableRyFeignClients
