@@ -18,6 +18,11 @@ public class ServiceNameConstants
     public static final String ADMIN_SERVICE = "rabbit-admin";
 
     /**
+     * 定时任务服务
+     */
+    public static final String JOB_SERVICE = "rabbit-job";
+
+    /**
      * 文件服务的serviceid
      */
     public static final String FILE_SERVICE = "rabbit-file";
