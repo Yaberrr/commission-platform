@@ -13,7 +13,7 @@ import com.moe.platform.api.PlatformAuthApi;
 import com.moe.platform.mapper.PlatformAuthMapper;
 import com.moe.platform.service.PlatformAuthService;
 import com.moe.platform.service.PlatformServiceFactory;
-import com.moe.platform.vo.AuthUrlVO;
+import com.moe.platform.vo.PlatformUrlVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 平台授权
@@ -45,8 +44,7 @@ public class PlatformAuthController implements PlatformAuthApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/generateAuthUrl")
-    public R<AuthUrlVO> generateAuthUrl(@RequestParam PlatformType platformType) {
+    public R<PlatformUrlVO> generateAuthUrl(@RequestParam PlatformType platformType) {
         LoginUser loginUser = SecurityUtils.getLoginUser();
         PlatformAuth auth = loginUser.getPlatformAuth(platformType);
         PlatformAuthService authService = platformServiceFactory.getAuthService(platformType);
@@ -72,7 +70,6 @@ public class PlatformAuthController implements PlatformAuthApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/authList")
     public R<List<PlatformAuth>> authList(@RequestParam Long userId) {
         List<PlatformAuth> authList = platformAuthMapper.selectList(new LambdaQueryWrapper<PlatformAuth>()
                 .eq(PlatformAuth::getUserId, userId));

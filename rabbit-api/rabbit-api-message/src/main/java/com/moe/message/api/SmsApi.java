@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2025/3/11
  */
 @FeignResponseCheck(serviceName = "短信")
-@FeignClient(contextId = "smsApi", value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
+@FeignClient(path = "/sms", contextId = "smsApi", value = ServiceNameConstants.MESSAGE_SERVICE, fallbackFactory = SmsApiFallback.class)
 public interface SmsApi {
 
     /**
      * 发送单条短信
      */
-    @PostMapping("/sms/sendOne")
+    @PostMapping("/sendOne")
     R<?> sendOne(@RequestBody SmsDTO dto);
 
 }

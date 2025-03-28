@@ -1,17 +1,18 @@
 package com.moe.platform.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 授权相关信息
+ * 平台url
  * @author tangyabo
  * @date 2025/3/25
  */
 @Data
-public class AuthUrlVO {
-
-    //h5链接
-    private String h5Url;
+@NoArgsConstructor
+@AllArgsConstructor
+public class PlatformUrlVO {
 
     //app链接
     private String mobileUrl;

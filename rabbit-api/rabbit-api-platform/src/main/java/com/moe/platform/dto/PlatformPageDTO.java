@@ -1,10 +1,7 @@
 package com.moe.platform.dto;
 
-import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.web.page.TableSupport;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author tangyabo

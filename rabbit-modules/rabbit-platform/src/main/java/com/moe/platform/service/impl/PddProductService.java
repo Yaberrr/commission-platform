@@ -13,13 +13,16 @@ import com.moe.platform.service.PlatformAuthService;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.utils.PddUtils;
 import com.moe.platform.utils.PlatformUtils;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.PopClient;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsDetailRequest;
+import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsPromotionUrlGenerateRequest;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsRecommendGetRequest;
 import com.pdd.pop.sdk.http.api.pop.request.PddDdkGoodsSearchRequest;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsDetailResponse;
+import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsPromotionUrlGenerateResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsRecommendGetResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -75,7 +77,7 @@ public class PddProductService implements PlatformProductService {
                 request.setCustomParameters(PddUtils.getCustomParameter(auth));
             }
 
-            return this.invokeRequest(request);
+            return this.invokeSearch(request);
         }catch (Exception e){
             throw new ServiceException(e,"拼多多商品查询失败:{}",e.getMessage());
         }
@@ -92,7 +94,7 @@ public class PddProductService implements PlatformProductService {
             request.setKeyword(dto.getKeyword());
             request.setPage(dto.getPageNum());
             request.setPageSize(dto.getPageSize());
-            return this.invokeRequest(request);
+            return this.invokeSearch(request);
         }  catch (Exception e){
             throw new ServiceException(e,"拼多多商品搜索失败:{}",e.getMessage());
         }
@@ -101,7 +103,7 @@ public class PddProductService implements PlatformProductService {
     /**
      * 调用商品搜索api
      */
-    private TableDataInfo<ProductVO> invokeRequest(PddDdkGoodsSearchRequest request) throws Exception {
+    private TableDataInfo<ProductVO> invokeSearch(PddDdkGoodsSearchRequest request) throws Exception {
         PddDdkGoodsSearchResponse response = popClient.syncInvoke(request);
         PddUtils.checkResponse(response);
         //提取数据
@@ -169,6 +171,25 @@ public class PddProductService implements PlatformProductService {
             return new TableDataInfo<>(productVOList,response.getGoodsBasicDetailResponse().getTotal());
         }catch (Exception e){
             throw new ServiceException(e,"拼多多商品推荐查询失败:{}",e.getMessage());
+        }
+    }
+
+    @Override
+    public PlatformUrlVO productUrl(ProductDetailDTO dto) {
+        try {
+            PddDdkGoodsPromotionUrlGenerateRequest request = new PddDdkGoodsPromotionUrlGenerateRequest();
+            //获取授权信息
+            PlatformAuth auth = platformUtils.checkPlatformAuth(PlatformType.PDD, platformAuthService);
+            request.setPId(auth.getAuthId());
+            request.setCustomParameters(PddUtils.getCustomParameter(auth));
+            request.setSearchId(dto.getSearchParam());
+            request.setGoodsSignList(Collections.singletonList(dto.getProductId()));
+            PddDdkGoodsPromotionUrlGenerateResponse response = popClient.syncInvoke(request);
+            PddUtils.checkResponse(response);
+            PddDdkGoodsPromotionUrlGenerateResponse.GoodsPromotionUrlGenerateResponseGoodsPromotionUrlListItem item = response.getGoodsPromotionUrlGenerateResponse().getGoodsPromotionUrlList().get(0);
+            return new PlatformUrlVO(item.getMobileShortUrl());
+        } catch (Exception e) {
+            throw new ServiceException(e,"拼多多商品链接生成失败:{}",e.getMessage());
         }
     }
 

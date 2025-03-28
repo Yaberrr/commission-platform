@@ -8,6 +8,7 @@ import com.moe.platform.dto.product.PlatformProductDTO;
 import com.moe.platform.dto.product.ProductDetailDTO;
 import com.moe.platform.dto.product.ProductRecommendDto;
 import com.moe.platform.dto.product.ProductSearchDTO;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.moe.product.domain.dto.ProductListDTO;
@@ -51,6 +52,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto) {
         return platformProductApi.recommend(dto);
+    }
+
+    @Override
+    public R<PlatformUrlVO> productUrl(ProductDetailDTO dto) {
+        return platformProductApi.productUrl(dto);
     }
 
 }

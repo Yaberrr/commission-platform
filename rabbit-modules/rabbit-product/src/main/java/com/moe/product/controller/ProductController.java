@@ -3,10 +3,10 @@ package com.moe.product.controller;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.core.web.page.TableSupport;
-import com.moe.platform.dto.PlatformBaseDTO;
 import com.moe.platform.dto.product.ProductDetailDTO;
 import com.moe.platform.dto.product.ProductRecommendDto;
 import com.moe.platform.dto.product.ProductSearchDTO;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.moe.product.domain.dto.ProductListDTO;
@@ -49,6 +49,12 @@ public class ProductController {
     @PostMapping("/recommend")
     public R<TableDataInfo<ProductVO>> recommend(@Valid ProductRecommendDto dto){
         return R.ok(productService.productRecommend(dto));
+    }
+
+    @Operation(description = "生成商品链接")
+    @PostMapping("/productUrl")
+    public R<PlatformUrlVO> productUrl(@Valid ProductDetailDTO dto){
+        return productService.productUrl(dto);
     }
 
 }

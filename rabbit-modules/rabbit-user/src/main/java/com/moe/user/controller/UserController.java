@@ -10,7 +10,7 @@ import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.platform.api.PlatformAuthApi;
-import com.moe.platform.vo.AuthUrlVO;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.user.api.UserApi;
 import com.moe.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +43,6 @@ public class UserController implements UserApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/saveUser")
     public R<User> saveUser(User user) {
         return R.ok(userService.saveUser(user));
     }
@@ -56,7 +55,7 @@ public class UserController implements UserApi {
 
     @Operation(description = "获取平台授权url")
     @PostMapping("/platformAuthUrl")
-    public R<AuthUrlVO> platformAuthUrl(@Parameter(description = "平台类型")@RequestParam Integer platformType) {
+    public R<PlatformUrlVO> platformAuthUrl(@Parameter(description = "平台类型")@RequestParam Integer platformType) {
         return platformAuthApi.generateAuthUrl(PlatformType.fromCode(platformType));
     }
 

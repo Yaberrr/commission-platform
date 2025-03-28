@@ -70,7 +70,12 @@ public class GlobalExceptionHandler
     @ExceptionHandler(ServiceException.class)
     public AjaxResult handleServiceException(ServiceException e, HttpServletRequest request)
     {
-        log.error(e.getMessage(), e);
+        if(e.getCode() != null && (HttpStatus.UNAUTHORIZED == e.getCode() || HttpStatus.PLATFORM_UNAUTHORIZED == e.getCode())){
+            //未登录或未授权 仅打印简单日志
+            log.error(e.getMessage());
+        }else {
+            log.error(e.getMessage(), e);
+        }
         Integer code = e.getCode();
         return StringUtils.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
     }

@@ -4,12 +4,11 @@ import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.platform.domain.vo.PddGoodsListItemVO;
 import com.moe.platform.utils.PlatformUtils;
-import com.moe.platform.vo.AuthUrlVO;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.CouponVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsDetailResponse;
-import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsSearchResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkRpPromUrlGenerateResponse;
 
 import java.math.BigDecimal;
@@ -107,10 +106,4 @@ public class PddConvert {
         return detailVO;
     }
 
-    public static AuthUrlVO toAuthUrlVo(PddDdkRpPromUrlGenerateResponse.RpPromotionUrlGenerateResponseUrlListItem item){
-        AuthUrlVO vo = new AuthUrlVO();
-        vo.setH5Url(item.getUrl());
-        vo.setMobileUrl(item.getMobileUrl());
-        return vo;
-    }
 }

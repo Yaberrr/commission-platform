@@ -7,6 +7,7 @@ import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.dto.product.ProductDetailDTO;
 import com.moe.platform.dto.product.ProductRecommendDto;
 import com.moe.platform.dto.product.ProductSearchDTO;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.moe.product.domain.dto.ProductListDTO;
@@ -46,4 +47,11 @@ public interface ProductService {
      * @return
      */
     TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto);
+
+    /**
+     * 商品链接
+     * @param dto
+     * @return
+     */
+    R<PlatformUrlVO> productUrl(ProductDetailDTO dto);
 }

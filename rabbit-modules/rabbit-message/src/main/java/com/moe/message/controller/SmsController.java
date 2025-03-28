@@ -24,7 +24,6 @@ public class SmsController implements SmsApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/sendOne")
     public R<?> sendOne(@RequestBody SmsDTO dto) {
         return smsService.sendOne(dto);
     }

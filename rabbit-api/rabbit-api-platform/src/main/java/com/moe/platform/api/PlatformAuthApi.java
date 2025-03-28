@@ -5,7 +5,7 @@ import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.enums.platform.PlatformType;
-import com.moe.platform.vo.AuthUrlVO;
+import com.moe.platform.vo.PlatformUrlVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +26,7 @@ public interface PlatformAuthApi {
      * @return
      */
     @PostMapping("/generateAuthUrl")
-    R<AuthUrlVO> generateAuthUrl(@RequestParam("platformType") PlatformType platformType);
+    R<PlatformUrlVO> generateAuthUrl(@RequestParam("platformType") PlatformType platformType);
 
     /**
      * 查询授权信息

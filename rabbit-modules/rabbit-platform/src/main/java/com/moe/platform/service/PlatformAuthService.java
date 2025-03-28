@@ -1,9 +1,8 @@
 package com.moe.platform.service;
 
 import com.moe.common.core.domain.platform.PlatformAuth;
-import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
-import com.moe.platform.vo.AuthUrlVO;
+import com.moe.platform.vo.PlatformUrlVO;
 
 /**
  * 平台授权
@@ -28,7 +27,7 @@ public interface PlatformAuthService {
      * 生成授权链接
      * @return
      */
-    default AuthUrlVO generateAuthUrl(PlatformAuth auth){
+    default PlatformUrlVO generateAuthUrl(PlatformAuth auth){
         throw new ServiceException("当前平台不支持生成授权链接");
     }
 

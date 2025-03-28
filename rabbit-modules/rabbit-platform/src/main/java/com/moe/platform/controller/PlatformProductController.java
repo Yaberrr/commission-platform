@@ -9,6 +9,7 @@ import com.moe.platform.api.PlatformProductApi;
 import com.moe.platform.dto.product.*;
 import com.moe.platform.service.PlatformProductService;
 import com.moe.platform.service.PlatformServiceFactory;
+import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class PlatformProductController implements PlatformProductApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/list")
     public TableDataInfo<ProductVO> list(PlatformProductDTO dto) {
         if(CollUtil.isEmpty(dto.getParamList())){
             throw new ServiceException("未传递参数");
@@ -43,7 +43,6 @@ public class PlatformProductController implements PlatformProductApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/search")
     public TableDataInfo<ProductVO> search(ProductSearchDTO dto) {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return productService.productSearch(dto);
@@ -51,16 +50,23 @@ public class PlatformProductController implements PlatformProductApi {
 
     @InnerAuth
     @Override
-    @PostMapping("/detail")
     public R<ProductDetailVO> detail(ProductDetailDTO dto) {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return R.ok(productService.productDetail(dto));
     }
 
+    @InnerAuth
     @Override
     public TableDataInfo<ProductVO> recommend(ProductRecommendDto dto) {
         PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
         return productService.productRecommend(dto);
+    }
+
+    @InnerAuth
+    @Override
+    public R<PlatformUrlVO> productUrl(ProductDetailDTO dto) {
+        PlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
+        return R.ok(productService.productUrl(dto));
     }
 
 
