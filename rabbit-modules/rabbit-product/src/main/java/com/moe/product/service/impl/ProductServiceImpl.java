@@ -12,8 +12,8 @@ import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.moe.product.domain.dto.ProductListDTO;
-import com.moe.product.service.ProductGroupService;
-import com.moe.product.service.ProductService;
+import com.moe.product.service.IProductGroupService;
+import com.moe.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +22,12 @@ import org.springframework.stereotype.Service;
  * @date 2025/3/21
  */
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private IPlatformProductApi platformProductApi;
     @Autowired
-    private ProductGroupService productGroupService;
+    private IProductGroupService productGroupService;
 
     @Override
     public TableDataInfo<ProductVO> productList(IPage page, ProductListDTO dto) {

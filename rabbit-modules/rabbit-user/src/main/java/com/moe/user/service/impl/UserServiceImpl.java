@@ -5,20 +5,19 @@ import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.user.Gender;
 import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.user.mapper.UserMapper;
-import com.moe.user.service.UserService;
+import com.moe.user.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * @author tangyabo
  * @date 2025/3/12
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;

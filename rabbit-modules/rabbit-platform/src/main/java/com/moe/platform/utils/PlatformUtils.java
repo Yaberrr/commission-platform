@@ -5,20 +5,16 @@ import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
-import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.platform.mapper.PlatformAuthMapper;
-import com.moe.platform.service.PlatformAuthService;
+import com.moe.platform.service.IPlatformAuthService;
 import com.moe.platform.vo.CouponVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * 平台公共工具类
@@ -39,7 +35,7 @@ public class PlatformUtils {
      * @param platformAuthService 对应平台的service
      * @return
      */
-    public PlatformAuth getPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
+    public PlatformAuth getPlatformAuth(PlatformType platformType, IPlatformAuthService platformAuthService){
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if(loginUser == null){
             return null;
@@ -63,7 +59,7 @@ public class PlatformUtils {
      * @param platformAuthService
      * @return
      */
-    public PlatformAuth checkPlatformAuth(PlatformType platformType, PlatformAuthService platformAuthService){
+    public PlatformAuth checkPlatformAuth(PlatformType platformType, IPlatformAuthService platformAuthService){
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if(loginUser == null){
             throw new ServiceException("用户未登录", HttpStatus.UNAUTHORIZED);

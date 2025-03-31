@@ -1,25 +1,30 @@
-package com.moe.platform.service;
+package com.moe.product.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
-import com.moe.platform.dto.product.*;
+import com.moe.platform.dto.product.ProductDetailDTO;
+import com.moe.platform.dto.product.ProductRecommendDto;
+import com.moe.platform.dto.product.ProductSearchDTO;
 import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
+import com.moe.product.domain.dto.ProductListDTO;
 
 /**
  * 商品
  * @author tangyabo
- * @date 2025/3/19
+ * @date 2025/3/21
  */
-public interface PlatformProductService {
+public interface IProductService {
 
     /**
      * 商品列表
+     * @param page
      * @param dto
-     * @param param
      * @return
      */
-    TableDataInfo<ProductVO> productList(PlatformProductDTO dto, PlatformParam param);
+    TableDataInfo<ProductVO> productList(IPage page, ProductListDTO dto);
 
     /**
      * 商品搜索
@@ -33,10 +38,10 @@ public interface PlatformProductService {
      * @param dto
      * @return
      */
-    ProductDetailVO productDetail(ProductDetailDTO dto);
+    R<ProductDetailVO> productDetail(ProductDetailDTO dto);
 
     /**
-     * 商品推荐
+     * 为你推荐
      * @param dto
      * @return
      */
@@ -47,5 +52,5 @@ public interface PlatformProductService {
      * @param dto
      * @return
      */
-    PlatformUrlVO productUrl(ProductDetailDTO dto);
+    R<PlatformUrlVO> productUrl(ProductDetailDTO dto);
 }

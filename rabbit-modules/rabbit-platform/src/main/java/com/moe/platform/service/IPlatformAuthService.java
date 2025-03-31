@@ -9,7 +9,7 @@ import com.moe.platform.vo.PlatformUrlVO;
  * @author tangyabo
  * @date 2025/3/24
  */
-public interface PlatformAuthService {
+public interface IPlatformAuthService {
 
     /**
      * 生成授权信息

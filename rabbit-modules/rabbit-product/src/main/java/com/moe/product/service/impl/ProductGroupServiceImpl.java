@@ -5,7 +5,7 @@ import com.moe.common.core.domain.product.ProductGroup;
 import com.moe.platform.dto.product.PlatformParam;
 import com.moe.product.mapper.PlatformDictMapper;
 import com.moe.product.mapper.ProductGroupMapper;
-import com.moe.product.service.ProductGroupService;
+import com.moe.product.service.IProductGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @date 2025/3/21
  */
 @Service
-public class ProductGroupServiceImpl implements ProductGroupService {
+public class ProductGroupServiceImpl implements IProductGroupService {
 
     @Autowired
     private ProductGroupMapper productGroupMapper;

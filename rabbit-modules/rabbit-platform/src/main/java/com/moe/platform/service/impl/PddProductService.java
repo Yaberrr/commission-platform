@@ -7,10 +7,10 @@ import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.platform.convert.PddConvert;
-import com.moe.platform.domain.vo.PddGoodsListItemVO;
+import com.moe.platform.domain.bo.PddGoodsListItemBO;
 import com.moe.platform.dto.product.*;
-import com.moe.platform.service.PlatformAuthService;
-import com.moe.platform.service.PlatformProductService;
+import com.moe.platform.service.IPlatformAuthService;
+import com.moe.platform.service.IPlatformProductService;
 import com.moe.platform.utils.PddUtils;
 import com.moe.platform.utils.PlatformUtils;
 import com.moe.platform.vo.PlatformUrlVO;
@@ -38,14 +38,14 @@ import java.util.stream.Collectors;
  * @date 2025/3/19
  */
 @Service
-public class PddProductService implements PlatformProductService {
+public class PddProductService implements IPlatformProductService {
 
     @Autowired
     private PopClient popClient;
     @Autowired
     private PlatformUtils platformUtils;
     @Autowired
-    private PlatformAuthService platformAuthService;
+    private IPlatformAuthService platformAuthService;
 
     @Override
     public TableDataInfo<ProductVO> productList(PlatformProductDTO dto, PlatformParam param) {
@@ -109,7 +109,7 @@ public class PddProductService implements PlatformProductService {
         //提取数据
          List<ProductVO> productVOList = response.getGoodsSearchResponse().getGoodsList()
                 .stream().map(item ->  {
-                    PddGoodsListItemVO itemVo = BeanCopyUtils.copy(item, PddGoodsListItemVO.class);
+                    PddGoodsListItemBO itemVo = BeanCopyUtils.copy(item, PddGoodsListItemBO.class);
                     return PddConvert.toProductVO(itemVo);
                 }).collect(Collectors.toList());
         return new TableDataInfo<>(productVOList,response.getGoodsSearchResponse().getTotalCount());
@@ -165,7 +165,7 @@ public class PddProductService implements PlatformProductService {
             PddUtils.checkResponse(response);
             List<ProductVO> productVOList = response.getGoodsBasicDetailResponse().getList().stream()
                     .map(item -> {
-                        PddGoodsListItemVO itemVo = BeanCopyUtils.copy(item, PddGoodsListItemVO.class);
+                        PddGoodsListItemBO itemVo = BeanCopyUtils.copy(item, PddGoodsListItemBO.class);
                         return PddConvert.toProductVO(itemVo);
                     }).collect(Collectors.toList());
             return new TableDataInfo<>(productVOList,response.getGoodsBasicDetailResponse().getTotal());

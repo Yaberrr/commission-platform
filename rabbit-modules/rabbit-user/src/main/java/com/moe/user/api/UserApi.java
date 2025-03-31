@@ -3,7 +3,7 @@ package com.moe.user.api;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.security.annotation.InnerAuth;
-import com.moe.user.service.UserService;
+import com.moe.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserApi implements IUserApi {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @InnerAuth
     @Override

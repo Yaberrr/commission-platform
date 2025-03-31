@@ -10,7 +10,7 @@ import com.moe.common.security.annotation.InnerAuth;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.platform.mapper.PlatformAuthMapper;
-import com.moe.platform.service.PlatformAuthService;
+import com.moe.platform.service.IPlatformAuthService;
 import com.moe.platform.service.PlatformServiceFactory;
 import com.moe.platform.vo.PlatformUrlVO;
 import org.slf4j.Logger;
@@ -45,7 +45,7 @@ public class PlatformAuthApi implements IPlatformAuthApi {
     public R<PlatformUrlVO> generateAuthUrl(@RequestParam PlatformType platformType) {
         LoginUser loginUser = SecurityUtils.getLoginUser();
         PlatformAuth auth = loginUser.getPlatformAuth(platformType);
-        PlatformAuthService authService = platformServiceFactory.getAuthService(platformType);
+        IPlatformAuthService authService = platformServiceFactory.getAuthService(platformType);
         if(auth == null){
             //创建授权信息
             auth = authService.createAuth(loginUser.getAppUser().getId());
@@ -75,7 +75,7 @@ public class PlatformAuthApi implements IPlatformAuthApi {
             //检查授权状态
             if(auth.getStatus() == 0){
                 try {
-                    PlatformAuthService authService = platformServiceFactory.getAuthService(auth.getPlatformType());
+                    IPlatformAuthService authService = platformServiceFactory.getAuthService(auth.getPlatformType());
                     if(authService.checkAuth(auth)) {
                         auth.setStatus(1);
                         platformAuthMapper.updateById(auth);

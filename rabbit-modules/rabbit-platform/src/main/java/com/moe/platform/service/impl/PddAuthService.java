@@ -1,13 +1,11 @@
 package com.moe.platform.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.utils.Assert;
-import com.moe.platform.convert.PddConvert;
-import com.moe.platform.service.PlatformAuthService;
+import com.moe.platform.service.IPlatformAuthService;
 import com.moe.platform.utils.PddUtils;
 import com.moe.platform.vo.PlatformUrlVO;
 import com.pdd.pop.sdk.http.PopClient;
@@ -17,8 +15,6 @@ import com.pdd.pop.sdk.http.api.pop.request.PddDdkRpPromUrlGenerateRequest;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsPidGenerateResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkMemberAuthorityQueryResponse;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkRpPromUrlGenerateResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +26,7 @@ import java.util.List;
  * @date 2025/3/24
  */
 @Component
-public class PddAuthService implements PlatformAuthService {
+public class PddAuthService implements IPlatformAuthService {
 
     @Autowired
     private PopClient popClient;

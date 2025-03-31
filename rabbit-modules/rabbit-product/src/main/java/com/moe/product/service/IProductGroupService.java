@@ -9,7 +9,7 @@ import java.util.List;
  * @author tangyabo
  * @date 2025/3/21
  */
-public interface ProductGroupService {
+public interface IProductGroupService {
 
     /**
      * 查询平台参数

@@ -7,7 +7,7 @@ import com.moe.common.core.domain.user.User;
  * @author tangyabo
  * @date 2025/3/12
  */
-public interface UserService {
+public interface IUserService {
 
     /**
      * 保存用户

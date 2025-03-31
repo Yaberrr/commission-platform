@@ -1,4 +1,4 @@
-package com.moe.platform.domain.vo;
+package com.moe.platform.domain.bo;
 
 import com.pdd.pop.ext.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2025/3/27
  */
 @Data
-public class PddGoodsListItemVO{
+public class PddGoodsListItemBO {
     @JsonProperty("activity_promotion_rate")
     private Long activityPromotionRate;
     @JsonProperty("activity_tags")

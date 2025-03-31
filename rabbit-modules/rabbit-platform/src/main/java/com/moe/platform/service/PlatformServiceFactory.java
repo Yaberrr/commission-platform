@@ -16,14 +16,17 @@ import java.util.Optional;
 @Component
 public class PlatformServiceFactory {
 
-    private final Map<PlatformType, PlatformProductService> productServiceMap;
-    private final Map<PlatformType, PlatformAuthService> authServiceMap;
+    private final Map<PlatformType, IPlatformProductService> productServiceMap;
+    private final Map<PlatformType, IPlatformAuthService> authServiceMap;
+    private final Map<PlatformType, IPlatformOrderService> orderServiceMap;
 
     @Autowired
-    public PlatformServiceFactory(Map<String, PlatformProductService> productMap,
-                                  Map<String, PlatformAuthService> authMap) {
-        this.productServiceMap = initializeMap(productMap, PlatformProductService.class);
-        this.authServiceMap = initializeMap(authMap, PlatformAuthService.class);
+    public PlatformServiceFactory(Map<String, IPlatformProductService> productMap,
+                                  Map<String, IPlatformAuthService> authMap,
+                                  Map<String, IPlatformOrderService> orderMap) {
+        this.productServiceMap = initializeMap(productMap, IPlatformProductService.class);
+        this.authServiceMap = initializeMap(authMap, IPlatformAuthService.class);
+        this.orderServiceMap = initializeMap(orderMap, IPlatformOrderService.class);
     }
 
     private <T> Map<PlatformType, T> initializeMap(Map<String, T> serviceMap, Class<T> serviceType) {
@@ -32,7 +35,7 @@ public class PlatformServiceFactory {
             try {
                 // 匹配枚举名称
                 PlatformType taskType = PlatformType.valueOf(name.replace(
-                        (serviceType.getSimpleName().replace("Platform","")), "")
+                        (serviceType.getSimpleName().replace("IPlatform","")), "")
                         .toUpperCase());
                 resultMap.put(taskType, service);
             } catch (IllegalArgumentException e) {
@@ -42,13 +45,18 @@ public class PlatformServiceFactory {
         return resultMap;
     }
 
-    public PlatformProductService getProductService(PlatformType platformType) {
+    public IPlatformProductService getProductService(PlatformType platformType) {
         return Optional.ofNullable(productServiceMap.get(platformType))
                 .orElseThrow(() -> new ServiceException("未找到对应平台的商品服务: " + platformType.getDesc()));
     }
 
-    public PlatformAuthService getAuthService(PlatformType platformType) {
+    public IPlatformAuthService getAuthService(PlatformType platformType) {
         return Optional.ofNullable(authServiceMap.get(platformType))
                 .orElseThrow(() -> new ServiceException("未找到对应平台的认证服务: " + platformType.getDesc()));
+    }
+
+    public IPlatformOrderService getOrderService(PlatformType platformType) {
+        return Optional.ofNullable(orderServiceMap.get(platformType))
+                .orElseThrow(() -> new ServiceException("未找到对应平台的订单服务: " + platformType.getDesc()));
     }
 }
