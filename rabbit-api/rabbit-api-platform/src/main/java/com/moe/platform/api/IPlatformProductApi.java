@@ -30,7 +30,7 @@ public interface IPlatformProductApi {
      * @return
      */
     @PostMapping("/list")
-    TableDataInfo<ProductVO> list(@RequestBody PlatformProductDTO dto);
+    R<TableDataInfo<ProductVO>> list(@RequestBody PlatformProductDTO dto);
 
     /**
      * 平台商品搜索
@@ -38,7 +38,7 @@ public interface IPlatformProductApi {
      * @return
      */
     @PostMapping("/search")
-    TableDataInfo<ProductVO> search(@RequestBody ProductSearchDTO dto);
+    R<TableDataInfo<ProductVO>> search(@RequestBody ProductSearchDTO dto);
 
     /**
      * 平台商品详情
@@ -53,7 +53,7 @@ public interface IPlatformProductApi {
      * @return
      */
     @PostMapping("/recommend")
-    TableDataInfo<ProductVO> recommend(@RequestBody ProductRecommendDto dto);
+    R<TableDataInfo<ProductVO>> recommend(@RequestBody ProductRecommendDto dto);
 
     /**
      * 平台商品链接

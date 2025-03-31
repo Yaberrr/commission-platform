@@ -29,21 +29,21 @@ public class PlatformProductApi implements IPlatformProductApi {
 
     @InnerAuth
     @Override
-    public TableDataInfo<ProductVO> list(PlatformProductDTO dto) {
+    public R<TableDataInfo<ProductVO>> list(PlatformProductDTO dto) {
         if(CollUtil.isEmpty(dto.getParamList())){
             throw new ServiceException("未传递参数");
         }
         //todo: 先只处理一个平台
         PlatformParam param = dto.getParamList().get(0);
         IPlatformProductService productService = platformProductServiceFactory.getProductService(param.getPlatformType());
-        return productService.productList(dto, param);
+        return R.ok(productService.productList(dto, param));
     }
 
     @InnerAuth
     @Override
-    public TableDataInfo<ProductVO> search(ProductSearchDTO dto) {
+    public R<TableDataInfo<ProductVO>> search(ProductSearchDTO dto) {
         IPlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
-        return productService.productSearch(dto);
+        return R.ok(productService.productSearch(dto));
     }
 
     @InnerAuth
@@ -55,9 +55,9 @@ public class PlatformProductApi implements IPlatformProductApi {
 
     @InnerAuth
     @Override
-    public TableDataInfo<ProductVO> recommend(ProductRecommendDto dto) {
+    public R<TableDataInfo<ProductVO>> recommend(ProductRecommendDto dto) {
         IPlatformProductService productService = platformProductServiceFactory.getProductService(dto.getPlatformType());
-        return productService.productRecommend(dto);
+        return R.ok(productService.productRecommend(dto));
     }
 
     @InnerAuth

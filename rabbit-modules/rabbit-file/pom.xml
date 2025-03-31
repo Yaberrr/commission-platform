@@ -65,6 +65,10 @@
             <groupId>com.moe</groupId>
             <artifactId>rabbit-api-file</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-common-core</artifactId>
+        </dependency>
 
     </dependencies>
 

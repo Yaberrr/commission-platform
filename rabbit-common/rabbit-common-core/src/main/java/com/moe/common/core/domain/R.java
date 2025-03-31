@@ -29,6 +29,8 @@ public class R<T> implements Serializable
 
     private T data;
 
+    private Object errorData;
+
     public static <T> R<T> ok()
     {
         return restResult(null, SUCCESS, null);
@@ -113,6 +115,14 @@ public class R<T> implements Serializable
     public void setData(T data)
     {
         this.data = data;
+    }
+
+    public Object getErrorData() {
+        return errorData;
+    }
+
+    public void setErrorData(Object errorData) {
+        this.errorData = errorData;
     }
 
     public Boolean isSuccess(){

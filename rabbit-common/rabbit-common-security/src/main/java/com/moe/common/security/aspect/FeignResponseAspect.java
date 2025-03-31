@@ -37,6 +37,7 @@ public class FeignResponseAspect {
     public void afterReturning(JoinPoint joinPoint, Object result) {
         String msg = null;
         Integer code = HttpStatus.SUCCESS;
+        Object errorData = null;
         if (result instanceof TableDataInfo) {
             TableDataInfo<?> info = (TableDataInfo<?>) result;
             msg = info.getMsg();
@@ -45,6 +46,7 @@ public class FeignResponseAspect {
             R<?> r = (R<?>) result;
             msg = r.getMsg();
             code = r.getCode();
+            errorData = r.getErrorData();
         }
         if(code != HttpStatus.SUCCESS) {
             Class<?> targetClass = joinPoint.getTarget().getClass();
@@ -53,7 +55,7 @@ public class FeignResponseAspect {
                 MethodSignature signature = (MethodSignature) joinPoint.getSignature();
                 annotation = signature.getMethod().getAnnotation(FeignResponseCheck.class);
             }
-            throw new ServiceException(code, annotation.serviceName() + "服务异常:{}", msg);
+            throw new ServiceException(code, errorData, annotation.serviceName() + "服务异常:{}", msg);
         }
     }
 

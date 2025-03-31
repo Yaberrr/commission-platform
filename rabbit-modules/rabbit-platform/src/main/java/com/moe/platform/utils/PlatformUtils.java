@@ -7,6 +7,8 @@ import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
+import com.moe.platform.dto.PlatformBaseDTO;
+import com.moe.platform.dto.PlatformDTO;
 import com.moe.platform.mapper.PlatformAuthMapper;
 import com.moe.platform.service.IPlatformAuthService;
 import com.moe.platform.vo.CouponVO;
@@ -37,20 +39,24 @@ public class PlatformUtils {
      */
     public PlatformAuth getPlatformAuth(PlatformType platformType, IPlatformAuthService platformAuthService){
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        if(loginUser == null){
-            return null;
-        }
-        PlatformAuth auth = loginUser.getPlatformAuth(platformType);
-        if(auth != null && auth.getStatus() != 1){
-            //检查授权状态
-            if(platformAuthService.checkAuth(auth)){
-                auth.setStatus(1);
-                platformAuthMapper.updateById(auth);
-                //刷新缓存
-                tokenService.refreshToken(loginUser);
+        if(loginUser != null){
+            PlatformAuth auth = loginUser.getPlatformAuth(platformType);
+            if(auth != null){
+                if(auth.getStatus() == 1){
+                    //已授权
+                    return auth;
+                }
+                //未授权则检查授权状态
+                if(platformAuthService.checkAuth(auth)){
+                    auth.setStatus(1);
+                    platformAuthMapper.updateById(auth);
+                    //刷新缓存
+                    tokenService.refreshToken(loginUser);
+                    return auth;
+                }
             }
         }
-        return auth;
+        return null;
     }
 
     /**
@@ -66,7 +72,7 @@ public class PlatformUtils {
         }
         PlatformAuth auth = this.getPlatformAuth(platformType, platformAuthService);
         if(auth == null || auth.getStatus() != 1) {
-            throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED);
+            throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED, new PlatformDTO(platformType.getCode()));
         }
         return auth;
     }

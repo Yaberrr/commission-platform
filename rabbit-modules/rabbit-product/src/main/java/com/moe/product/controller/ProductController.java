@@ -30,13 +30,13 @@ public class ProductController {
     @Operation(description = "商品列表")
     @PostMapping("/list")
     public R<TableDataInfo<ProductVO>> list(@Valid ProductListDTO dto){
-        return R.ok(productService.productList(TableSupport.buildPageRequest().buildPage(),dto));
+        return productService.productList(TableSupport.buildPageRequest().buildPage(),dto);
     }
 
     @Operation(description = "商品搜索")
     @PostMapping("/search")
     public R<TableDataInfo<ProductVO>> search(@Valid ProductSearchDTO dto){
-        return R.ok(productService.productSearch(dto));
+        return productService.productSearch(dto);
     }
 
     @Operation(description = "商品详情")
@@ -48,7 +48,7 @@ public class ProductController {
     @Operation(description = "商品推荐")
     @PostMapping("/recommend")
     public R<TableDataInfo<ProductVO>> recommend(@Valid ProductRecommendDto dto){
-        return R.ok(productService.productRecommend(dto));
+        return productService.productRecommend(dto);
     }
 
     @Operation(description = "生成商品链接")

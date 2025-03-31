@@ -30,7 +30,7 @@ public class ProductServiceImpl implements IProductService {
     private IProductGroupService productGroupService;
 
     @Override
-    public TableDataInfo<ProductVO> productList(IPage page, ProductListDTO dto) {
+    public R<TableDataInfo<ProductVO>> productList(IPage page, ProductListDTO dto) {
         PlatformProductDTO platformDTO = new PlatformProductDTO();
         platformDTO.setPageNum((int) page.getCurrent());
         platformDTO.setPageSize((int) page.getSize());
@@ -40,7 +40,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public TableDataInfo<ProductVO> productSearch(ProductSearchDTO dto) {
+    public R<TableDataInfo<ProductVO>> productSearch(ProductSearchDTO dto) {
         return platformProductApi.search(dto);
     }
 
@@ -50,7 +50,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto) {
+    public R<TableDataInfo<ProductVO>> productRecommend(ProductRecommendDto dto) {
         return platformProductApi.recommend(dto);
     }
 

@@ -77,7 +77,7 @@ public class GlobalExceptionHandler
             log.error(e.getMessage(), e);
         }
         Integer code = e.getCode();
-        return StringUtils.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
+        return StringUtils.isNotNull(code) ? AjaxResult.error(code, e.getMessage(), e.getErrorData()) : AjaxResult.error(e.getMessage(),e.getErrorData());
     }
 
     /**

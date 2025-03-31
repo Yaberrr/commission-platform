@@ -7,7 +7,7 @@ import com.moe.common.core.utils.StringUtils;
 
 /**
  * 操作消息提醒
- * 
+ *
  * @author ruoyi
  */
 public class AjaxResult extends HashMap<String, Object>
@@ -23,6 +23,9 @@ public class AjaxResult extends HashMap<String, Object>
     /** 数据对象 */
     public static final String DATA_TAG = "data";
 
+    /** 错误数据对象 */
+    public static final String ERROR_DATA_TAG = "errorData";
+
     /**
      * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
      */
@@ -32,7 +35,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 初始化一个新创建的 AjaxResult 对象
-     * 
+     *
      * @param code 状态码
      * @param msg 返回内容
      */
@@ -44,7 +47,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 初始化一个新创建的 AjaxResult 对象
-     * 
+     *
      * @param code 状态码
      * @param msg 返回内容
      * @param data 数据对象
@@ -60,8 +63,28 @@ public class AjaxResult extends HashMap<String, Object>
     }
 
     /**
+     * 初始化一个新创建的 AjaxResult 对象
+     * @param code 状态码
+     * @param msg 返回内容
+     * @param data 数据对象
+     * @param errorData 错误对象
+     */
+    public AjaxResult(int code, String msg, Object data, Object errorData)
+    {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+        if (StringUtils.isNotNull(data))
+        {
+            super.put(DATA_TAG, data);
+        }
+        if (StringUtils.isNotNull(errorData)){
+            super.put(ERROR_DATA_TAG, errorData);
+        }
+    }
+
+    /**
      * 返回成功消息
-     * 
+     *
      * @return 成功消息
      */
     public static AjaxResult success()
@@ -71,7 +94,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 返回成功数据
-     * 
+     *
      * @return 成功消息
      */
     public static AjaxResult success(Object data)
@@ -81,7 +104,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 返回成功消息
-     * 
+     *
      * @param msg 返回内容
      * @return 成功消息
      */
@@ -92,7 +115,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 返回成功消息
-     * 
+     *
      * @param msg 返回内容
      * @param data 数据对象
      * @return 成功消息
@@ -127,7 +150,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 返回错误消息
-     * 
+     *
      * @return 错误消息
      */
     public static AjaxResult error()
@@ -137,7 +160,7 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 返回错误消息
-     * 
+     *
      * @param msg 返回内容
      * @return 错误消息
      */
@@ -148,19 +171,32 @@ public class AjaxResult extends HashMap<String, Object>
 
     /**
      * 返回错误消息
-     * 
+     *
      * @param msg 返回内容
-     * @param data 数据对象
+     * @param errorData 数据对象
      * @return 错误消息
      */
-    public static AjaxResult error(String msg, Object data)
+    public static AjaxResult error(String msg, Object errorData)
     {
-        return new AjaxResult(HttpStatus.ERROR, msg, data);
+        return new AjaxResult(HttpStatus.ERROR, msg, null, errorData);
     }
 
     /**
      * 返回错误消息
-     * 
+     * @param code 错误码
+     * @param msg 返回内容
+     * @param errorData 错误数据
+     * @return 错误消息
+     */
+    public static AjaxResult error(int code, String msg, Object errorData)
+    {
+        return new AjaxResult(code, msg, null, errorData);
+    }
+
+
+    /**
+     * 返回错误消息
+     *
      * @param code 状态码
      * @param msg 返回内容
      * @return 错误消息

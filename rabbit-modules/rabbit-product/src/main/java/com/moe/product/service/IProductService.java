@@ -24,14 +24,14 @@ public interface IProductService {
      * @param dto
      * @return
      */
-    TableDataInfo<ProductVO> productList(IPage page, ProductListDTO dto);
+    R<TableDataInfo<ProductVO>> productList(IPage page, ProductListDTO dto);
 
     /**
      * 商品搜索
      * @param dto
      * @return
      */
-    TableDataInfo<ProductVO> productSearch(ProductSearchDTO dto);
+    R<TableDataInfo<ProductVO>> productSearch(ProductSearchDTO dto);
 
     /**
      * 商品详情
@@ -45,7 +45,7 @@ public interface IProductService {
      * @param dto
      * @return
      */
-    TableDataInfo<ProductVO> productRecommend(ProductRecommendDto dto);
+    R<TableDataInfo<ProductVO>> productRecommend(ProductRecommendDto dto);
 
     /**
      * 商品链接
