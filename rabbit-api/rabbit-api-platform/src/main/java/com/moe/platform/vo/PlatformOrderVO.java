@@ -1,30 +1,23 @@
-package com.moe.common.core.domain.order;
+package com.moe.platform.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.enums.order.OrderStatus;
-import com.moe.common.core.web.domain.BaseEntity;
+import com.moe.common.core.enums.platform.PlatformType;
 import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 订单
+ * 平台订单统一返回
+ * @author tangyabo
+ * @date 2025/3/31
  */
 @Data
-@TableName("rb_order")
-public class Order extends BaseEntity {
-    @TableId(type = IdType.AUTO)
-    private Long id;
+public class PlatformOrderVO {
 
-    // 用户id
-    private Long userId;
-
-    // 订单编号
-    private String orderNo;
+    //授权id
+    private String authId;
 
     //平台编号
     private String platformNo;
@@ -47,7 +40,7 @@ public class Order extends BaseEntity {
     //佣金比例
     private BigDecimal commissionRate;
 
-    // 平台总佣金
+    //平台佣金
     private BigDecimal platformCommission;
 
     // 本人佣金
@@ -74,4 +67,5 @@ public class Order extends BaseEntity {
     //结算时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date settleTime;
+
 }

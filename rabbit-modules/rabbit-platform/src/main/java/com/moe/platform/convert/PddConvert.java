@@ -1,21 +1,25 @@
 package com.moe.platform.convert;
 
+import com.moe.common.core.constant.DecimalConstants;
+import com.moe.common.core.enums.order.OrderStatus;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
-import com.moe.platform.domain.vo.PddGoodsListItemVO;
+import com.moe.platform.domain.bo.PddGoodsListItemBO;
 import com.moe.platform.utils.PlatformUtils;
-import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.CouponVO;
+import com.moe.platform.vo.PlatformOrderVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
 import com.pdd.pop.sdk.http.api.pop.response.PddDdkGoodsDetailResponse;
-import com.pdd.pop.sdk.http.api.pop.response.PddDdkRpPromUrlGenerateResponse;
+import com.pdd.pop.sdk.http.api.pop.response.PddDdkOrderListIncrementGetResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.moe.common.core.constant.DecimalConstants.*;
 
 /**
  * 拼多多转换类
@@ -24,10 +28,9 @@ import java.util.List;
  */
 public class PddConvert {
 
-    public final static BigDecimal HUNDRED = BigDecimal.valueOf(100);
 
 
-    public static ProductVO toProductVO(PddGoodsListItemVO item) {
+    public static ProductVO toProductVO(PddGoodsListItemBO item) {
         ProductVO vo = new ProductVO();
         vo.setProductId(item.getGoodsSign());
         vo.setShopName(item.getMallName());
@@ -75,7 +78,7 @@ public class PddConvert {
                 rate = BigDecimal.valueOf(item.getActivityPromotionRate());
             }
         }
-        vo.setCommission(vo.getLowestPrice().multiply(rate).divide(new BigDecimal("1000"),2, RoundingMode.DOWN));
+        vo.setCommission(vo.getLowestPrice().multiply(rate).divide(THOUSAND,2, RoundingMode.DOWN));
         vo.setPlatformType(PlatformType.PDD);
 
         //分转为元
@@ -94,7 +97,7 @@ public class PddConvert {
 
     public static ProductDetailVO toProductDetailVO(PddDdkGoodsDetailResponse.GoodsDetailResponseGoodsDetailsItem detailItem){
         //先提取productVo的相同字段
-        PddGoodsListItemVO packVO = BeanCopyUtils.copy(detailItem, PddGoodsListItemVO.class);
+        PddGoodsListItemBO packVO = BeanCopyUtils.copy(detailItem, PddGoodsListItemBO.class);
         ProductVO productVO = toProductVO(packVO);
 
         //处理详情独有字段
@@ -106,4 +109,37 @@ public class PddConvert {
         return detailVO;
     }
 
+    public static PlatformOrderVO toOrderVO(PddDdkOrderListIncrementGetResponse.OrderListGetResponseOrderListItem item) {
+        PlatformOrderVO orderVO = new PlatformOrderVO();
+        orderVO.setAuthId(item.getPId());
+        orderVO.setPlatformNo(item.getOrderId());
+        orderVO.setProductName(item.getGoodsName());
+        orderVO.setProductImg(item.getGoodsThumbnailUrl());
+        orderVO.setOrderAmount(BigDecimal.valueOf(item.getOrderAmount()));
+        orderVO.setCommissionRate(BigDecimal.valueOf(item.getPromotionRate()).divide(TEN,2,RoundingMode.DOWN));
+        orderVO.setPlatformCommission(BigDecimal.valueOf(item.getPromotionAmount()).divide(HUNDRED,2,RoundingMode.DOWN));
+        orderVO.setOrderAmount(BigDecimal.valueOf(item.getOrderAmount()));
+        orderVO.setOrderTime(new Date(item.getOrderCreateTime()*1000));
+        orderVO.setPayTime(new Date(item.getOrderPayTime()*1000));
+        orderVO.setReceiveTime(new Date(item.getOrderReceiveTime()*1000));
+        orderVO.setSettleTime(new Date(item.getOrderSettleTime()*1000));
+        switch (item.getOrderStatus()){
+            case 0://已支付
+            case 1://已成团
+                orderVO.setStatus(OrderStatus.PAID);
+                break;
+            case 2://确认收货
+            case 3://审核成功
+                orderVO.setStatus(OrderStatus.RECEIVED);
+                break;
+            case 5://已经结算
+                orderVO.setStatus(OrderStatus.ACCOUNTED);
+                break;
+            case 4://审核失败(不可体现)
+            case 10://已处罚
+                orderVO.setStatus(OrderStatus.EXPIRED);
+                break;
+        }
+        return orderVO;
+    }
 }
