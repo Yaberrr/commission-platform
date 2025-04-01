@@ -107,7 +107,7 @@ public class ProductGroupServiceImpl implements ProductGroupService {
                                         .map(dict -> {
                                             ProductGroupDictVO.Dict dictVO = new ProductGroupDictVO.Dict();
                                             dictVO.setId(dict.getId());
-                                            dictVO.setDictType(dict.getDictText());
+                                            dictVO.setDictName(dict.getDictText());
                                             return dictVO;
                                         })
                                         .collect(Collectors.toList());
@@ -116,10 +116,7 @@ public class ProductGroupServiceImpl implements ProductGroupService {
                                 return dictType;
                             })
                             .collect(Collectors.toList());
-
                     vo.setDictTypeList(dictTypeList);
-
-                    System.out.println(JSON.toJSONString(vo));
                     return vo;
 
                 })
