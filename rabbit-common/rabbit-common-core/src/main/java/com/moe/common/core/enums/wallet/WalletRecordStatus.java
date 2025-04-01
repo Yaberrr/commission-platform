@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public enum WalletRecordStatus {
 
-    NOT_RECEIVED(1, "未到账"),
+    INIT(1, "未到账"),
     INVALID(2, "已失效"),
     RECEIVED(3, "已到账");
 

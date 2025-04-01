@@ -70,6 +70,7 @@ public class WalletServiceImpl implements IWalletService {
     @Transactional
     public void consumeWalletRecord(WalletRecordDTO dto) {
         WalletFlowType flowType = dto.getEventType().getFlowType();
+        //扣除才加锁
         Wallet wallet = this.myWallet(dto.getUserId(), flowType == WalletFlowType.EXPENSE);
         //判断正负
         BigDecimal amount = flowType == WalletFlowType.EXPENSE? dto.getAmount().abs().negate():dto.getAmount().abs();
@@ -80,7 +81,7 @@ public class WalletServiceImpl implements IWalletService {
         record.setAmount(amount);
         record.setWalletId(wallet.getId());
         //即将到帐
-        record.setStatus(WalletRecordStatus.NOT_RECEIVED);
+        record.setStatus(WalletRecordStatus.INIT);
         walletRecordMapper.insert(record);
 
         //修改钱包信息
@@ -117,11 +118,15 @@ public class WalletServiceImpl implements IWalletService {
     }
 
     @Override
+    @Transactional
     public WalletRecord changeWalletRecordStatus(Long recordId, WalletRecordStatus status) {
         Assert.isTrue(status == WalletRecordStatus.RECEIVED || status == WalletRecordStatus.INVALID,
                 "仅可修改状态为已失效或已到账");
-        WalletRecord record = walletRecordMapper.selectById(recordId);
-        Assert.isTrue(record.getStatus() == WalletRecordStatus.NOT_RECEIVED, "已失效或已到账不可再修改");
+        //加锁
+        WalletRecord record = walletRecordMapper.selectByIdForUpdate(recordId);
+        Assert.isTrue(record.getStatus() == WalletRecordStatus.INIT, "已失效或已到账不可再修改");
+        record.setStatus(status);
+        Assert.isTrue(walletRecordMapper.updateById(record) >0,"更新状态失败");
 
         WalletUpdateBO updateBO = new WalletUpdateBO();
         updateBO.setWalletId(record.getWalletId());
@@ -134,8 +139,16 @@ public class WalletServiceImpl implements IWalletService {
                     updateBO.setTotalCommission(record.getAmount().negate());
                     updateBO.setUpcomingCommission(record.getAmount().negate());
                     updateBO.setOrderAmount(record.getOrderAmount().negate());
-                    if(record.getRewardLevel() == WalletRewardLevel.SELF){
-                        updateBO.setOrderCount(-1);
+                    switch (record.getRewardLevel()) {
+                        case SELF:
+                            updateBO.setOrderCount(-1);
+                            break;
+                        case PARENT:
+                            updateBO.setInviteOrderCount(-1);
+                            break;
+                        case GRANDPARENT:
+                            updateBO.setChildInviteOrderCount(-1);
+                            break;
                     }
                 }
                 break;
@@ -146,8 +159,7 @@ public class WalletServiceImpl implements IWalletService {
                     updateBO.setBalance(record.getAmount().negate());
                 }
         }
-        int count = walletMapper.updateByBO(updateBO);
-        Assert.isTrue(count > 0, "更新钱包数据失败");
+        Assert.isTrue( walletMapper.updateByBO(updateBO) > 0, "更新钱包数据失败");
         return record;
     }
 }

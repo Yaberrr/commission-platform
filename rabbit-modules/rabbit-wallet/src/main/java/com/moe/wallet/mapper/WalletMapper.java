@@ -18,5 +18,11 @@ public interface WalletMapper extends BaseMapperPlus<WalletMapper, Wallet, Walle
     @Select("SELECT * FROM rb_wallet WHERE user_id = #{userId} FOR UPDATE")
     Wallet selectByUserIdForUpdate(Long userId);
 
+    /**
+     * 数量更新
+     * @param bo
+     * @return
+     */
     int updateByBO(WalletUpdateBO bo);
+
 }
