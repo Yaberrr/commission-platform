@@ -71,7 +71,7 @@ public class PlatformUtils {
             throw new ServiceException("用户未登录", HttpStatus.UNAUTHORIZED);
         }
         PlatformAuth auth = this.getPlatformAuth(platformType, platformAuthService);
-        if(auth == null || auth.getStatus() != 1) {
+        if(auth == null) {
             throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED, new PlatformDTO(platformType.getCode()));
         }
         return auth;

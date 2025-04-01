@@ -1,4 +1,4 @@
-package com.moe.common.core.enums.user;
+package com.moe.common.core.enums.wallet;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;

@@ -2,6 +2,7 @@ package com.moe.platform.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,4 +25,9 @@ public class ProductDetailVO extends ProductVO {
     //商品介绍
     private String introduction;
 
+    //下一级佣金
+    private BigDecimal nextCommission;
+
+    //分享佣金
+    private BigDecimal shareCommission;
 }

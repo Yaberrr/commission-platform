@@ -19,23 +19,24 @@ public class Wallet extends BaseEntity {
     // 用户id
     private Long userId;
 
-    // 余额
-    private BigDecimal balance;
-
-    // 有效收益
+    // 有效收益 = 即将到账收益 + 余额 + 已提现收益
     private BigDecimal totalCommission;
 
     // 即将到帐收益
     private BigDecimal upcomingCommission;
 
     // 已提现收益
-    private String withdrawnCommission;
+    private BigDecimal withdrawnCommission;
 
-    // 有效订单数
-    private int orderCount;
+    // 余额
+    private BigDecimal balance;
+
 
     // 订单金额
     private BigDecimal orderAmount;
+
+    // 有效订单数
+    private int orderCount;
 
     // 邀请下单数量
     private int inviteOrderCount;
