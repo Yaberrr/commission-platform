@@ -95,18 +95,18 @@ public class ProductGroupServiceImpl implements ProductGroupService {
                     vo.setPlatformName(entry.getKey().getDesc());
                     vo.setPlatformType(entry.getKey().getCode());
 
-                    List<ProductGroupDictVO.PlatformDictType> dictTypeList = entry.getValue().stream()
+                    List<ProductGroupDictVO.Dict> dictTypeList = entry.getValue().stream()
                             .collect(Collectors.groupingBy(PlatformDict::getDictType))
                             .entrySet().stream()
                             .map(dictEntry -> {
-                                ProductGroupDictVO.PlatformDictType dictType = new ProductGroupDictVO.PlatformDictType();
-                                dictType.setDictType(dictEntry.getKey().getCode());
+                                ProductGroupDictVO.Dict dictType = new ProductGroupDictVO.Dict();
+                                dictType.setId(dictEntry.getKey().getCode());
                                 dictType.setDictName(dictEntry.getKey().getDesc());
 
                                 List<ProductGroupDictVO.Dict> dictList = dictEntry.getValue().stream()
                                         .map(dict -> {
                                             ProductGroupDictVO.Dict dictVO = new ProductGroupDictVO.Dict();
-                                            dictVO.setId(dict.getId());
+                                            dictVO.setId(dict.getId().intValue());
                                             dictVO.setDictName(dict.getDictText());
                                             return dictVO;
                                         })
@@ -116,7 +116,7 @@ public class ProductGroupServiceImpl implements ProductGroupService {
                                 return dictType;
                             })
                             .collect(Collectors.toList());
-                    vo.setDictTypeList(dictTypeList);
+                    vo.setDictList(dictTypeList);
                     return vo;
 
                 })

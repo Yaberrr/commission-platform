@@ -1,12 +1,13 @@
 package com.moe.admin.domain.vo.product;
 
-
 import lombok.Data;
-
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class ProductGroupDictVO {
+public class ProductGroupDictVO implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * 平台类型
      */
@@ -19,32 +20,25 @@ public class ProductGroupDictVO {
     /**
      * 平台类型下的字典类型列表
      */
-    List<PlatformDictType> dictTypeList;
+    private List<Dict> dictList;
 
-    /**
-     * 平台类型下的字典类型
-     */
     @Data
-    public static class PlatformDictType {
+    public static class Dict implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         /**
-         * 字典类型
+         * 字典ID
          */
-        private Integer dictType;
+        private Integer id;
+
         /**
-         * 字典类型名称
+         * 字典名称
          */
         private String dictName;
 
         /**
-         * 每种类型下面的字典列表
+         * 子字典列表，支持递归嵌套
          */
         private List<Dict> dictList;
-    }
-
-    @Data
-    public static class Dict {
-        private Long id;
-
-        private String dictName;
     }
 }
