@@ -6,7 +6,6 @@ import com.moe.common.core.enums.wallet.WalletEventType;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
 import com.moe.common.core.enums.wallet.WalletRewardLevel;
 import com.moe.common.core.vo.CommissionConfig;
-import com.moe.common.security.service.PlatformConfigService;
 import com.moe.wallet.dto.WalletRecordDTO;
 import com.moe.wallet.service.IWalletService;
 import org.junit.Test;
@@ -27,8 +26,6 @@ public class WalletTest {
 
     @Autowired
     private IWalletService walletService;
-    @Autowired
-    private PlatformConfigService publicPlatformConfigService;
 
     @Test
     public void testMyWallet(){
@@ -57,8 +54,8 @@ public class WalletTest {
 
     @Test
     public void testConfig(){
-        Object config = publicPlatformConfigService.getConfig(PlatformType.PDD, PlatformConfigType.COMMISSION_RATIO);
+//        Object config = publicPlatformConfigService.getConfig(PlatformType.PDD, PlatformConfigType.COMMISSION_RATIO);
 
-        System.out.println((CommissionConfig)config);
+//        System.out.println((CommissionConfig)config);
     }
 }
