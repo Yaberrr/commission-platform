@@ -1,5 +1,6 @@
 package com.moe.admin.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.product.ProductGroupDTO;
@@ -90,21 +91,23 @@ public class ProductGroupServiceImpl implements ProductGroupService {
                 .collect(Collectors.groupingBy(PlatformDict::getPlatformType))
                 .entrySet().stream()
                 .map(entry -> {
-                    ProductGroupDictVO.PlatformType platformType = new ProductGroupDictVO.PlatformType();
-                    platformType.setPlatformType(entry.getKey().getCode());
+                    ProductGroupDictVO vo = new ProductGroupDictVO();
+                    vo.setPlatformName(entry.getKey().getDesc());
+                    vo.setPlatformType(entry.getKey().getCode());
 
-                    List<ProductGroupDictVO.DictType> dictTypeList = entry.getValue().stream()
+                    List<ProductGroupDictVO.Dict> dictTypeList = entry.getValue().stream()
                             .collect(Collectors.groupingBy(PlatformDict::getDictType))
                             .entrySet().stream()
                             .map(dictEntry -> {
-                                ProductGroupDictVO.DictType dictType = new ProductGroupDictVO.DictType();
-                                dictType.setDictType(dictEntry.getKey().getCode());
+                                ProductGroupDictVO.Dict dictType = new ProductGroupDictVO.Dict();
+                                dictType.setId(dictEntry.getKey().getCode());
+                                dictType.setDictName(dictEntry.getKey().getDesc());
 
                                 List<ProductGroupDictVO.Dict> dictList = dictEntry.getValue().stream()
                                         .map(dict -> {
                                             ProductGroupDictVO.Dict dictVO = new ProductGroupDictVO.Dict();
-                                            dictVO.setId(dict.getId());
-                                            dictVO.setDictType(dict.getDictText());
+                                            dictVO.setId(dict.getId().intValue());
+                                            dictVO.setDictName(dict.getDictText());
                                             return dictVO;
                                         })
                                         .collect(Collectors.toList());
@@ -113,15 +116,10 @@ public class ProductGroupServiceImpl implements ProductGroupService {
                                 return dictType;
                             })
                             .collect(Collectors.toList());
-
-                    platformType.setDictTypeList(dictTypeList);
-
-                    ProductGroupDictVO vo = new ProductGroupDictVO();
-                    vo.setPlatformType(platformType);
+                    vo.setDictList(dictTypeList);
                     return vo;
+
                 })
                 .collect(Collectors.toList());
     }
-
-
 }

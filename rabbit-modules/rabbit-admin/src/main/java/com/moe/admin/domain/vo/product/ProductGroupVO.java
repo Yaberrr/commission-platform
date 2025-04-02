@@ -1,5 +1,6 @@
 package com.moe.admin.domain.vo.product;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class ProductGroupVO {
 
     private List<Integer> platformTypes;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
