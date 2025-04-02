@@ -55,27 +55,27 @@ public class R<T> implements Serializable
 
     public static <T> R<T> fail()
     {
-        return restResult(null, FAIL, null);
+        return failResult(null, FAIL, null);
     }
 
     public static <T> R<T> fail(String msg)
     {
-        return restResult(null, FAIL, msg);
+        return failResult(null, FAIL, msg);
     }
 
     public static <T> R<T> fail(T data)
     {
-        return restResult(data, FAIL, null);
+        return failResult(data, FAIL, null);
     }
 
     public static <T> R<T> fail(T data, String msg)
     {
-        return restResult(data, FAIL, msg);
+        return failResult(data, FAIL, msg);
     }
 
     public static <T> R<T> fail(int code, String msg)
     {
-        return restResult(null, code, msg);
+        return failResult(null, code, msg);
     }
 
     private static <T> R<T> restResult(T data, int code, String msg)
@@ -83,6 +83,15 @@ public class R<T> implements Serializable
         R<T> apiResult = new R<>();
         apiResult.setCode(code);
         apiResult.setData(data);
+        apiResult.setMsg(msg);
+        return apiResult;
+    }
+
+    private static <T> R<T> failResult(Object errorData, int code, String msg)
+    {
+        R<T> apiResult = new R<>();
+        apiResult.setCode(code);
+        apiResult.setErrorData(errorData);
         apiResult.setMsg(msg);
         return apiResult;
     }

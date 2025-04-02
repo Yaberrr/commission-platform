@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2025/3/12
  */
 @FeignResponseCheck(serviceName = "用户")
-@FeignClient(path = "/inner", contextId = "userApi", value = ServiceNameConstants.USER_SERVICE)
+@FeignClient(path = "/userInner", contextId = "userApi", value = ServiceNameConstants.USER_SERVICE)
 public interface IUserApi {
 
     /**

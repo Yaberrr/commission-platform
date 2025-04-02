@@ -1,4 +1,4 @@
-package com.moe.common.core.enums.user;
+package com.moe.common.core.enums.wallet;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
- * 返佣级别
+ * 钱包记录状态
  */
 @Getter
-public enum WalletRewardLevel {
+public enum WalletRecordStatus {
 
-    SELF(1, "本人"),
-    PARENT(2, "上游"),
-    GRANDPARENT(3, "上上游");
+    INIT(1, "未到账"),
+    INVALID(2, "已失效"),
+    RECEIVED(3, "已到账");
 
     @EnumValue
     @JsonValue
@@ -21,15 +21,15 @@ public enum WalletRewardLevel {
 
     private final String desc;
 
-    WalletRewardLevel(int code, String desc) {
+    WalletRecordStatus(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
     @JsonCreator
-    public static WalletRewardLevel fromCode(Integer code){
+    public static WalletRecordStatus fromCode(Integer code){
         if(code == null) return null;
-        for (WalletRewardLevel e : WalletRewardLevel.values()) {
+        for (WalletRecordStatus e : WalletRecordStatus.values()) {
             if (e.code == code) {
                 return e;
             }

@@ -36,4 +36,16 @@ public enum MemberLevel {
         }
         return null;
     }
+
+    /**
+     * 下一等级
+     * @return
+     */
+    public MemberLevel nextLevel() {
+        MemberLevel[] levels = MemberLevel.values();
+        if (this.ordinal() == levels.length - 1) {
+            return null;
+        }
+        return levels[this.ordinal() + 1];
+    }
 }

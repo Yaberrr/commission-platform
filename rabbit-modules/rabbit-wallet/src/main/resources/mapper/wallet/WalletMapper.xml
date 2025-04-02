@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.wallet.mapper.WalletMapper">
+
+    <update id="updateByBO">
+        UPDATE rb_wallet
+        <set>
+            <if test="balance != null and balance != 0">
+                balance = balance + #{balance},
+            </if>
+            <if test="totalCommission != null and totalCommission != 0">
+                total_commission = total_commission + #{totalCommission},
+            </if>
+            <if test="upcomingCommission != null and upcomingCommission != 0">
+                upcoming_commission = upcoming_commission + #{upcomingCommission},
+            </if>
+            <if test="withdrawnCommission != null and withdrawnCommission != 0">
+                withdrawn_commission = withdrawn_commission + #{withdrawnCommission},
+            </if>
+            <if test="orderAmount != null and orderAmount != 0">
+                order_amount = order_amount + #{orderAmount},
+            </if>
+            <if test="orderCount != 0">
+                order_count = order_count + #{orderCount},
+            </if>
+            <if test="inviteOrderCount != 0">
+                invite_order_count = invite_order_count + #{inviteOrderCount},
+            </if>
+            <if test="childInviteOrderCount != 0">
+                child_invite_order_count = child_invite_order_count + #{childInviteOrderCount},
+            </if>
+        </set>
+        WHERE id = #{walletId}
+    </update>
+</mapper>

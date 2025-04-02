@@ -71,7 +71,7 @@ public class PlatformUtils {
             throw new ServiceException("用户未登录", HttpStatus.UNAUTHORIZED);
         }
         PlatformAuth auth = this.getPlatformAuth(platformType, platformAuthService);
-        if(auth == null || auth.getStatus() != 1) {
+        if(auth == null) {
             throw new ServiceException("平台未授权", HttpStatus.PLATFORM_UNAUTHORIZED, new PlatformDTO(platformType.getCode()));
         }
         return auth;
@@ -86,12 +86,12 @@ public class PlatformUtils {
      */
     public static CouponVO getBestCoupon(List<CouponVO> couponVOList){
         CouponVO bestCoupon = null;
-
+        long currentSeconds = System.currentTimeMillis() / 1000;
         for (CouponVO coupon : couponVOList) {
-            if(coupon.getStartTime()!=null && coupon.getStartTime().after(new Date())){
+            if(coupon.getStartTime()!=null && coupon.getStartTime() > currentSeconds){
                 continue;
             }
-            if(coupon.getEndTime()!= null && coupon.getEndTime().before(new Date())){
+            if(coupon.getEndTime()!= null && coupon.getEndTime() < currentSeconds){
                 continue;
             }
             if(bestCoupon == null || coupon.getDiscount().compareTo(bestCoupon.getDiscount())>0){
@@ -101,7 +101,7 @@ public class PlatformUtils {
         if(bestCoupon != null) {
             bestCoupon.setCouponName("元宝宝专属优惠券");
             if(bestCoupon.getEndTime() != null){
-                bestCoupon.setRemainSeconds((bestCoupon.getEndTime().getTime()-System.currentTimeMillis())/1000);
+                bestCoupon.setRemainSeconds((bestCoupon.getEndTime()-currentSeconds));
             }
         }
         return bestCoupon;

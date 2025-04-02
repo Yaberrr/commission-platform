@@ -3,9 +3,10 @@ package com.moe.common.core.domain.user;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.moe.common.core.enums.user.WalletFlowType;
-import com.moe.common.core.enums.user.WalletRecordStatus;
-import com.moe.common.core.enums.user.WalletRewardLevel;
+import com.moe.common.core.enums.wallet.WalletEventType;
+import com.moe.common.core.enums.wallet.WalletFlowType;
+import com.moe.common.core.enums.wallet.WalletRecordStatus;
+import com.moe.common.core.enums.wallet.WalletRewardLevel;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -32,7 +33,7 @@ public class WalletRecord extends BaseEntity {
     private WalletFlowType flowType;
 
     // 事件类型
-    private Integer eventType;
+    private WalletEventType eventType;
 
     // 变动金额
     private BigDecimal amount;
@@ -41,7 +42,7 @@ public class WalletRecord extends BaseEntity {
     private Long orderId;
 
     // 订单编号
-    private String orderNumber;
+    private String orderNo;
 
     // 订单金额
     private BigDecimal orderAmount;

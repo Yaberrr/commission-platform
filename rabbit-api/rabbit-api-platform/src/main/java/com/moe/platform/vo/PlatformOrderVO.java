@@ -52,7 +52,7 @@ public class PlatformOrderVO {
     // 上上级佣金
     private BigDecimal grandParentCommission;
 
-    // 下单时间
+    //下单时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
 

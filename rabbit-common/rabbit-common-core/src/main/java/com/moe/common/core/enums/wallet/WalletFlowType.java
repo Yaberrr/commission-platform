@@ -1,4 +1,4 @@
-package com.moe.common.core.enums.user;
+package com.moe.common.core.enums.wallet;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -6,14 +6,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
- * 钱包记录状态
+ * 钱包流水类型
  */
 @Getter
-public enum WalletRecordStatus {
+public enum WalletFlowType {
 
-    NOT_RECEIVED(1, "未到账"),
-    EXPIRED(2, "已失效"),
-    RECEIVED(3, "已到账");
+    INCOME(0, "收入"),
+    EXPENSE(1, "支出");
 
     @EnumValue
     @JsonValue
@@ -21,15 +20,15 @@ public enum WalletRecordStatus {
 
     private final String desc;
 
-    WalletRecordStatus(int code, String desc) {
+    WalletFlowType(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
     @JsonCreator
-    public static WalletRecordStatus fromCode(Integer code){
+    public static WalletFlowType fromCode(Integer code){
         if(code == null) return null;
-        for (WalletRecordStatus e : WalletRecordStatus.values()) {
+        for (WalletFlowType e : WalletFlowType.values()) {
             if (e.code == code) {
                 return e;
             }

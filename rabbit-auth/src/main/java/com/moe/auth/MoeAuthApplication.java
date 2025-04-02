@@ -1,5 +1,7 @@
 package com.moe.auth;
 
+import com.moe.common.security.annotation.EnableCustomConfig;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2025/3/28
  */
 @RestController
-@RequestMapping("/inner")
+@RequestMapping("/userInner")
 public class UserApi implements IUserApi {
 
     @Autowired

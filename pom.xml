@@ -249,6 +249,13 @@
                 <version>${moe.version}</version>
             </dependency>
 
+            <!-- 通用service -->
+            <dependency>
+                <groupId>com.moe</groupId>
+                <artifactId>rabbit-common-module</artifactId>
+                <version>${moe.version}</version>
+            </dependency>
+
             <!-- 系统接口 -->
             <dependency>
                 <groupId>com.moe</groupId>

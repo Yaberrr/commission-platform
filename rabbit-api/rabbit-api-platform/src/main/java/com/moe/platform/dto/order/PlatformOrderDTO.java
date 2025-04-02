@@ -10,10 +10,10 @@ import lombok.Data;
 @Data
 public class PlatformOrderDTO extends PlatformPageDTO {
 
-    //开始时间
+    //开始时间  单位:秒
     private long startTime;
 
-    //结束时间
+    //结束时间  单位:秒
     private long endTime;
 
 }

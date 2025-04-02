@@ -3,6 +3,7 @@ package com.moe.common.core.enums.config;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.moe.common.core.vo.CommissionConfig;
 import lombok.Getter;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Getter;
 @Getter
 public enum PlatformConfigType {
 
-    COMMISSION_RATIO(1, "返佣比例");
+    COMMISSION_RATIO(1, "返佣比例", CommissionConfig.class);
 
     @EnumValue
     @JsonValue
@@ -19,9 +20,12 @@ public enum PlatformConfigType {
 
     private final String desc;
 
-    PlatformConfigType(int code, String desc) {
+    private final Class<?> jsonClazz;
+
+    PlatformConfigType(int code, String desc, Class<?> jsonClazz) {
         this.code = code;
         this.desc = desc;
+        this.jsonClazz = jsonClazz;
     }
 
     @JsonCreator
@@ -34,4 +38,5 @@ public enum PlatformConfigType {
         }
         return null;
     }
+
 }

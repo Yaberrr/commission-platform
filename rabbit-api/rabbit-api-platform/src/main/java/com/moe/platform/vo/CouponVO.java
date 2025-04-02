@@ -1,10 +1,8 @@
 package com.moe.platform.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 平台优惠券
@@ -21,12 +19,10 @@ public class CouponVO {
     private BigDecimal discount;
 
     //生效时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
+    private Long startTime;
 
     //失效时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
+    private Long endTime;
 
     //剩余秒数
     private Long remainSeconds;
