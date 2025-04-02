@@ -30,7 +30,7 @@ public class UserApi implements IUserApi {
     @InnerAuth
     @Override
     public R<Map<String, Integer>> userMemberLevelMap() {
-        return R.ok(userService.userMemberLevelMap());
+        return R.ok(userService.getUserMemberLevelMap());
     }
 
 }

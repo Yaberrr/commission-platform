@@ -37,11 +37,10 @@ public interface IPlatformAuthApi {
     R<List<PlatformAuth>> authList(@RequestParam("userId") Long userId);
 
     /**
-     * 查询平台的所有授权用户map
+     * 查询平台的所有授权用户
      * @return
      */
     @PostMapping("/authMap")
     R<Map<String,Long>> authUserMap(@RequestParam("platformType") PlatformType platformType);
-
 
 }

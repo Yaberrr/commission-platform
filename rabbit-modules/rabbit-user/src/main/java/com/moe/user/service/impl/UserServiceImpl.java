@@ -60,16 +60,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Map<String, Integer> userMemberLevelMap() {
-        Map<String, Integer> map = redisService.getCacheMap(CacheConstants.USER_MEMBER_LEVEL_KEY);
-        if(CollUtil.isEmpty(map)){
-            List<User> userList = userMapper.selectList(new LambdaQueryWrapper<User>().select(User::getId, User::getMemberLevel));
-            map = userList.stream().collect(Collectors.toMap(u -> u.getId().toString(), u -> u.getMemberLevel().getCode()));
-            redisService.setCacheMap(CacheConstants.USER_MEMBER_LEVEL_KEY,map);
-            //缓存一小时
-            redisService.expire(CacheConstants.USER_MEMBER_LEVEL_KEY,1,TimeUnit.HOURS);
-        }
-        return map;
+    public Map<String, Integer> getUserMemberLevelMap() {
+        List<User> userList = userMapper.selectList(new LambdaQueryWrapper<User>().select(User::getId, User::getMemberLevel));
+        return userList.stream().collect(Collectors.toMap(u -> u.getId().toString(), u -> u.getMemberLevel().getCode()));
     }
 
 }

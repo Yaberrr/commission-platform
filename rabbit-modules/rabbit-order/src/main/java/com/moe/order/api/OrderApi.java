@@ -2,6 +2,7 @@ package com.moe.order.api;
 
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.order.Order;
+import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class OrderApi implements IOrderApi {
 
     @InnerAuth
     @Override
-    public R<Integer> updateOrder(List<Order> orderList) {
-        return R.ok(orderService.updateOrder(orderList));
+    public R<Integer> batchUpdateOrder(PlatformType platformType, List<Order> orderList) {
+        return R.ok(orderService.batchUpdateOrder(platformType,orderList));
     }
 
 
