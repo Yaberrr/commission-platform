@@ -7,15 +7,14 @@ import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.platform.dto.PlatformBaseDTO;
 import com.moe.platform.dto.PlatformDTO;
 import com.moe.platform.mapper.PlatformAuthMapper;
 import com.moe.platform.service.IPlatformAuthService;
 import com.moe.platform.vo.CouponVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 /**

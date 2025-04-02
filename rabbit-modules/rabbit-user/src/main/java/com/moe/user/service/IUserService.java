@@ -1,6 +1,9 @@
 package com.moe.user.service;
 
+import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
+
+import java.util.Map;
 
 /**
  * 用户
@@ -16,4 +19,9 @@ public interface IUserService {
      */
     User saveUser(User user);
 
+    /**
+     * 获取用户等级map
+     * @return
+     */
+    Map<String, Integer> userMemberLevelMap();
 }

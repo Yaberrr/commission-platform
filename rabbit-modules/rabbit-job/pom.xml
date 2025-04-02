@@ -34,8 +34,25 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.moe</groupId>
             <artifactId>rabbit-api-platform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-user</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-order</artifactId>
         </dependency>
     </dependencies>
 

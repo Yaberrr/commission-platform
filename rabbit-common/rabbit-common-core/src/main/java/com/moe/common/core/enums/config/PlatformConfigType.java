@@ -3,7 +3,7 @@ package com.moe.common.core.enums.config;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.moe.common.core.vo.CommissionConfig;
+import com.moe.common.core.domain.config.PlatformConfig;
 import lombok.Getter;
 
 /**
@@ -12,7 +12,7 @@ import lombok.Getter;
 @Getter
 public enum PlatformConfigType {
 
-    COMMISSION_RATIO(1, "返佣比例", CommissionConfig.class);
+    COMMISSION_RATIO(1, "返佣比例", PlatformConfig.CommissionRatio.class);
 
     @EnumValue
     @JsonValue

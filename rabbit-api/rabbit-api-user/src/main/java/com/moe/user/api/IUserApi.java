@@ -8,6 +8,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
+
 /**
  * 用户服务
  * @author tangyabo
@@ -24,5 +26,12 @@ public interface IUserApi {
      */
     @PostMapping("/saveUser")
     R<User> saveUser(@RequestBody User user);
+
+    /**
+     * 查询用户会员等级map
+     * @return
+     */
+    @PostMapping("/userMemberLevelMap")
+    R<Map<String, Integer>> userMemberLevelMap();
 
 }

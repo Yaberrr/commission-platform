@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tangyabo
@@ -87,6 +88,5 @@ public class PddAuthService implements IPlatformAuthService {
             throw new ServiceException(e,"生成授权链接api异常:{}",e.getMessage());
         }
     }
-
 
 }

@@ -68,7 +68,13 @@ public class CacheConstants
     public static final String INTERFACE_RANDOM_KEY = "interface_random:";
 
     /**
-     *
+     * 平台配置
      */
     public static final String PLATFORM_CONFIG_KEY = "platform_config:";
+
+    /**
+     * 用户会员等级
+     */
+    public static final String USER_MEMBER_LEVEL_KEY = "user_member_level:";
+
 }

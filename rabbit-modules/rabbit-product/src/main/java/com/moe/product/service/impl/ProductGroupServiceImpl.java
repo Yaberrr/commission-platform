@@ -2,6 +2,7 @@ package com.moe.product.service.impl;
 
 import com.moe.common.core.domain.platform.PlatformDict;
 import com.moe.common.core.domain.product.ProductGroup;
+import com.moe.common.core.utils.Assert;
 import com.moe.platform.dto.product.PlatformParam;
 import com.moe.product.mapper.PlatformDictMapper;
 import com.moe.product.mapper.ProductGroupMapper;
@@ -27,6 +28,7 @@ public class ProductGroupServiceImpl implements IProductGroupService {
     @Override
     public List<PlatformParam> platformParamList(Long groupId) {
         ProductGroup group = productGroupMapper.selectById(groupId);
+        Assert.notNull(group,"商品组不存在");
         List<PlatformDict> dictList = platformDictMapper.selectBatchIds(group.getPlatformDictIds());
         return dictList.stream().map(dict -> {
             PlatformParam param = new PlatformParam();

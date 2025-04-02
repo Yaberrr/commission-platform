@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 平台授权
@@ -88,5 +90,15 @@ public class PlatformAuthApi implements IPlatformAuthApi {
         }
         return R.ok(authList);
     }
+
+    @Override
+    public R<Map<String, Long>> authUserMap(PlatformType platformType) {
+        List<PlatformAuth> authList = platformAuthMapper.selectList(
+                new LambdaQueryWrapper<PlatformAuth>()
+                        .select(PlatformAuth::getUserId, PlatformAuth::getAuthId)
+                        .eq(PlatformAuth::getPlatformType, platformType));
+        return R.ok(authList.stream().collect(Collectors.toMap(PlatformAuth::getAuthId, PlatformAuth::getUserId)));
+    }
+
 
 }

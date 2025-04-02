@@ -5,6 +5,7 @@ import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.order.Order;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -14,13 +15,14 @@ import java.util.List;
  */
 @FeignResponseCheck(serviceName = "订单")
 @FeignClient(path = "/orderInner", contextId = "orderApi", value = ServiceNameConstants.ORDER_SERVICE)
-public interface OrderApi {
+public interface IOrderApi {
 
     /**
-     * 更新订单信息
+     * 更新订单
      * @param orderList
      * @return
      */
+    @PostMapping("/updateOrder")
     R<Integer> updateOrder(List<Order> orderList);
 
 }

@@ -1,10 +1,10 @@
-package com.moe.common.security.utils;
+package com.moe.common.module.utils;
 
 import com.moe.common.core.constant.DecimalConstants;
+import com.moe.common.core.domain.config.PlatformConfig;
 import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.exception.ServiceException;
-import com.moe.common.core.vo.CommissionCalculateVO;
-import com.moe.common.core.vo.CommissionConfig;
+import com.moe.common.module.domain.vo.CommissionCalculateVO;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,13 +18,13 @@ public class CommissionUtils {
 
     /**
      * 计算佣金
-     * @param commissionConfig 佣金配置
+     * @param ratio 佣金比例
      * @param platformCommission 平台总佣金
      * @param level 会员等级
      * @return
      */
-    public static CommissionCalculateVO calculate(CommissionConfig commissionConfig, BigDecimal platformCommission, MemberLevel level){
-        CommissionConfig.LevelConfig config = commissionConfig.getLevelList().stream().filter(c -> c.getLevel().equals(level))
+    public static CommissionCalculateVO calculate(PlatformConfig.CommissionRatio ratio, BigDecimal platformCommission, MemberLevel level){
+        PlatformConfig.CommissionRatio.Level config = ratio.getLevelList().stream().filter(c -> c.getLevel().equals(level))
                 .findFirst().orElseThrow(() -> new ServiceException("佣金配置不存在"));
         CommissionCalculateVO result = new CommissionCalculateVO();
 

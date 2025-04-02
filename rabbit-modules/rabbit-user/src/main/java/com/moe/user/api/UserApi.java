@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * @author tangyabo
  * @date 2025/3/28
@@ -23,6 +25,12 @@ public class UserApi implements IUserApi {
     @Override
     public R<User> saveUser(User user) {
         return R.ok(userService.saveUser(user));
+    }
+
+    @InnerAuth
+    @Override
+    public R<Map<String, Integer>> userMemberLevelMap() {
+        return R.ok(userService.userMemberLevelMap());
     }
 
 }

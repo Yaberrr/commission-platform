@@ -1,5 +1,6 @@
 package com.moe.common.core.domain;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.domain.sys.SysUser;
@@ -81,6 +82,9 @@ public class LoginUser implements Serializable
     private SystemType systemType;
 
     public PlatformAuth getPlatformAuth(PlatformType platformType){
+        if(CollUtil.isEmpty(appAuthList)){
+            return null;
+        }
         return appAuthList.stream().filter(p -> platformType.equals(p.getPlatformType())).findFirst().orElse(null);
     }
 

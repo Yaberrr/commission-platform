@@ -34,4 +34,7 @@ public class ProductDetailVO extends ProductVO {
     //下一级佣金
     private BigDecimal nextCommission = BigDecimal.ZERO;
 
+    //是否收藏
+    private boolean hasFavorite;
+
 }

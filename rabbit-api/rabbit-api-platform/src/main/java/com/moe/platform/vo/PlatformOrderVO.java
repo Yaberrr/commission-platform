@@ -16,8 +16,11 @@ import java.util.Date;
 @Data
 public class PlatformOrderVO {
 
-    //授权id
+    //认证id
     private String authId;
+
+    // 订单编号
+    private String orderNo;
 
     //平台编号
     private String platformNo;
@@ -40,17 +43,8 @@ public class PlatformOrderVO {
     //佣金比例
     private BigDecimal commissionRate;
 
-    //平台佣金
+    //平台总佣金
     private BigDecimal platformCommission;
-
-    // 本人佣金
-    private BigDecimal commission;
-
-    // 上级佣金
-    private BigDecimal parentCommission;
-
-    // 上上级佣金
-    private BigDecimal grandParentCommission;
 
     //下单时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -67,5 +61,8 @@ public class PlatformOrderVO {
     //结算时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date settleTime;
+
+    //用户id  平台各自不处理，返回前统一处理
+    private Long userId;
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tangyabo
@@ -34,6 +35,13 @@ public interface IPlatformAuthApi {
      */
     @PostMapping("/authList")
     R<List<PlatformAuth>> authList(@RequestParam("userId") Long userId);
+
+    /**
+     * 查询平台的所有授权用户map
+     * @return
+     */
+    @PostMapping("/authMap")
+    R<Map<String,Long>> authUserMap(@RequestParam("platformType") PlatformType platformType);
 
 
 }

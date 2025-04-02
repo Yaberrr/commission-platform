@@ -5,8 +5,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.moe.common.core.enums.config.PlatformConfigType;
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 平台配置
@@ -25,4 +29,33 @@ public class PlatformConfig extends BaseEntity {
 
     // 配置内容
     private String configJson;
+
+    /**
+     * 返佣比例
+     */
+    @Data
+    public static class CommissionRatio {
+
+        //等级
+        private List<Level> levelList;
+
+        @Data
+        public static class Level {
+            //会员等级
+            private MemberLevel level;
+
+            //总收益
+            private BigDecimal totalRate;
+
+            //一级收益
+            private BigDecimal selfRate;
+
+            //二级收益
+            private BigDecimal parentRate;
+
+            //三级收益
+            private BigDecimal grandParentRate;
+
+        }
+    }
 }

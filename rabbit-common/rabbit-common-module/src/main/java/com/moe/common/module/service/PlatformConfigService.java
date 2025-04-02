@@ -34,7 +34,8 @@ public class PlatformConfigService {
      * @param configType
      * @param
      */
-    public Object getConfig(PlatformType platformType, PlatformConfigType configType) {
+    @SuppressWarnings("unchecked")
+    public <T> T getConfig(PlatformType platformType, PlatformConfigType configType) {
         String key = CacheConstants.PLATFORM_CONFIG_KEY+configType.name();
         String json = redisService.getCacheMapValue(key, platformType.name());
         if(StrUtil.isBlank(json)){
@@ -45,9 +46,8 @@ public class PlatformConfigService {
             Assert.isTrue(StrUtil.isNotBlank(json),"平台配置不存在");
             redisService.setCacheMapValue(key,platformType.name(),json);
         }
-
         try {
-            return new ObjectMapper().readValue(json, configType.getJsonClazz());
+            return  (T) new ObjectMapper().readValue(json, configType.getJsonClazz());
         } catch (JsonProcessingException e) {
             throw new ServiceException(e,"平台配置解析失败");
         }

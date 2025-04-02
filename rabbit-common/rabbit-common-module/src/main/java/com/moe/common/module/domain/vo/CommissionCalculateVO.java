@@ -1,7 +1,6 @@
-package com.moe.common.core.vo;
+package com.moe.common.module.domain.vo;
 
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 /**
@@ -15,14 +14,13 @@ public class CommissionCalculateVO {
     //可分配佣金
     private BigDecimal allocatedCommission;
 
-    // 本人佣金
+    //本人佣金
     private BigDecimal commission;
 
-    // 上级佣金
+    //上级佣金
     private BigDecimal parentCommission;
 
-    // 上上级佣金
+    //上上级佣金
     private BigDecimal grandParentCommission;
-
 
 }

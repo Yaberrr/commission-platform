@@ -2,11 +2,11 @@ package com.moe.product.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moe.common.core.domain.R;
+import com.moe.common.core.domain.config.PlatformConfig;
 import com.moe.common.core.enums.config.PlatformConfigType;
 import com.moe.common.core.enums.user.MemberLevel;
-import com.moe.common.core.vo.CommissionConfig;
 import com.moe.common.module.service.PlatformConfigService;
-import com.moe.common.security.utils.CommissionUtils;
+import com.moe.common.module.utils.CommissionUtils;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.platform.api.IPlatformProductApi;
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements IProductService {
         ProductDetailVO detail = r.getData();
         //获取佣金配置
         MemberLevel level = SecurityUtils.getMemberLevel();
-        CommissionConfig config = (CommissionConfig) platformConfigService.getConfig(detail.getPlatformType(), PlatformConfigType.COMMISSION_RATIO);
+        PlatformConfig.CommissionRatio config = platformConfigService.getConfig(detail.getPlatformType(), PlatformConfigType.COMMISSION_RATIO);
         BigDecimal commission = detail.getCommission();
         detail.setCommission(CommissionUtils.calculate(config, commission, level).getCommission());
         //计算下一级佣金
@@ -97,7 +97,7 @@ public class ProductServiceImpl implements IProductService {
         dataInfo.getRows().stream().collect(Collectors.groupingBy(ProductVO::getPlatformType))
                 .forEach((type, list) -> {
                     //获取佣金配置
-                    CommissionConfig config = (CommissionConfig) platformConfigService.getConfig(type, PlatformConfigType.COMMISSION_RATIO);
+                    PlatformConfig.CommissionRatio config = platformConfigService.getConfig(type, PlatformConfigType.COMMISSION_RATIO);
                     for (ProductVO vo : list) {
                         MemberLevel level = SecurityUtils.getMemberLevel();
                         vo.setCommission(CommissionUtils.calculate(config, vo.getCommission(), level).getCommission());
