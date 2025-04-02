@@ -66,4 +66,9 @@ public class CacheConstants
      * 防重放攻击 cache key
      */
     public static final String INTERFACE_RANDOM_KEY = "interface_random:";
+
+    /**
+     *
+     */
+    public static final String PLATFORM_CONFIG_KEY = "platform_config:";
 }

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
+import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.exception.auth.NotLoginException;
 import org.apache.ibatis.logging.Log;
@@ -48,6 +49,19 @@ public class SecurityUtils
     public static User getAppUser(){
         LoginUser loginUser = getLoginUser();
         return Optional.ofNullable(loginUser).orElseGet(LoginUser::new).getAppUser();
+    }
+
+    /**
+     * 获取会员等级 未登录默认铜元宝
+     * @return
+     */
+    public static MemberLevel getMemberLevel(){
+        User user = getAppUser();
+        if(user != null && user.getMemberLevel() != null){
+            return user.getMemberLevel();
+        }else{
+            return MemberLevel.COPPER;
+        }
     }
 
     /**

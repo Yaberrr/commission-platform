@@ -52,4 +52,7 @@ public class ProductVO {
     //查询参数  跳转详情及生成链接时回传
     private String searchParam;
 
+    //是否比价
+    private boolean hasPredict;
+
 }

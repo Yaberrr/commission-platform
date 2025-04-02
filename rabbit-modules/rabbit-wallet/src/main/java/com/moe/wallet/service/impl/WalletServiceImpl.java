@@ -80,8 +80,8 @@ public class WalletServiceImpl implements IWalletService {
         BeanCopyUtils.copy(dto,record);
         record.setAmount(amount);
         record.setWalletId(wallet.getId());
-        //即将到帐
         record.setStatus(WalletRecordStatus.INIT);
+        //唯一约束避免重复消费
         walletRecordMapper.insert(record);
 
         //修改钱包信息

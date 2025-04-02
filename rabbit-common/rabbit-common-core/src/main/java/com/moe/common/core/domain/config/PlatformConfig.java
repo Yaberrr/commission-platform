@@ -3,6 +3,7 @@ package com.moe.common.core.domain.config;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.moe.common.core.enums.config.PlatformConfigType;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class PlatformConfig extends BaseEntity {
     private PlatformType platformType;
 
     // 配置类型 1返佣比例
-    private PlatformConfig configType;
+    private PlatformConfigType configType;
 
     // 配置内容
     private String configJson;

@@ -18,6 +18,7 @@
         <module>rabbit-common-sensitive</module>
         <module>rabbit-common-datascope</module>
         <module>rabbit-common-datasource</module>
+        <module>rabbit-common-module</module>
     </modules>
 
     <artifactId>rabbit-common</artifactId>

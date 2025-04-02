@@ -47,8 +47,11 @@ public class Order extends BaseEntity {
     //佣金比例
     private BigDecimal commissionRate;
 
-    // 平台总佣金
+    //平台总佣金
     private BigDecimal platformCommission;
+
+    //可分配佣金
+    private BigDecimal allocatedCommission;
 
     // 本人佣金
     private BigDecimal commission;

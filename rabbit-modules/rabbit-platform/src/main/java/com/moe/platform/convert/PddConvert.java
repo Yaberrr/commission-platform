@@ -46,15 +46,15 @@ public class PddConvert {
         if(item.getHasCoupon() != null && item.getHasCoupon() && item.getCouponRemainQuantity() > 0){
             CouponVO couponVO = new CouponVO();
             couponVO.setDiscount(BigDecimal.valueOf(item.getCouponDiscount()));
-            couponVO.setStartTime(new Date(item.getCouponStartTime()*1000));
-            couponVO.setEndTime(new Date(item.getCouponEndTime()*1000));
+            couponVO.setStartTime(item.getCouponStartTime());
+            couponVO.setEndTime(item.getCouponEndTime());
             couponVOList.add(couponVO);
         }
         if(item.getHasMallCoupon() != null && item.getHasMallCoupon() && item.getMallCouponRemainQuantity() > 0){
             CouponVO couponVO = new CouponVO();
             couponVO.setDiscount(BigDecimal.valueOf(item.getMallCouponMaxDiscountAmount()));
-            couponVO.setStartTime(new Date(item.getMallCouponStartTime()*1000));
-            couponVO.setEndTime(new Date(item.getMallCouponEndTime()*1000));
+            couponVO.setStartTime(item.getMallCouponStartTime());
+            couponVO.setEndTime(item.getMallCouponEndTime());
             couponVOList.add(couponVO);
         }
         vo.setBestCoupon(PlatformUtils.getBestCoupon(couponVOList));
@@ -91,6 +91,11 @@ public class PddConvert {
 
         //搜索id，用于商品详情及生成链接时回传，提高收益
         vo.setSearchParam(item.getSearchId());
+
+        //判断是否比价
+        if(vo.getCommission().compareTo(BigDecimal.ZERO) == 0){
+            vo.setHasPredict(true);
+        }
         return vo;
     }
 
@@ -135,7 +140,7 @@ public class PddConvert {
             case 5://已经结算
                 orderVO.setStatus(OrderStatus.ACCOUNTED);
                 break;
-            case 4://审核失败(不可体现)
+            case 4://审核失败(不可提现)
             case 10://已处罚
                 orderVO.setStatus(OrderStatus.EXPIRED);
                 break;

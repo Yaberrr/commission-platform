@@ -25,9 +25,13 @@ public class ProductDetailVO extends ProductVO {
     //商品介绍
     private String introduction;
 
-    //下一级佣金
-    private BigDecimal nextCommission;
-
+    /**
+     * 平台不返回 统一处理
+     */
     //分享佣金
-    private BigDecimal shareCommission;
+    private BigDecimal shareCommission = BigDecimal.ZERO;
+
+    //下一级佣金
+    private BigDecimal nextCommission = BigDecimal.ZERO;
+
 }
