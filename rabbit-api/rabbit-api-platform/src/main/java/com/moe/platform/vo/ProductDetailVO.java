@@ -28,6 +28,7 @@ public class ProductDetailVO extends ProductVO {
     /**
      * 平台不返回 统一处理
      */
+
     //分享佣金
     private BigDecimal shareCommission = BigDecimal.ZERO;
 

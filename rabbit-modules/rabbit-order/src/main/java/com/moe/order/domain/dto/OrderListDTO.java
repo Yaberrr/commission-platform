@@ -22,4 +22,12 @@ public class OrderListDTO {
 
     //订单状态 1已付款 2已收货 3已到账 4已失效
     private OrderStatus status;
+
+    public void setPlatformType(Integer code) {
+        this.platformType = PlatformType.fromCode(code);
+    }
+    public void setStatus(Integer code) {
+        this.status = OrderStatus.fromCode(code);
+    }
+
 }
