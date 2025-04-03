@@ -4,12 +4,13 @@ import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.order.Order;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.security.annotation.InnerAuth;
+import com.moe.order.dto.BatchUpdateOrderDTO;
 import com.moe.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.validation.Valid;
 
 /**
  * @author tangyabo
@@ -24,8 +25,8 @@ public class OrderApi implements IOrderApi {
 
     @InnerAuth
     @Override
-    public R<Integer> batchUpdateOrder(PlatformType platformType, List<Order> orderList) {
-        return R.ok(orderService.batchUpdateOrder(platformType,orderList));
+    public R<Integer> batchUpdateOrder(@Valid BatchUpdateOrderDTO dto) {
+        return R.ok(orderService.batchUpdateOrder(dto));
     }
 
 

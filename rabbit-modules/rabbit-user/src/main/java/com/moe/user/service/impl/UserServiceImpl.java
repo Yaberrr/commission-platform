@@ -7,9 +7,11 @@ import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.user.Gender;
 import com.moe.common.core.enums.user.MemberLevel;
+import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.user.mapper.UserMapper;
 import com.moe.user.service.IUserService;
+import com.moe.user.vo.UserMemberVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,9 +62,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Map<String, Integer> getUserMemberLevelMap() {
-        List<User> userList = userMapper.selectList(new LambdaQueryWrapper<User>().select(User::getId, User::getMemberLevel));
-        return userList.stream().collect(Collectors.toMap(u -> u.getId().toString(), u -> u.getMemberLevel().getCode()));
+    public Map<String, UserMemberVO> getUserMemberMap() {
+        List<User> userList = userMapper.selectList(new LambdaQueryWrapper<User>().select(User::getId, User::getMemberLevel,
+                User::getParentId,User::getGrandparentId));
+        return userList.stream().collect(Collectors.toMap(u -> u.getId().toString(), user -> BeanCopyUtils.copy(user,UserMemberVO.class)));
     }
 
 }

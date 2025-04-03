@@ -13,15 +13,16 @@ import com.moe.common.module.service.PlatformConfigService;
 import com.moe.common.module.utils.CommissionUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.order.api.IOrderApi;
+import com.moe.order.dto.BatchUpdateOrderDTO;
 import com.moe.platform.api.IPlatformAuthApi;
 import com.moe.platform.api.IPlatformOrderApi;
 import com.moe.platform.dto.order.PlatformOrderDTO;
 import com.moe.platform.vo.PlatformOrderVO;
 import com.moe.user.api.IUserApi;
+import com.moe.user.vo.UserMemberVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
@@ -63,29 +64,30 @@ public class OrderTask {
 
     public void updateOrder(Integer platformType, long seconds) {
         log.info("开始同步订单...");
-        long startTime = System.currentTimeMillis()/1000;
-        long endTime = System.currentTimeMillis()/1000 - seconds;
+        long startTime = System.currentTimeMillis()/1000 - seconds;
+        long endTime = System.currentTimeMillis()/1000;
         //查询总数
         PlatformOrderDTO countDto = new PlatformOrderDTO();
         countDto.setStartTime(startTime);
         countDto.setEndTime(endTime);
         countDto.setPlatformType(platformType);
-        int count = platformOrderApi.totalCount(countDto).getData();
-        if(count <= 0){
+        int orderCount = platformOrderApi.totalCount(countDto).getData();
+        if(orderCount <= 0){
             log.info("订单数为0，停止同步...");
             return;
         }
+        log.info("查询到订单数{}条",orderCount);
         OrderTask thisBean = applicationContext.getBean(OrderTask.class);
         //加载用户授权信息
         Map<String, Long> authUserMap = thisBean.getAuthUserMap(platformType);
         //加载用户会员等级
-        Map<String, Integer> userMemberLevelMap = thisBean.getUserMemberLevelMap();
+        Map<String, UserMemberVO> userMemberMap = thisBean.getUserMemberMap();
         //加载佣金配置
         PlatformConfig.CommissionRatio commissionConfig = platformConfigService.getConfig(PlatformType.PDD, PlatformConfigType.COMMISSION_RATIO);
 
         //分批处理 每批处理50条
         // 计算总页数
-        int totalPages = (int) Math.ceil((double)count/BATCH_SIZE);
+        int totalPages = (int) Math.ceil((double)orderCount/BATCH_SIZE);
         // 提交任务
         List<CompletableFuture<Integer>> futures = new ArrayList<>();
         for (int i = 0; i < totalPages; i++) {
@@ -106,14 +108,28 @@ public class OrderTask {
                         BeanCopyUtils.copy(vo, order);
                         order.setPlatformType(dto.getPlatformType());
                         order.setUserId(authUserMap.get(vo.getAuthId()));
-                        MemberLevel memberLevel = MemberLevel.fromCode(userMemberLevelMap.get(order.getUserId().toString()));
+
+                        UserMemberVO userVO = userMemberMap.get(order.getUserId().toString());
+                        MemberLevel memberLevel = userVO.getMemberLevel();
                         //计算佣金
                         CommissionCalculateVO calculateVO = CommissionUtils.calculate(commissionConfig, vo.getPlatformCommission(), memberLevel);
-                        BeanCopyUtils.copy(calculateVO, order);
+                        order.setAllocatedCommission(calculateVO.getAllocatedCommission());
+                        order.setCommission(calculateVO.getCommission());
+                        if(userVO.getParentId() != null){
+                            order.setParentUserId(userVO.getParentId());
+                            order.setParentCommission(calculateVO.getParentCommission());
+                        }
+                        if(userVO.getGrandparentId() != null){
+                            order.setGrandParentUserId(userVO.getGrandparentId());
+                            order.setGrandParentCommission(calculateVO.getGrandParentCommission());
+                        }
                         return order;
                     }).collect(Collectors.toList());
                     //更新订单
-                    return orderApi.batchUpdateOrder(dto.getPlatformType(),orderList).getData();
+                    BatchUpdateOrderDTO updateOrderDTO = new BatchUpdateOrderDTO();
+                    updateOrderDTO.setOrderList(orderList);
+                    updateOrderDTO.setPlatformType(dto.getPlatformType());
+                    return orderApi.batchUpdateOrder(updateOrderDTO).getData();
                 }, executorService).handle((result, exception) -> {
                 if (exception != null) {
                     log.error("同步订单失败, 第{}页发生异常", pageNum, exception);
@@ -125,24 +141,30 @@ public class OrderTask {
 
         //汇总
         int successCount = futures.stream().mapToInt(CompletableFuture::join).sum();
-        log.info("同步订单完成，共同步{}条订单", successCount);
+        log.info("同步订单完成，同步订单{}条", successCount);
     }
 
 
-    //用户认证信息 五分钟刷新一次 允许短暂缓存不同步
-    @Cacheable(value = "authUserMap", key="#platformType")
+    //用户认证信息 允许短暂缓存不同步
     public Map<String, Long> getAuthUserMap(Integer platformType){
-        return platformAuthApi.authUserMap(PlatformType.fromCode(platformType)).getData();
+        Map<String, Long> map = redisService.getCacheMap(CacheConstants.PLATFORM_AUTH_MAP_KEY);
+        if(CollUtil.isEmpty(map)){
+            map = platformAuthApi.authUserMap(PlatformType.fromCode(platformType)).getData();
+            redisService.setCacheMap(CacheConstants.PLATFORM_AUTH_MAP_KEY, map);
+            //缓存十分钟
+            redisService.expire(CacheConstants.PLATFORM_AUTH_MAP_KEY, 10, TimeUnit.MINUTES);
+        }
+        return map;
     }
 
     //用户会员等级 需保证缓存和数据库一致
-    public Map<String, Integer> getUserMemberLevelMap(){
-        Map<String, Integer> map = redisService.getCacheMap(CacheConstants.USER_MEMBER_LEVEL_KEY);
+    public Map<String, UserMemberVO> getUserMemberMap(){
+        Map<String, UserMemberVO> map = redisService.getCacheMap(CacheConstants.USER_MEMBER_MAP_KEY);
         if(CollUtil.isEmpty(map)){
-            map = userApi.userMemberLevelMap().getData();
-            redisService.setCacheMap(CacheConstants.USER_MEMBER_LEVEL_KEY,map);
+            map = userApi.userMemberMap().getData();
+            redisService.setCacheMap(CacheConstants.USER_MEMBER_MAP_KEY,map);
             //缓存一天
-            redisService.expire(CacheConstants.USER_MEMBER_LEVEL_KEY,1, TimeUnit.DAYS);
+            redisService.expire(CacheConstants.USER_MEMBER_MAP_KEY,1, TimeUnit.DAYS);
         }
         return map;
     }

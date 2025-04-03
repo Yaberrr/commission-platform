@@ -1,6 +1,7 @@
 package com.moe.user.service;
 
 import com.moe.common.core.domain.user.User;
+import com.moe.user.vo.UserMemberVO;
 
 import java.util.Map;
 
@@ -22,6 +23,6 @@ public interface IUserService {
      * 获取用户等级map
      * @return
      */
-    Map<String, Integer> getUserMemberLevelMap();
+    Map<String, UserMemberVO> getUserMemberMap();
 
 }

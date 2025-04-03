@@ -4,16 +4,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.platform.dto.order.PlatformOrderDTO;
 import com.moe.platform.dto.product.PlatformProductDTO;
 import com.moe.platform.dto.product.PlatformParam;
 import com.moe.platform.dto.product.ProductDetailDTO;
 import com.moe.platform.dto.product.ProductSearchDTO;
+import com.moe.platform.service.impl.PddOrderService;
 import com.moe.platform.service.impl.PddProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Date;
 
 /**
  * @author tangyabo
@@ -25,6 +30,8 @@ public class TestPDD {
 
     @Autowired
     private PddProductService pddProductService;
+    @Autowired
+    private PddOrderService pddOrderService;
 
     @Test
     public void testList() throws JsonProcessingException {
@@ -54,4 +61,13 @@ public class TestPDD {
         pddProductService.productDetail(dto);
     }
 
+    @Test
+    public void testOrder() throws JsonProcessingException {
+        PlatformOrderDTO dto = new PlatformOrderDTO();
+        dto.setPageNum(1);
+        dto.setPageSize(10);
+        dto.setStartTime(new Date().getTime()/1000 - 10000);
+        dto.setEndTime(new Date().getTime()/1000);
+        System.out.println(new ObjectMapper().writeValueAsString(pddOrderService.orderList(dto)));
+    }
 }

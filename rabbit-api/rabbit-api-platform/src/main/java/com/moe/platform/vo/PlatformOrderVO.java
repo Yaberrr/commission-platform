@@ -23,10 +23,13 @@ public class PlatformOrderVO {
     private String orderNo;
 
     //平台编号
-    private String platformNo;
+    private String platformOrderId;
 
     // 订单状态
     private OrderStatus status;
+
+    //商品id
+    private String productId;
 
     // 商品名称
     private String productName;

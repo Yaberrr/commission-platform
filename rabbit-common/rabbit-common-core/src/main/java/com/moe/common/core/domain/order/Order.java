@@ -27,10 +27,13 @@ public class Order extends BaseEntity {
     private String orderNo;
 
     //平台编号
-    private String platformNo;
+    private String platformOrderId;
 
     // 订单状态
     private OrderStatus status;
+
+    //商品id
+    private String productId;
 
     // 商品名称
     private String productName;
@@ -56,11 +59,17 @@ public class Order extends BaseEntity {
     // 本人佣金
     private BigDecimal commission;
 
-    // 上级佣金
+    //上级佣金
     private BigDecimal parentCommission;
+
+    //上级用户id
+    private Long parentUserId;
 
     // 上上级佣金
     private BigDecimal grandParentCommission;
+
+    //上上级用户id
+    private Long grandParentUserId;
 
     // 下单时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

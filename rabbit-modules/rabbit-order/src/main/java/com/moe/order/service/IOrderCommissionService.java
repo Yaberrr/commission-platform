@@ -1,8 +1,6 @@
 package com.moe.order.service;
 
-import com.moe.order.domain.bo.OrderStatusBO;
-
-import java.util.List;
+import com.moe.common.core.domain.order.Order;
 
 /**
  * 订单佣金
@@ -12,8 +10,19 @@ import java.util.List;
 public interface IOrderCommissionService {
 
     /**
-     * 处理订单状态变化对应的佣金
+     * 添加佣金
+     * @param order
      */
-    void handleCommission(List<OrderStatusBO> statusBOList);
+    void addCommission(Order order);
 
+    /**
+     * 佣金到账
+     */
+    void commissionToAccount(Order order);
+
+    /**
+     * 扣除佣金
+     * @param order
+     */
+    void deductCommission(Order order);
 }

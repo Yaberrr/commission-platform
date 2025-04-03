@@ -24,8 +24,8 @@ public class TestTask {
     private OrderTask orderTask;
 
     @Test
-    public void testOrderTask() throws InterruptedException {
-        Map<String, Long> authUserMap = orderTask.getAuthUserMap(PlatformType.PDD);
+    public void testOrderTask() {
+        orderTask.updateOrder(PlatformType.PDD.getCode(), 7200);
     }
 
 }

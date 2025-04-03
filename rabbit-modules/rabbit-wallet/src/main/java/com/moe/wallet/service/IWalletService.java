@@ -3,7 +3,10 @@ package com.moe.wallet.service;
 import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.core.domain.user.WalletRecord;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
+import com.moe.wallet.dto.WalletRecordListDTO;
 import com.moe.wallet.dto.WalletRecordDTO;
+
+import java.util.Set;
 
 /**
  * @author tangyabo
@@ -19,6 +22,7 @@ public interface IWalletService {
      */
     Wallet myWallet(Long userId, boolean withLock);
 
+
     /**
      * 新增钱包记录
      * @param dto
@@ -26,13 +30,13 @@ public interface IWalletService {
     void addWalletRecord(WalletRecordDTO dto);
 
     /**
-     * 消费钱包记录
-     * @param dto
-     */
-    void consumeWalletRecord(WalletRecordDTO dto);
-
-    /**
      * 修改钱包记录的状态
      */
     WalletRecord changeWalletRecordStatus(Long recordId, WalletRecordStatus status);
+
+    /**
+     * 查询钱包记录ids
+     */
+    Set<Long> walletRecordIds(WalletRecordListDTO dto);
+
 }

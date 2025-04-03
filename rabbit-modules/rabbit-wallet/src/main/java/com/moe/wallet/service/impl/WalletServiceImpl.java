@@ -5,10 +5,10 @@ import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.core.domain.user.WalletRecord;
 import com.moe.common.core.enums.wallet.WalletFlowType;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
-import com.moe.common.core.enums.wallet.WalletRewardLevel;
 import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.wallet.domain.bo.WalletUpdateBO;
+import com.moe.wallet.dto.WalletRecordListDTO;
 import com.moe.wallet.dto.WalletRecordDTO;
 import com.moe.wallet.mapper.WalletMapper;
 import com.moe.wallet.mapper.WalletRecordMapper;
@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author tangyabo
@@ -53,22 +56,14 @@ public class WalletServiceImpl implements IWalletService {
         return wallet;
     }
 
-    @Override
-    @Transactional
-    public void addWalletRecord(WalletRecordDTO dto) {
-        if(dto.getEventType().getFlowType() == WalletFlowType.EXPENSE){
-            //同步支出
-            this.consumeWalletRecord(dto);
-        }else{
-            //异步收入
-            //todo: 引入mq异步
-            this.consumeWalletRecord(dto);
-        }
-    }
 
     @Override
     @Transactional
-    public void consumeWalletRecord(WalletRecordDTO dto) {
+    public void addWalletRecord(WalletRecordDTO dto) {
+        if(dto.getAmount().compareTo(BigDecimal.ZERO) == 0){
+            //变动金额为0，不做处理
+            return;
+        }
         WalletFlowType flowType = dto.getEventType().getFlowType();
         //扣除才加锁
         Wallet wallet = this.myWallet(dto.getUserId(), flowType == WalletFlowType.EXPENSE);
@@ -81,6 +76,7 @@ public class WalletServiceImpl implements IWalletService {
         record.setAmount(amount);
         record.setWalletId(wallet.getId());
         record.setStatus(WalletRecordStatus.INIT);
+        record.setFlowType(flowType);
         //唯一约束避免重复消费
         walletRecordMapper.insert(record);
 
@@ -161,5 +157,15 @@ public class WalletServiceImpl implements IWalletService {
         }
         Assert.isTrue( walletMapper.updateByBO(updateBO) > 0, "更新钱包数据失败");
         return record;
+    }
+
+    @Override
+    public Set<Long> walletRecordIds(WalletRecordListDTO dto) {
+        LambdaQueryWrapper<WalletRecord> wrapper = new LambdaQueryWrapper<WalletRecord>().select(WalletRecord::getId)
+                .eq(WalletRecord::getOrderId, dto.getOrderId())
+                        .eq(WalletRecord::getEventType,dto.getWalletEventType())
+                                .eq(WalletRecord::getStatus, dto.getStatus());
+        List<Long> recordIds =  walletRecordMapper.selectObjs(wrapper);
+        return new HashSet<>(recordIds);
     }
 }

@@ -1,18 +1,15 @@
 package com.moe.common.core.domain.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.enums.user.Gender;
 import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * 用户

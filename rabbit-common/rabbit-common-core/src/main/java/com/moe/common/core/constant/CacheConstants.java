@@ -73,8 +73,13 @@ public class CacheConstants
     public static final String PLATFORM_CONFIG_KEY = "platform_config:";
 
     /**
-     * 用户会员等级
+     * 用户会员map
      */
-    public static final String USER_MEMBER_LEVEL_KEY = "user_member_level:";
+    public static final String USER_MEMBER_MAP_KEY = "user_member_map";
+
+    /**
+     * 平台授权map
+     */
+    public static final String PLATFORM_AUTH_MAP_KEY = "platform_auth_map";
 
 }

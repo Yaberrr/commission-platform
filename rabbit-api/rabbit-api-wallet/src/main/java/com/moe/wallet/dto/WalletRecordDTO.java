@@ -1,5 +1,7 @@
 package com.moe.wallet.dto;
 
+import com.moe.common.core.domain.order.Order;
+import com.moe.common.core.domain.user.WalletRecord;
 import com.moe.common.core.enums.wallet.WalletEventType;
 import com.moe.common.core.enums.wallet.WalletFlowType;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
@@ -39,6 +41,13 @@ public class WalletRecordDTO {
 
     // 返佣级别 1本人 2上游  3上上游
     private WalletRewardLevel rewardLevel;
+
+    public WalletRecordDTO(Order order) {
+        this.eventType = WalletEventType.ORDER_COMMISSION;
+        this.orderId = order.getId();
+        this.orderNo = order.getOrderNo();
+        this.orderAmount = order.getOrderAmount();
+    }
 
 }
 

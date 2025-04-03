@@ -1,6 +1,6 @@
+/*
 package com.moe.job.config;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.Data;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
+*/
 /**
  * @author tangyabo
  * @date 2025/4/2
- */
+ *//*
+
 @Configuration
 @EnableCaching
 public class CaffeineCacheConfig {
@@ -30,3 +32,4 @@ public class CaffeineCacheConfig {
         return cacheManager;
     }
 }
+*/

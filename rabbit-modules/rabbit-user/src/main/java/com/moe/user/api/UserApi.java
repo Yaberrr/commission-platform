@@ -4,6 +4,7 @@ import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.security.annotation.InnerAuth;
 import com.moe.user.service.IUserService;
+import com.moe.user.vo.UserMemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +30,8 @@ public class UserApi implements IUserApi {
 
     @InnerAuth
     @Override
-    public R<Map<String, Integer>> userMemberLevelMap() {
-        return R.ok(userService.getUserMemberLevelMap());
+    public R<Map<String, UserMemberVO>> userMemberMap() {
+        return R.ok(userService.getUserMemberMap());
     }
 
 }

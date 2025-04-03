@@ -2,6 +2,7 @@ package com.moe.order.service;
 
 import com.moe.common.core.domain.order.Order;
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.order.dto.BatchUpdateOrderDTO;
 
 import java.util.List;
 
@@ -13,11 +14,10 @@ public interface IOrderService {
 
     /**
      * 批量更新订单
-     * @param platformType
-     * @param orderList
+     * @param dto
      * @return
      */
-    int batchUpdateOrder(PlatformType platformType, List<Order> orderList);
+    int batchUpdateOrder(BatchUpdateOrderDTO dto);
 
 
 }

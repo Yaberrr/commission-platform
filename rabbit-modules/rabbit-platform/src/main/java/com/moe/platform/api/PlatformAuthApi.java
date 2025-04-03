@@ -92,7 +92,7 @@ public class PlatformAuthApi implements IPlatformAuthApi {
     }
 
     @Override
-    public R<Map<String, Long>> authUserMap(PlatformType platformType) {
+    public R<Map<String, Long>> authUserMap(@RequestParam PlatformType platformType) {
         List<PlatformAuth> authList = platformAuthMapper.selectList(
                 new LambdaQueryWrapper<PlatformAuth>()
                         .select(PlatformAuth::getUserId, PlatformAuth::getAuthId)

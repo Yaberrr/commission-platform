@@ -1,6 +1,5 @@
 package com.moe.platform.convert;
 
-import com.moe.common.core.constant.DecimalConstants;
 import com.moe.common.core.enums.order.OrderStatus;
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
@@ -117,17 +116,22 @@ public class PddConvert {
     public static PlatformOrderVO toOrderVO(PddDdkOrderListIncrementGetResponse.OrderListGetResponseOrderListItem item) {
         PlatformOrderVO orderVO = new PlatformOrderVO();
         orderVO.setAuthId(item.getPId());
-        orderVO.setPlatformNo(item.getOrderId());
+        orderVO.setPlatformOrderId(item.getOrderId());
+        orderVO.setOrderNo(item.getOrderSn());
+        orderVO.setProductId(item.getGoodsSign());
         orderVO.setProductName(item.getGoodsName());
         orderVO.setProductImg(item.getGoodsThumbnailUrl());
-        orderVO.setOrderAmount(BigDecimal.valueOf(item.getOrderAmount()));
         orderVO.setCommissionRate(BigDecimal.valueOf(item.getPromotionRate()).divide(TEN,2,RoundingMode.DOWN));
         orderVO.setPlatformCommission(BigDecimal.valueOf(item.getPromotionAmount()).divide(HUNDRED,2,RoundingMode.DOWN));
-        orderVO.setOrderAmount(BigDecimal.valueOf(item.getOrderAmount()));
+        orderVO.setOrderAmount(BigDecimal.valueOf(item.getOrderAmount()).divide(HUNDRED,2,RoundingMode.DOWN));
         orderVO.setOrderTime(new Date(item.getOrderCreateTime()*1000));
         orderVO.setPayTime(new Date(item.getOrderPayTime()*1000));
-        orderVO.setReceiveTime(new Date(item.getOrderReceiveTime()*1000));
-        orderVO.setSettleTime(new Date(item.getOrderSettleTime()*1000));
+        if(item.getOrderReceiveTime() != null) {
+            orderVO.setReceiveTime(new Date(item.getOrderReceiveTime()*1000));
+        }
+        if(item.getOrderSettleTime() != null) {
+            orderVO.setSettleTime(new Date(item.getOrderSettleTime()*1000));
+        }
         switch (item.getOrderStatus()){
             case 0://已支付
             case 1://已成团

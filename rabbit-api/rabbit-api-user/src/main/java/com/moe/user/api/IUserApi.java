@@ -4,6 +4,7 @@ import com.moe.common.core.annotation.FeignResponseCheck;
 import com.moe.common.core.constant.ServiceNameConstants;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
+import com.moe.user.vo.UserMemberVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,10 +29,10 @@ public interface IUserApi {
     R<User> saveUser(@RequestBody User user);
 
     /**
-     * 查询用户会员等级map
+     * 查询用户会员map
      * @return
      */
-    @PostMapping("/userMemberLevelMap")
-    R<Map<String, Integer>> userMemberLevelMap();
+    @PostMapping("/userMemberMap")
+    R<Map<String, UserMemberVO>> userMemberMap();
 
 }

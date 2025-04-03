@@ -26,6 +26,11 @@
             <artifactId>rabbit-api-order</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-api-wallet</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

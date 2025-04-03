@@ -1,11 +1,10 @@
 package com.moe.common.security.aspect;
 
+import com.moe.common.core.annotation.FeignResponseCheck;
 import com.moe.common.core.constant.HttpStatus;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.exception.ServiceException;
-import com.moe.common.core.utils.StringUtils;
 import com.moe.common.core.web.page.TableDataInfo;
-import com.moe.common.core.annotation.FeignResponseCheck;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
