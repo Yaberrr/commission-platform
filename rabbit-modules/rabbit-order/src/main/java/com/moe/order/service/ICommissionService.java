@@ -7,7 +7,7 @@ import com.moe.common.core.domain.order.Order;
  * @author tangyabo
  * @date 2025/4/2
  */
-public interface IOrderCommissionService {
+public interface ICommissionService {
 
     /**
      * 添加佣金

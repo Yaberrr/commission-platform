@@ -29,7 +29,7 @@ public class Order extends BaseEntity {
     //平台编号
     private String platformOrderId;
 
-    // 订单状态
+    // 订单状态 1已付款 2已收货 3已到账 4已失效
     private OrderStatus status;
 
     //商品id

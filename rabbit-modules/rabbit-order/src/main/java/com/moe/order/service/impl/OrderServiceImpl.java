@@ -2,10 +2,22 @@ package com.moe.order.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moe.common.core.domain.config.PlatformConfig;
 import com.moe.common.core.domain.order.Order;
+import com.moe.common.core.domain.user.User;
+import com.moe.common.core.enums.config.PlatformConfigType;
 import com.moe.common.core.enums.order.OrderStatus;
+import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.utils.Assert;
+import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.module.service.PlatformConfigService;
+import com.moe.common.module.utils.CommissionUtils;
+import com.moe.common.security.utils.SecurityUtils;
 import com.moe.order.domain.bo.OrderStatusBO;
+import com.moe.order.domain.dto.OrderListDTO;
+import com.moe.order.domain.vo.OrderListVO;
 import com.moe.order.dto.BatchUpdateOrderDTO;
 import com.moe.order.handler.OrderHandlerFactory;
 import com.moe.order.mapper.OrderMapper;
@@ -30,6 +42,8 @@ public class OrderServiceImpl implements IOrderService {
     private OrderMapper orderMapper;
     @Autowired
     private OrderHandlerFactory orderHandlerFactory;
+    @Autowired
+    private PlatformConfigService platformConfigService;
 
     @Override
     @Transactional
@@ -90,6 +104,24 @@ public class OrderServiceImpl implements IOrderService {
             }
         }
         return orderCount;
+    }
+
+    @Override
+    public Page<OrderListVO> orderList(IPage page, OrderListDTO dto) {
+        Page<OrderListVO> pageResult = orderMapper.orderList(page, dto, SecurityUtils.getAppUser().getId());
+
+        //我的订单 需计算下级佣金
+        MemberLevel nextLevel = SecurityUtils.getMemberLevel().nextLevel();
+        if(dto.getType() == 1 && nextLevel != null){
+            pageResult.getRecords().stream().collect(Collectors.groupingBy(OrderListVO::getPlatformType))
+                    .forEach((platformType, orderList) -> {
+                        PlatformConfig.CommissionRatio config = platformConfigService.getConfig(platformType, PlatformConfigType.COMMISSION_RATIO);
+                        for (OrderListVO vo : orderList) {
+                            vo.setNextCommission(CommissionUtils.calculate(config, vo.getCommission(), nextLevel).getCommission());
+                        }
+                    });
+        }
+        return pageResult;
     }
 
 

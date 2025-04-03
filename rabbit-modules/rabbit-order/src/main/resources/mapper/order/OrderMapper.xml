@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moe.order.mapper.OrderMapper">
+
+    <select id="orderList" resultType="com.moe.order.domain.vo.OrderListVO">
+        SELECT id,order_no,status,product_id,product_name, product_img,order_amount,platform_type,order_time,
+        CASE
+        WHEN user_id = #{userId} THEN commission
+        WHEN parent_user_id = #{userId} THEN parent_commission
+        WHEN grand_parent_user_id = #{userId} THEN grand_parent_commission
+        ELSE 0.00
+        END AS commission
+        FROM rb_order
+        <where>
+            <if test="dto.platformType!=null">
+                AND platform_type = #{dto.platformType}
+            </if>
+            <if test="dto.status != null">
+                AND status = #{dto.status}
+            </if>
+            <if test="dto.type == 1">
+                AND user_id = #{userId}
+            </if>
+            <if test="dto.type == 2">
+                AND (parent_user_id = #{userId} OR grand_parent_user_id = #{userId})
+            </if>
+        </where>
+
+    </select>
+</mapper>

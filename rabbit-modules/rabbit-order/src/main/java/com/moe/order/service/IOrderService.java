@@ -1,10 +1,11 @@
 package com.moe.order.service;
 
-import com.moe.common.core.domain.order.Order;
-import com.moe.common.core.enums.platform.PlatformType;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.order.domain.dto.OrderListDTO;
+import com.moe.order.domain.vo.OrderListVO;
 import com.moe.order.dto.BatchUpdateOrderDTO;
-
-import java.util.List;
 
 /**
  * @author tangyabo
@@ -19,5 +20,11 @@ public interface IOrderService {
      */
     int batchUpdateOrder(BatchUpdateOrderDTO dto);
 
-
+    /**
+     * 查询订单列表
+     * @param page
+     * @param dto
+     * @return
+     */
+    Page<OrderListVO> orderList(IPage page, OrderListDTO dto);
 }

@@ -4,7 +4,7 @@ import com.moe.common.core.domain.order.Order;
 import com.moe.common.core.enums.wallet.WalletEventType;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
 import com.moe.common.core.enums.wallet.WalletRewardLevel;
-import com.moe.order.service.IOrderCommissionService;
+import com.moe.order.service.ICommissionService;
 import com.moe.wallet.api.IWalletApi;
 import com.moe.wallet.dto.WalletRecordDTO;
 import com.moe.wallet.dto.WalletRecordListDTO;
@@ -20,7 +20,7 @@ import java.util.Set;
  */
 @Service
 @Transactional
-public class OrderCommissionServiceImpl implements IOrderCommissionService {
+public class CommissionServiceImpl implements ICommissionService {
 
 
     //todo: 都改为mq异步
