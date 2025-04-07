@@ -1,5 +1,6 @@
 package com.moe.admin.api;
 
+import com.moe.common.core.annotation.FeignResponseCheck;
 import com.moe.common.core.domain.sys.SysFile;
 import com.moe.admin.factory.FileApiFallback;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,6 +16,7 @@ import com.moe.common.core.domain.R;
  *
  * @author ruoyi
  */
+@FeignResponseCheck(serviceName = "文件")
 @FeignClient(contextId = "fileApi", value = ServiceNameConstants.FILE_SERVICE, fallbackFactory = FileApiFallback.class)
 public interface FileApi
 {

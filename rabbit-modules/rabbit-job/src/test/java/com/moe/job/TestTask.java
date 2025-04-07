@@ -1,4 +1,4 @@
-package com.moe.platform;
+package com.moe.job;
 
 import com.moe.common.core.enums.platform.PlatformType;
 import com.moe.job.MoeJobApplication;

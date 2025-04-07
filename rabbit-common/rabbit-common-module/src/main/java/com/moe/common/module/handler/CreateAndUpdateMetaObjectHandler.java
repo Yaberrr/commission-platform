@@ -1,4 +1,4 @@
-package com.moe.common.security.handler;
+package com.moe.common.module.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -7,6 +7,7 @@ import com.moe.common.core.constant.HttpStatus;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.enums.SystemType;
 import com.moe.common.core.exception.ServiceException;
+import com.moe.common.core.web.domain.AddBaseEntity;
 import com.moe.common.core.web.domain.BaseEntity;
 import com.moe.common.security.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
@@ -25,16 +26,27 @@ public class CreateAndUpdateMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         try {
-            if (ObjectUtil.isNotNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity) {
-                BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
-                if(Objects.isNull(baseEntity.getCreateTime())){
-                    baseEntity.setCreateTime(new Date());
-                }
-                baseEntity.setUpdateTime(baseEntity.getCreateTime());
-                LoginUser loginUser = SecurityUtils.getLoginUser();
-                if(loginUser != null){
-                    baseEntity.setCreateBy(this.getUserKey(loginUser));
-                    baseEntity.setUpdateBy(baseEntity.getCreateBy());
+            if (ObjectUtil.isNotNull(metaObject)){
+                if(metaObject.getOriginalObject() instanceof BaseEntity) {
+                    BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
+                    if (Objects.isNull(baseEntity.getCreateTime())) {
+                        baseEntity.setCreateTime(new Date());
+                    }
+                    baseEntity.setUpdateTime(baseEntity.getCreateTime());
+                    LoginUser loginUser = SecurityUtils.getLoginUser();
+                    if (loginUser != null) {
+                        baseEntity.setCreateBy(this.getUserKey(loginUser));
+                        baseEntity.setUpdateBy(baseEntity.getCreateBy());
+                    }
+                }else if(metaObject.getOriginalObject() instanceof AddBaseEntity) {
+                    AddBaseEntity addBaseEntity = (AddBaseEntity) metaObject.getOriginalObject();
+                    if(Objects.isNull(addBaseEntity.getCreateTime())){
+                        addBaseEntity.setCreateTime(new Date());
+                    }
+                    LoginUser loginUser = SecurityUtils.getLoginUser();
+                    if (loginUser != null) {
+                        addBaseEntity.setCreateBy(this.getUserKey(loginUser));
+                    }
                 }
             }
         } catch (Exception e) {

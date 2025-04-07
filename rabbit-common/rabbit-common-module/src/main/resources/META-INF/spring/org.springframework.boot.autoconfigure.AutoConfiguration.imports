@@ -1,1 +1,2 @@
 com.moe.common.module.service.PlatformConfigService
+com.moe.common.module.config.MybatisPlusConfig

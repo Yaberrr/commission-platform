@@ -43,6 +43,7 @@
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <hutool.version>5.8.25</hutool.version>
         <caffeine.version>2.9.3</caffeine.version>
+        <qiniu.version>7.18.0</qiniu.version>
     </properties>
 
     <!-- 依赖声明 -->

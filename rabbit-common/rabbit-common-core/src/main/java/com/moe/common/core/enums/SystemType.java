@@ -15,7 +15,7 @@ import static com.moe.common.core.constant.ServiceNameConstants.*;
 @Getter
 public enum SystemType {
 
-    ADMIN("admin_", Arrays.asList(ADMIN_SERVICE,JOB_SERVICE)),
+    ADMIN("admin_", Arrays.asList(ADMIN_SERVICE,JOB_SERVICE,FILE_SERVICE)),
     APP("app_", Arrays.asList(USER_SERVICE,PRODUCT_SERVICE,ORDER_SERVICE,WALLET_SERVICE));
 
     //redis key前缀

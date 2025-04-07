@@ -1,15 +1,19 @@
 package com.moe.file;
 
+import com.moe.common.security.annotation.EnableCustomConfig;
+import com.moe.common.security.annotation.EnableRyFeignClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * 文件服务
- * 
+ *
  * @author ruoyi
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@EnableCustomConfig
+@EnableRyFeignClients
+@SpringBootApplication
 public class MoeFileApplication
 {
     public static void main(String[] args)

@@ -1,9 +1,9 @@
 # Tomcat
 server:
-  port: 9300
+  port: 9307
 
 # Spring
-spring: 
+spring:
   application:
     # 应用名称
     name: rabbit-file

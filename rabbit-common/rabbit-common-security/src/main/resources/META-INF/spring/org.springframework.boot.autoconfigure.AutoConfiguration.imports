@@ -4,4 +4,3 @@ com.moe.common.security.aspect.PreAuthorizeAspect
 com.moe.common.security.aspect.InnerAuthAspect
 com.moe.common.security.aspect.FeignResponseAspect
 com.moe.common.security.handler.GlobalExceptionHandler
-com.moe.common.security.config.MybatisPlusConfig

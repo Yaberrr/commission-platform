@@ -1,15 +1,27 @@
 package com.moe.common.core.domain.sys;
 
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.moe.common.core.web.domain.AddBaseEntity;
+import com.moe.common.core.web.domain.BaseEntity;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.util.Date;
 
 /**
  * 文件信息
  *
  * @author ruoyi
  */
-public class SysFile
+@Data
+@TableName("sys_file")
+public class SysFile extends AddBaseEntity
 {
+    @TableId(type = IdType.AUTO)
+    private Long id;
+
     /**
      * 文件名称
      */
@@ -20,31 +32,4 @@ public class SysFile
      */
     private String url;
 
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getUrl()
-    {
-        return url;
-    }
-
-    public void setUrl(String url)
-    {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("name", getName())
-            .append("url", getUrl())
-            .toString();
-    }
 }

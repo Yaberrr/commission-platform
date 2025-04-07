@@ -39,6 +39,12 @@
             <groupId>com.moe</groupId>
             <artifactId>rabbit-api-file</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>${qiniu.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

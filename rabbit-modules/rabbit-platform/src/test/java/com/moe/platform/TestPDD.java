@@ -70,4 +70,9 @@ public class TestPDD {
         dto.setEndTime(new Date().getTime()/1000);
         System.out.println(new ObjectMapper().writeValueAsString(pddOrderService.orderList(dto)));
     }
+
+    @Test
+    public void testProduct(){
+
+    }
 }
