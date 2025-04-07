@@ -24,6 +24,9 @@ public class OrderListDTO {
     //订单状态 1已付款 2已收货 3已到账 4已失效
     private List<Integer> statusList;
 
+    //商品标题/订单编号
+    private String keyword;
+
     public void setPlatformType(Integer code) {
         this.platformType = PlatformType.fromCode(code);
     }

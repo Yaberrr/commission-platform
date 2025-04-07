@@ -126,6 +126,7 @@ public class PddConvert {
         orderVO.setOrderAmount(BigDecimal.valueOf(item.getOrderAmount()).divide(HUNDRED,2,RoundingMode.DOWN));
         orderVO.setOrderTime(new Date(item.getOrderCreateTime()*1000));
         orderVO.setPayTime(new Date(item.getOrderPayTime()*1000));
+        orderVO.setFailReason(item.getFailReason());
         if(item.getOrderReceiveTime() != null) {
             orderVO.setReceiveTime(new Date(item.getOrderReceiveTime()*1000));
         }

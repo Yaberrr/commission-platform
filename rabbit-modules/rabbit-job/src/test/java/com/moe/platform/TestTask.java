@@ -25,7 +25,7 @@ public class TestTask {
 
     @Test
     public void testOrderTask() {
-        orderTask.updateOrder(PlatformType.PDD.getCode(), 7200);
+        orderTask.updateOrder(PlatformType.PDD.getCode(), 7200L);
     }
 
 }

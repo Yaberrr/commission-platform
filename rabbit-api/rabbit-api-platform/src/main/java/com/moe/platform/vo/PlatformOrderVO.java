@@ -65,7 +65,10 @@ public class PlatformOrderVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date settleTime;
 
-    //用户id  平台各自不处理，返回前统一处理
+    //失败原因
+    private String failReason;
+
+    //用户id  平台各自不处理，统一处理
     private Long userId;
 
 }

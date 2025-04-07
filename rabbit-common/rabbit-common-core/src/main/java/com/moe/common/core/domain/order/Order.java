@@ -71,6 +71,9 @@ public class Order extends BaseEntity {
     //上上级用户id
     private Long grandParentUserId;
 
+    //失效原因
+    private String failReason;
+
     // 下单时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;

@@ -21,6 +21,9 @@
                     #{status}
                 </foreach>
             </if>
+            <if test="dto.keyword != null">
+                AND (order_no LIKE CONCAT('%',#{dto.keyword},'%') OR product_name LIKE CONCAT('%',#{dto.keyword},'%'))
+            </if>
             <if test="dto.type == 1">
                 AND user_id = #{userId}
             </if>

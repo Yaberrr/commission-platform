@@ -49,4 +49,7 @@ public class OrderListVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
 
+    //失效原因
+    private String failReason;
+
 }

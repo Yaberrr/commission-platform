@@ -70,10 +70,11 @@ public class OrderServiceImpl implements IOrderService {
                 statusList.add(statusBO);
             }else{
                 if(!newBean.getStatus().equals(oldBean.getStatus())) {
-                    //仅更新状态
+                    //仅更新状态和失败原因
                     Order updateBean = new Order();
                     updateBean.setId(oldBean.getId());
                     updateBean.setStatus(newBean.getStatus());
+                    updateBean.setFailReason(newBean.getFailReason());
                     updateList.add(updateBean);
                     //状态变化
                     OrderStatusBO statusBO = new OrderStatusBO(oldBean,oldBean.getStatus(),newBean.getStatus());
@@ -110,7 +111,7 @@ public class OrderServiceImpl implements IOrderService {
     public Page<OrderListVO> orderList(IPage page, OrderListDTO dto) {
         Page<OrderListVO> pageResult = orderMapper.orderList(page, dto, SecurityUtils.getAppUser().getId());
 
-        //我的订单 需计算下级佣金
+        //我的订单 需计算下一等级佣金
         MemberLevel nextLevel = SecurityUtils.getMemberLevel().nextLevel();
         if(dto.getType() == 1 && nextLevel != null){
             pageResult.getRecords().stream().collect(Collectors.groupingBy(OrderListVO::getPlatformType))

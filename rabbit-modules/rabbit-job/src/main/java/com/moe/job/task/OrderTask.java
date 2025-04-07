@@ -62,7 +62,7 @@ public class OrderTask {
     @Autowired
     private RedisService redisService;
 
-    public void updateOrder(Integer platformType, long seconds) {
+    public void updateOrder(Integer platformType, Long seconds) {
         log.info("开始同步订单...");
         long startTime = System.currentTimeMillis()/1000 - seconds;
         long endTime = System.currentTimeMillis()/1000;
