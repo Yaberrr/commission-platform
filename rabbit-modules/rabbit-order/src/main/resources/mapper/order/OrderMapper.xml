@@ -15,8 +15,11 @@
             <if test="dto.platformType!=null">
                 AND platform_type = #{dto.platformType}
             </if>
-            <if test="dto.status != null">
-                AND status = #{dto.status}
+            <if test="dto.statusList != null and dto.statusList.size() > 0">
+                AND status IN
+                <foreach collection="dto.statusList" item="status" open="(" separator="," close=")">
+                    #{status}
+                </foreach>
             </if>
             <if test="dto.type == 1">
                 AND user_id = #{userId}

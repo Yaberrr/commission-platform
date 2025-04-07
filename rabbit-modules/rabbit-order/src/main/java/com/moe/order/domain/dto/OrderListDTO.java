@@ -5,6 +5,7 @@ import com.moe.common.core.enums.platform.PlatformType;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author tangyabo
@@ -21,13 +22,10 @@ public class OrderListDTO {
     private PlatformType platformType;
 
     //订单状态 1已付款 2已收货 3已到账 4已失效
-    private OrderStatus status;
+    private List<Integer> statusList;
 
     public void setPlatformType(Integer code) {
         this.platformType = PlatformType.fromCode(code);
-    }
-    public void setStatus(Integer code) {
-        this.status = OrderStatus.fromCode(code);
     }
 
 }
