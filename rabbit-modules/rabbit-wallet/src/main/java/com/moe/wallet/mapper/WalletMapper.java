@@ -3,6 +3,7 @@ package com.moe.wallet.mapper;
 import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.core.mapper.BaseMapperPlus;
 import com.moe.wallet.domain.bo.WalletUpdateBO;
+import com.moe.wallet.domain.vo.MyCommissionVO;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -25,4 +26,8 @@ public interface WalletMapper extends BaseMapperPlus<WalletMapper, Wallet, Walle
      */
     int updateByBO(WalletUpdateBO bo);
 
+    /**
+     * 我的收益
+     */
+    MyCommissionVO myCommission(Long userId);
 }

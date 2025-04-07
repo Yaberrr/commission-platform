@@ -32,4 +32,23 @@
         </set>
         WHERE id = #{walletId}
     </update>
+
+    <select id="myCommission" resultType="com.moe.wallet.domain.vo.MyCommissionVO">
+        SELECT
+            IFNULL(SUM(IF(DATE(order_time) = CURDATE(), commission, 0)),0) AS todayCommission,
+            IFNULL(SUM(IF(DATE(order_time) = DATE_SUB(CURDATE(), INTERVAL 1 DAY), commission, 0)),0) AS yesterdayCommission,
+            IFNULL(SUM(IF(DATE_FORMAT(order_time, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m'), commission, 0)),0) AS thisMonthCommission,
+            IFNULL(SUM(IF(DATE_FORMAT(order_time, '%Y-%m') = DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m'), commission, 0)),0) AS lastMonthCommission
+        FROM
+            (SELECT status,order_time, commission FROM `rb_order`
+             WHERE user_id = #{userId} AND order_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01 00:00:00')
+             UNION ALL
+             SELECT status,order_time, parent_commission AS commission FROM `rb_order`
+             WHERE parent_user_id = #{userId} AND order_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01 00:00:00')
+             UNION ALL
+             SELECT status,order_time, grand_parent_commission AS commission FROM `rb_order`
+             WHERE grand_parent_user_id = #{userId} AND order_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01 00:00:00')
+            ) mid
+        WHERE status != 4
+    </select>
 </mapper>

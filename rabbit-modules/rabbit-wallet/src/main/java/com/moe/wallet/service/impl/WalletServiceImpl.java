@@ -1,13 +1,16 @@
 package com.moe.wallet.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.moe.common.core.domain.user.User;
 import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.core.domain.user.WalletRecord;
 import com.moe.common.core.enums.wallet.WalletFlowType;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
 import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
+import com.moe.common.security.utils.SecurityUtils;
 import com.moe.wallet.domain.bo.WalletUpdateBO;
+import com.moe.wallet.domain.vo.MyCommissionVO;
 import com.moe.wallet.dto.WalletRecordListDTO;
 import com.moe.wallet.dto.WalletRecordDTO;
 import com.moe.wallet.mapper.WalletMapper;
@@ -33,6 +36,15 @@ public class WalletServiceImpl implements IWalletService {
     private WalletMapper walletMapper;
     @Autowired
     private WalletRecordMapper walletRecordMapper;
+
+    @Override
+    public MyCommissionVO myCommission() {
+        User user = SecurityUtils.getAppUser();
+        MyCommissionVO vo = walletMapper.myCommission(user.getId());
+        Wallet wallet = this.myWallet(user.getId(), false);
+        vo.setUpcomingAndBalance(wallet.getUpcomingCommission().add(wallet.getBalance()));
+        return vo;
+    }
 
     @Override
     public Wallet myWallet(Long userId, boolean needLock) {

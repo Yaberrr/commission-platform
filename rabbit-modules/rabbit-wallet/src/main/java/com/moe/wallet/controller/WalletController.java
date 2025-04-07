@@ -4,6 +4,7 @@ import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.security.utils.SecurityUtils;
+import com.moe.wallet.domain.vo.MyCommissionVO;
 import com.moe.wallet.service.IWalletService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,11 +25,10 @@ public class WalletController {
     @Autowired
     private IWalletService walletService;
 
-    @Operation(description = "我的钱包")
-    @PostMapping("/myWallet")
-    public R<Wallet> myWallet(){
-        User user = SecurityUtils.getAppUser();
-        return R.ok(walletService.myWallet(user.getId(),false));
+    @Operation(description = "我的收益")
+    @PostMapping("/myCommission")
+    public R<MyCommissionVO> myCommission(){
+        return R.ok(walletService.myCommission());
     }
 
 }
