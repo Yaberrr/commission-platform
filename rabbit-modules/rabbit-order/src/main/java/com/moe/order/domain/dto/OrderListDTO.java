@@ -21,7 +21,7 @@ public class OrderListDTO {
     //平台类型
     private PlatformType platformType;
 
-    //订单状态 1已付款 2已收货 3已到账 4已失效
+    //订单状态 0全部  1即将到账 2已收货 3已到账 4已失效
     private List<Integer> statusList;
 
     //商品标题/订单编号

@@ -181,13 +181,15 @@ public class PddProductService implements IPlatformProductService {
             //获取授权信息
             PlatformAuth auth = platformUtils.checkPlatformAuth(PlatformType.PDD, platformAuthService);
             request.setPId(auth.getAuthId());
+            request.setGenerateSchemaUrl(true);
+            request.setGenerateWeAppLongLink(true);
             request.setCustomParameters(PddUtils.getCustomParameter(auth));
             request.setSearchId(dto.getSearchParam());
             request.setGoodsSignList(Collections.singletonList(dto.getProductId()));
             PddDdkGoodsPromotionUrlGenerateResponse response = popClient.syncInvoke(request);
             PddUtils.checkResponse(response);
             PddDdkGoodsPromotionUrlGenerateResponse.GoodsPromotionUrlGenerateResponseGoodsPromotionUrlListItem item = response.getGoodsPromotionUrlGenerateResponse().getGoodsPromotionUrlList().get(0);
-            return new PlatformUrlVO(item.getMobileShortUrl());
+            return new PlatformUrlVO(item.getMobileShortUrl(),item.getSchemaUrl(),item.getWeixinLongLink());
         } catch (Exception e) {
             throw new ServiceException(e,"拼多多商品链接生成失败:{}",e.getMessage());
         }

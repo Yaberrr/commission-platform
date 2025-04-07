@@ -17,4 +17,10 @@ public class PlatformUrlVO {
     //app链接
     private String mobileUrl;
 
+    //schema链接
+    private String schemaUrl;
+
+    //微信链接
+    private String weixinUrl;
+
 }

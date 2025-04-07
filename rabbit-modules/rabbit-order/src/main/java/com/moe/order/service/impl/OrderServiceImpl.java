@@ -109,6 +109,10 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Page<OrderListVO> orderList(IPage page, OrderListDTO dto) {
+        if(CollUtil.isNotEmpty(dto.getStatusList()) && dto.getStatusList().contains(0)){
+            //0查询全部
+            dto.setStatusList(null);
+        }
         Page<OrderListVO> pageResult = orderMapper.orderList(page, dto, SecurityUtils.getAppUser().getId());
 
         //我的订单 需计算下一等级佣金

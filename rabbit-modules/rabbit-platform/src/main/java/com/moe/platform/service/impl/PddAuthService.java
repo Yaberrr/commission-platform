@@ -78,12 +78,13 @@ public class PddAuthService implements IPlatformAuthService {
             PddDdkRpPromUrlGenerateRequest request = new PddDdkRpPromUrlGenerateRequest();
             request.setChannelType(10);
             request.setCustomParameters(PddUtils.getCustomParameter(auth));
+            request.setGenerateSchemaUrl(true);
             request.setPIdList(Collections.singletonList(auth.getAuthId()));
             PddDdkRpPromUrlGenerateResponse response = popClient.syncInvoke(request);
             PddUtils.checkResponse(response);
             //提取url
             PddDdkRpPromUrlGenerateResponse.RpPromotionUrlGenerateResponseUrlListItem item = response.getRpPromotionUrlGenerateResponse().getUrlList().get(0);
-            return new PlatformUrlVO(item.getMobileUrl());
+            return new PlatformUrlVO(item.getMobileUrl(),item.getSchemaUrl(),null);
         }catch (Exception e){
             throw new ServiceException(e,"生成授权链接api异常:{}",e.getMessage());
         }
