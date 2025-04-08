@@ -1,5 +1,6 @@
 package com.moe.gateway.filter;
 
+import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.enums.SystemType;
 import com.moe.gateway.config.properties.IgnoreWhiteProperties;
 import org.slf4j.Logger;
@@ -63,10 +64,16 @@ public class AuthFilter implements GlobalFilter, Ordered
         {
             return unauthorizedResponse(exchange, "令牌已过期或验证不正确！");
         }
-        boolean islogin = redisService.hasKey(JwtUtils.getRedisKey(accessToken));
-        if (!islogin)
-        {
+
+        String tokenKey = JwtUtils.getTokenKey(claims);
+        long expireTime = redisService.getExpire(tokenKey);
+        if(expireTime < 0){
             return unauthorizedResponse(exchange, "登录状态已过期");
+        }
+        //自动刷新令牌
+        if (expireTime - System.currentTimeMillis() <= CacheConstants.LOGIN_REFRESH_TIME * 1000) {
+            redisService.expire(tokenKey, CacheConstants.LOGIN_EXPIRE_TIME);
+            redisService.expire(JwtUtils.getUserInfoKey(claims), CacheConstants.LOGIN_EXPIRE_TIME);
         }
         //用户系统类型
         SystemType systemType = SystemType.valueOf(JwtUtils.getValue(claims, SecurityConstants.SYSTEM_TYPE));

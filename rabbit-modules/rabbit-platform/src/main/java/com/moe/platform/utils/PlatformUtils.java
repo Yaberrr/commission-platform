@@ -50,7 +50,7 @@ public class PlatformUtils {
                     auth.setStatus(1);
                     platformAuthMapper.updateById(auth);
                     //刷新缓存
-                    tokenService.refreshToken(loginUser);
+                    tokenService.refreshUserInfo(loginUser);
                     return auth;
                 }
             }

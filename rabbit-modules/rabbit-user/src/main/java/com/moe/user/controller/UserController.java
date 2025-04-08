@@ -55,7 +55,7 @@ public class UserController {
         //刷新缓存
         LoginUser loginUser = SecurityUtils.getLoginUser();
         loginUser.setAppAuthList(authList);
-        tokenService.refreshToken(loginUser);
+        tokenService.refreshUserInfo(loginUser);
         return R.ok(new OnlyList<>(authList));
     }
 

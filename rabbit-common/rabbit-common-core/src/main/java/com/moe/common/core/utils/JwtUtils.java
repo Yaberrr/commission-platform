@@ -5,6 +5,7 @@ import java.util.Map;
 import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.constant.TokenConstants;
+import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.enums.SystemType;
 import com.moe.common.core.text.Convert;
 import io.jsonwebtoken.Claims;
@@ -66,22 +67,45 @@ public class JwtUtils
     }
 
     /**
-     * 根据令牌获取redis key
+     * 根据令牌获取token key
      */
-    public static String getRedisKey(String accessToken){
+    public static String getTokenKey(String accessToken){
         Claims claims = parseAccessToken(accessToken);
+        return JwtUtils.getTokenKey(claims);
+    }
+    public static String getTokenKey(Claims claims){
         String token = getValue(claims, SecurityConstants.USER_KEY);
         SystemType systemType = SystemType.valueOf(getValue(claims,SecurityConstants.SYSTEM_TYPE));
-        return getRedisKey(token,systemType);
+        return getTokenKey(token,systemType);
     }
-
-    public static String getRedisKey(String token, SystemType systemType) {
+    public static String getTokenKey(String token, SystemType systemType) {
         return systemType.getRedisPrefix() + CacheConstants.LOGIN_TOKEN_KEY  + token;
     }
 
     /**
+     * 根据令牌获取userInfo key
+     */
+    public static String getUserInfoKey(String accessToken){
+        Claims claims = parseAccessToken(accessToken);
+        return JwtUtils.getUserInfoKey(claims);
+    }
+    public static String getUserInfoKey(Claims claims){
+        String userId = getValue(claims, SecurityConstants.DETAILS_USER_ID);
+        SystemType systemType = SystemType.valueOf(getValue(claims,SecurityConstants.SYSTEM_TYPE));
+        return systemType.getRedisPrefix() + CacheConstants.USER_INFO_KEY  + userId;
+    }
+    public static String getUserInfoKey(LoginUser loginUser){
+        Long userId;
+        if(SystemType.ADMIN.equals(loginUser.getSystemType())){
+            userId = loginUser.getSysUser().getUserId();
+        }else{
+            userId = loginUser.getAppUser().getId();
+        }
+        return loginUser.getSystemType().getRedisPrefix() + CacheConstants.USER_INFO_KEY + userId;
+    }
+
+    /**
      * 根据令牌获取用户ID
-     *
      * @param token 令牌
      * @return 用户ID
      */

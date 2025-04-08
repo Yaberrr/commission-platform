@@ -95,16 +95,6 @@ public class AuthLogic
     }
 
     /**
-     * 验证当前用户有效期, 如果相差不足120分钟，自动刷新缓存
-     *
-     * @param loginUser 当前用户信息
-     */
-    public void verifyLoginUserExpire(LoginUser loginUser)
-    {
-        tokenService.verifyToken(loginUser);
-    }
-
-    /**
      * 验证用户是否具备某权限
      *
      * @param permission 权限字符串

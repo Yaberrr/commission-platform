@@ -7,15 +7,7 @@ package com.moe.common.core.constant;
  */
 public class CacheConstants
 {
-    /**
-     * 缓存有效期 30天
-     */
-    public final static long EXPIRATION = 43200;
 
-    /**
-     * 缓存刷新时间 29天
-     */
-    public final static long REFRESH_TIME = 41760;
 
     /**
      * 密码最大错误次数
@@ -28,9 +20,24 @@ public class CacheConstants
     public final static long PASSWORD_LOCK_TIME = 10;
 
     /**
-     * 权限缓存前缀
+     * 登陆令牌有效期 30天
+     */
+    public final static long LOGIN_EXPIRE_TIME = 43200;
+
+    /**
+     * 登录令牌刷新时间 29天
+     */
+    public final static long LOGIN_REFRESH_TIME = 41760;
+
+    /**
+     * 登录缓存前缀
      */
     public final static String LOGIN_TOKEN_KEY = "tokens:";
+
+    /**
+     * 用户信息缓存前缀
+     */
+    public final static String USER_INFO_KEY = "user_info:";
 
     /**
      * 验证码 redis key

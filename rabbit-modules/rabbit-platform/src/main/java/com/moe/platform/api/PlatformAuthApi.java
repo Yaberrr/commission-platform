@@ -54,14 +54,14 @@ public class PlatformAuthApi implements IPlatformAuthApi {
             platformAuthMapper.insert(auth);
             //刷新缓存
             loginUser.getAppAuthList().add(auth);
-            tokenService.refreshToken(loginUser);
+            tokenService.refreshUserInfo(loginUser);
         }else if (auth.getStatus() == 0){
             //检查授权状态
             if(authService.checkAuth(auth)){
                 auth.setStatus(1);
                 platformAuthMapper.updateById(auth);
                 //刷新缓存
-                tokenService.refreshToken(loginUser);
+                tokenService.refreshUserInfo(loginUser);
             }
         }
         Assert.isFalse(auth.getStatus() == 1,"该平台已授权");

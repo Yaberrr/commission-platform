@@ -1,21 +1,11 @@
 package com.moe.common.security.service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import javax.servlet.http.HttpServletRequest;
-
+import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.TokenVO;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.SystemType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import com.moe.common.core.constant.CacheConstants;
-import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.utils.JwtUtils;
 import com.moe.common.core.utils.ServletUtils;
 import com.moe.common.core.utils.StringUtils;
@@ -23,6 +13,17 @@ import com.moe.common.core.utils.ip.IpUtils;
 import com.moe.common.core.utils.uuid.IdUtils;
 import com.moe.common.redis.service.RedisService;
 import com.moe.common.security.utils.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static com.moe.common.core.constant.CacheConstants.LOGIN_EXPIRE_TIME;
 
 /**
  * token验证处理
@@ -41,10 +42,7 @@ public class TokenService
 
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
 
-    private final static long expireTime = CacheConstants.EXPIRATION;
 
-
-    private final static Long MILLIS_MINUTE_TEN = CacheConstants.REFRESH_TIME * MILLIS_MINUTE;
 
     /**
      * 创建令牌
@@ -78,9 +76,9 @@ public class TokenService
         // 接口返回信息
         TokenVO vo = new TokenVO();
         vo.setAccessToken(JwtUtils.createAccessToken(claimsMap));
-        vo.setExpiresIn(expireTime);
+        vo.setExpiresIn(LOGIN_EXPIRE_TIME);
         vo.setAccess_token(vo.getAccessToken());
-        vo.setExpires_in(expireTime);
+        vo.setExpires_in(LOGIN_EXPIRE_TIME);
         return vo;
     }
 
@@ -118,8 +116,8 @@ public class TokenService
         {
             if (StringUtils.isNotEmpty(accessToken))
             {
-                user = redisService.getCacheObject(JwtUtils.getRedisKey(accessToken));
-                return user;
+                String userInfoKey = JwtUtils.getUserInfoKey(accessToken);
+                return redisService.getCacheObject(userInfoKey);
             }
         }
         catch (Exception e)
@@ -147,38 +145,33 @@ public class TokenService
     {
         if (StringUtils.isNotEmpty(accessToken))
         {
-            redisService.deleteObject(JwtUtils.getRedisKey(accessToken));
-        }
-    }
-
-    /**
-     * 验证令牌有效期，相差不足120分钟，自动刷新缓存
-     *
-     * @param loginUser
-     */
-    public void verifyToken(LoginUser loginUser)
-    {
-        long expireTime = loginUser.getExpireTime();
-        long currentTime = System.currentTimeMillis();
-        if (expireTime - currentTime <= MILLIS_MINUTE_TEN)
-        {
-            refreshToken(loginUser);
+            redisService.deleteObject(JwtUtils.getTokenKey(accessToken));
         }
     }
 
     /**
      * 刷新令牌有效期
-     *
      * @param loginUser 登录信息
      */
     public void refreshToken(LoginUser loginUser)
     {
         loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
+        loginUser.setExpireTime(loginUser.getLoginTime() + LOGIN_EXPIRE_TIME * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
-        String redisKey = JwtUtils.getRedisKey(loginUser.getToken(), loginUser.getSystemType());
-        redisService.setCacheObject(redisKey, loginUser, expireTime, TimeUnit.MINUTES);
+        String tokenKey = JwtUtils.getTokenKey(loginUser.getToken(), loginUser.getSystemType());
+        String userInfoKey = JwtUtils.getUserInfoKey(loginUser);
+        redisService.setCacheObject(tokenKey, userInfoKey, LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
+        //刷新用户信息
+        redisService.setCacheObject(userInfoKey, loginUser, LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
     }
 
+    /**
+     * 刷新用户信息
+     * @param loginUser
+     */
+    public void refreshUserInfo(LoginUser loginUser){
+        String userInfoKey = JwtUtils.getUserInfoKey(loginUser);
+        redisService.setCacheObject(userInfoKey, loginUser, LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
+    }
 
 }

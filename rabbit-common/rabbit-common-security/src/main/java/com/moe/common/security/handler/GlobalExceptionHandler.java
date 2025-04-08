@@ -1,6 +1,8 @@
 package com.moe.common.security.handler;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.moe.common.core.exception.auth.NotLoginException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
@@ -31,6 +33,13 @@ public class GlobalExceptionHandler
 {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @ExceptionHandler(NotLoginException.class)
+    public AjaxResult handleNotLoginException(NotLoginException e, HttpServletRequest request){
+        String requestURI = request.getRequestURI();
+        log.error("请求地址'{}',用户未登录'{}'", requestURI, e.getMessage());
+        return AjaxResult.error(HttpStatus.UNAUTHORIZED, "用户未登录");
+    }
+
     /**
      * 权限码异常
      */
@@ -52,6 +61,7 @@ public class GlobalExceptionHandler
         log.error("请求地址'{}',角色权限校验失败'{}'", requestURI, e.getMessage());
         return AjaxResult.error(HttpStatus.FORBIDDEN, "没有访问权限，请联系管理员授权");
     }
+
 
     /**
      * 请求方式不支持
