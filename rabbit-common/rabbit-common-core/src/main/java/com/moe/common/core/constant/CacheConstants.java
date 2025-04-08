@@ -20,12 +20,12 @@ public class CacheConstants
     public final static long PASSWORD_LOCK_TIME = 10;
 
     /**
-     * 登陆令牌有效期 30天
+     * 登陆令牌有效期 30天 （分钟）
      */
     public final static long LOGIN_EXPIRE_TIME = 43200;
 
     /**
-     * 登录令牌刷新时间 29天
+     * 登录令牌刷新时间 29天 （分钟）
      */
     public final static long LOGIN_REFRESH_TIME = 41760;
 

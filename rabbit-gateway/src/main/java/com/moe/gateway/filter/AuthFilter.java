@@ -23,6 +23,8 @@ import com.moe.common.redis.service.RedisService;
 import io.jsonwebtoken.Claims;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
 
 /**
@@ -72,8 +74,8 @@ public class AuthFilter implements GlobalFilter, Ordered
         }
         //自动刷新令牌
         if (expireTime - System.currentTimeMillis() <= CacheConstants.LOGIN_REFRESH_TIME * 1000) {
-            redisService.expire(tokenKey, CacheConstants.LOGIN_EXPIRE_TIME);
-            redisService.expire(JwtUtils.getUserInfoKey(claims), CacheConstants.LOGIN_EXPIRE_TIME);
+            redisService.expire(tokenKey, CacheConstants.LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
+            redisService.expire(JwtUtils.getUserInfoKey(claims), CacheConstants.LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
         }
         //用户系统类型
         SystemType systemType = SystemType.valueOf(JwtUtils.getValue(claims, SecurityConstants.SYSTEM_TYPE));
