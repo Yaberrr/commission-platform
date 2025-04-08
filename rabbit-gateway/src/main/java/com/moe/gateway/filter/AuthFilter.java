@@ -73,7 +73,7 @@ public class AuthFilter implements GlobalFilter, Ordered
             return unauthorizedResponse(exchange, "登录状态已过期");
         }
         //自动刷新令牌
-        if (expireTime - System.currentTimeMillis() <= CacheConstants.LOGIN_REFRESH_TIME * 1000) {
+        if (expireTime - System.currentTimeMillis() <= CacheConstants.LOGIN_REFRESH_TIME*60*1000) {
             redisService.expire(tokenKey, CacheConstants.LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
             redisService.expire(JwtUtils.getUserInfoKey(claims), CacheConstants.LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
         }
