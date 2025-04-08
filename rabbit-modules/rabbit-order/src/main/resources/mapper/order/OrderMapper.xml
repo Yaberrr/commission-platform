@@ -3,7 +3,7 @@
 <mapper namespace="com.moe.order.mapper.OrderMapper">
 
     <select id="orderList" resultType="com.moe.order.domain.vo.OrderListVO">
-        SELECT id,order_no,status,product_id,product_name, product_img,order_amount,platform_type,order_time,
+        SELECT id,order_no,status,product_id,product_name, product_img,order_amount,platform_type,order_time,fail_reason,
         CASE
         WHEN user_id = #{userId} THEN commission
         WHEN parent_user_id = #{userId} THEN parent_commission
@@ -12,7 +12,7 @@
         END AS commission
         FROM rb_order
         <where>
-            <if test="dto.platformType!=null">
+            <if test="dto.platformType!=null and dto.platformType != 0">
                 AND platform_type = #{dto.platformType}
             </if>
             <if test="dto.statusList != null and dto.statusList.size() > 0">
@@ -31,6 +31,6 @@
                 AND (parent_user_id = #{userId} OR grand_parent_user_id = #{userId})
             </if>
         </where>
-
+        ORDER BY id DESC
     </select>
 </mapper>

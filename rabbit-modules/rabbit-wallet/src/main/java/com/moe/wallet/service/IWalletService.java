@@ -3,6 +3,7 @@ package com.moe.wallet.service;
 import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.core.domain.user.WalletRecord;
 import com.moe.common.core.enums.wallet.WalletRecordStatus;
+import com.moe.wallet.domain.vo.MyCommissionDetailVO;
 import com.moe.wallet.domain.vo.MyCommissionVO;
 import com.moe.wallet.dto.WalletRecordListDTO;
 import com.moe.wallet.dto.WalletRecordDTO;
@@ -21,6 +22,12 @@ public interface IWalletService {
      * @return
      */
     MyCommissionVO myCommission();
+
+    /**
+     * 我的收益明细
+     * @return
+     */
+    MyCommissionDetailVO myCommissionDetail();
 
     /**
      * 我的钱包

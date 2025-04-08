@@ -1,7 +1,7 @@
 package com.moe.wallet.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.moe.common.core.domain.user.User;
 import com.moe.common.core.domain.user.Wallet;
 import com.moe.common.core.domain.user.WalletRecord;
 import com.moe.common.core.enums.wallet.WalletFlowType;
@@ -10,6 +10,7 @@ import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.bean.BeanCopyUtils;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.wallet.domain.bo.WalletUpdateBO;
+import com.moe.wallet.domain.vo.MyCommissionDetailVO;
 import com.moe.wallet.domain.vo.MyCommissionVO;
 import com.moe.wallet.dto.WalletRecordListDTO;
 import com.moe.wallet.dto.WalletRecordDTO;
@@ -21,9 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author tangyabo
@@ -39,12 +38,67 @@ public class WalletServiceImpl implements IWalletService {
 
     @Override
     public MyCommissionVO myCommission() {
-        User user = SecurityUtils.getAppUser();
-        MyCommissionVO vo = walletMapper.myCommission(user.getId());
-        Wallet wallet = this.myWallet(user.getId(), false);
+        Long userId = SecurityUtils.getAppUser().getId();
+        MyCommissionVO vo = walletMapper.selectMyCommission(userId);
+        Wallet wallet = this.myWallet(userId, false);
         vo.setUpcomingAndBalance(wallet.getUpcomingCommission().add(wallet.getBalance()));
         return vo;
     }
+
+    @Override
+    public MyCommissionDetailVO myCommissionDetail() {
+        Long userId = SecurityUtils.getAppUser().getId();
+
+        MyCommissionDetailVO detailVO = new MyCommissionDetailVO();
+
+        Wallet wallet = this.myWallet(userId, false);
+        detailVO.setBalance(wallet.getBalance());
+        detailVO.setHistoryCommission(wallet.getBalance().add(wallet.getWithdrawnCommission()));
+
+        //今日
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        Date today = calendar.getTime();
+        detailVO.setTodayData(this.getCommissionUnit(userId, today, new Date()));
+
+        //昨日
+        calendar.add(Calendar.DAY_OF_MONTH,-1);
+        Date yesterday = calendar.getTime();
+        detailVO.setYesterdayData(this.getCommissionUnit(userId, yesterday, today));
+
+        //本月
+        calendar.add(Calendar.DAY_OF_MONTH,1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        Date thisMonth = calendar.getTime();
+        detailVO.setThisMonthData(this.getCommissionUnit(userId, thisMonth, new Date()));
+
+        //上月
+        calendar.add(Calendar.MONTH, -1);
+        Date lastMonth = calendar.getTime();
+        detailVO.setLastMonthData(this.getCommissionUnit(userId, lastMonth, thisMonth));
+        return detailVO;
+    }
+
+    /**
+     * 获取收益明细数据
+     * @return
+     */
+    private MyCommissionDetailVO.Unit getCommissionUnit(Long userId, Date startTime, Date endTime) {
+        MyCommissionDetailVO.Unit unit = new MyCommissionDetailVO.Unit();
+        List<MyCommissionDetailVO.Unit.Row> rowList = walletMapper.selectMyCommissionDetail(userId, DateUtil.beginOfDay(new Date()), new Date());
+        unit.setTotalRow(rowList.stream().reduce(new MyCommissionDetailVO.Unit.Row(), (total,row) -> {
+            total.setMyOrderCommission(total.getMyOrderCommission().add(row.getMyOrderCommission()));
+            total.setOtherOrderCommission(total.getOtherOrderCommission().add(row.getOtherOrderCommission()));
+            total.setOrderCount(total.getOrderCount() + row.getOrderCount());
+            return total;
+        }));
+        unit.setRowList(rowList);
+        return unit;
+    }
+
 
     @Override
     public Wallet myWallet(Long userId, boolean needLock) {

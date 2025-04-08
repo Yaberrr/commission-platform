@@ -1,6 +1,7 @@
 package com.moe.wallet.controller;
 
 import com.moe.common.core.domain.R;
+import com.moe.wallet.domain.vo.MyCommissionDetailVO;
 import com.moe.wallet.domain.vo.MyCommissionVO;
 import com.moe.wallet.service.IWalletService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +27,12 @@ public class WalletController {
     @PostMapping("/myCommission")
     public R<MyCommissionVO> myCommission(){
         return R.ok(walletService.myCommission());
+    }
+
+    @Operation(description = "我的收益明细")
+    @PostMapping("/myCommissionDetail")
+    public R<MyCommissionDetailVO> myCommissionDetail(){
+        return R.ok(walletService.myCommissionDetail());
     }
 
 }

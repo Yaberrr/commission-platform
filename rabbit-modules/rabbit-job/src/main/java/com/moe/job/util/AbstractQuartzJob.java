@@ -72,6 +72,11 @@ public abstract class AbstractQuartzJob implements Job
         Date startTime = threadLocal.get();
         threadLocal.remove();
 
+        //平台任务未出现异常 不保存记录
+        if( e == null && "PLATFORM".equals(sysJob.getJobGroup())){
+            return;
+        }
+
         final SysJobLog sysJobLog = new SysJobLog();
         sysJobLog.setJobName(sysJob.getJobName());
         sysJobLog.setJobGroup(sysJob.getJobGroup());

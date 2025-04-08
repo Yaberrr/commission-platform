@@ -19,16 +19,12 @@ public class OrderListDTO {
     private Integer type;
 
     //平台类型
-    private PlatformType platformType;
+    private Integer platformType;
 
     //订单状态 0全部  1即将到账 2已收货 3已到账 4已失效
     private List<Integer> statusList;
 
     //商品标题/订单编号
     private String keyword;
-
-    public void setPlatformType(Integer code) {
-        this.platformType = PlatformType.fromCode(code);
-    }
 
 }

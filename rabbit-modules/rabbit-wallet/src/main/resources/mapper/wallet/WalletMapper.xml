@@ -33,7 +33,7 @@
         WHERE id = #{walletId}
     </update>
 
-    <select id="myCommission" resultType="com.moe.wallet.domain.vo.MyCommissionVO">
+    <select id="selectMyCommission" resultType="com.moe.wallet.domain.vo.MyCommissionVO">
         SELECT
             IFNULL(SUM(IF(DATE(order_time) = CURDATE(), commission, 0)),0) AS todayCommission,
             IFNULL(SUM(IF(DATE(order_time) = DATE_SUB(CURDATE(), INTERVAL 1 DAY), commission, 0)),0) AS yesterdayCommission,
@@ -50,5 +50,17 @@
              WHERE grand_parent_user_id = #{userId} AND order_time >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01 00:00:00')
             ) mid
         WHERE status != 4
+    </select>
+
+    <select id="selectMyCommissionDetail" resultType="com.moe.wallet.domain.vo.MyCommissionDetailVO$Unit$Row">
+        SELECT platform_type,
+        COUNT(*) AS orderCount,
+        SUM(IF(user_id = #{userId},commission,0)) AS myOrderCommission,
+        SUM(IF(parent_user_id = #{userId}, parent_commission,
+                IF(grand_parent_user_id = #{userId}, grand_parent_commission, 0))) AS otherOrderCommission
+        FROM rb_order
+        WHERE (user_id = #{userId} OR parent_user_id = #{userId} OR grand_parent_user_id = #{userId})
+        AND order_time BETWEEN #{startTime} AND #{endTime} AND status != 4
+        GROUP BY platform_type
     </select>
 </mapper>

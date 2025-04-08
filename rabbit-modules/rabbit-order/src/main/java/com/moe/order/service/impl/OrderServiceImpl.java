@@ -122,7 +122,9 @@ public class OrderServiceImpl implements IOrderService {
                     .forEach((platformType, orderList) -> {
                         PlatformConfig.CommissionRatio config = platformConfigService.getConfig(platformType, PlatformConfigType.COMMISSION_RATIO);
                         for (OrderListVO vo : orderList) {
-                            vo.setNextCommission(CommissionUtils.calculate(config, vo.getCommission(), nextLevel).getCommission());
+                            if(vo.getStatus() != OrderStatus.EXPIRED) {
+                                vo.setNextCommission(CommissionUtils.calculate(config, vo.getCommission(), nextLevel).getCommission());
+                            }
                         }
                     });
         }
