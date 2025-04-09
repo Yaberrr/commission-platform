@@ -53,7 +53,16 @@ public class PlatformConfigService {
         }
     }
 
-
-
-
+    /**
+     *  更新平台配置
+     * @param platformType
+     * @param configType
+     * @param configJson
+     */
+    public  void setConfig(PlatformType platformType, PlatformConfigType configType, String configJson) {
+        String key = CacheConstants.PLATFORM_CONFIG_KEY+configType.name();
+        if(StrUtil.isNotBlank(configJson)){
+            redisService.setCacheMapValue(key, platformType.name(), configJson);
+        }
+    }
 }

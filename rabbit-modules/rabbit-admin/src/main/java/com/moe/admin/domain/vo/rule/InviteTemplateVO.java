@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class InviteModelVO {
+public class InviteTemplateVO {
 
     private Long id;
 
