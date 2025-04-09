@@ -1,7 +1,7 @@
 package com.moe.admin.controller.rule;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.service.PolicyConfigService;
+import com.moe.admin.service.IPolicyConfigService;
 import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
 import com.moe.admin.domain.vo.rule.PolicyConfigVO;
 import com.moe.common.core.web.controller.BaseController;
@@ -12,14 +12,12 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/policyConfig")
 public class PolicyConfigController extends BaseController {
 
     @Autowired
-    private PolicyConfigService policyConfigService;
+    private IPolicyConfigService policyConfigService;
 
     @RequiresPermissions("admin:policyConfig:list")
     @GetMapping("/list")

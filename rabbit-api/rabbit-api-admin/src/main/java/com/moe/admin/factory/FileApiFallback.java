@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.sys.SysFile;
 
+import java.util.List;
+
 /**
  * 文件服务降级处理
  *
@@ -29,6 +31,11 @@ public class FileApiFallback implements FallbackFactory<FileApi>
             public R<SysFile> upload(MultipartFile file)
             {
                 return R.fail("上传文件失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<List<SysFile>> uploads(MultipartFile[] files) {
+                return R.fail("同时上传多个文件失败:" + throwable.getMessage());
             }
         };
     }

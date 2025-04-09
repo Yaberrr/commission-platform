@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.user.VersionTaskDTO;
 import com.moe.admin.domain.vo.user.VersionTaskVO;
 
-public interface VersionTaskService {
+public interface IVersionTaskService {
 
     Page<VersionTaskVO> selectAllVersionTask(IPage page);
 

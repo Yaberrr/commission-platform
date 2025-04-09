@@ -3,7 +3,7 @@ package com.moe.admin.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moe.admin.mapper.GlobalConfigMapper;
-import com.moe.admin.service.GlobalConfigService;
+import com.moe.admin.service.IGlobalConfigService;
 import com.moe.common.core.domain.config.GlobalConfig;
 import com.moe.admin.domain.dto.rule.InviteModelDTO;
 import com.moe.admin.domain.dto.rule.QRCodeDTO;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GlobalConfigServiceImpl implements GlobalConfigService {
+public class GlobalConfigServiceImpl implements IGlobalConfigService {
 
     @Autowired
     private GlobalConfigMapper globalConfigMapper;

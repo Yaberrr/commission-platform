@@ -1,7 +1,7 @@
 package com.moe.admin.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.service.UserInviteService;
+import com.moe.admin.service.IUserInviteService;
 import com.moe.admin.domain.dto.user.UserInviteDTO;
 import com.moe.admin.domain.vo.user.InviteUserRankVO;
 import com.moe.common.core.web.controller.BaseController;
@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/userInvite")
 public class UserInviteController extends BaseController {
 
     @Autowired
-    private UserInviteService userInviteService;
+    private IUserInviteService userInviteService;
 
     @RequiresPermissions("admin:userInvite:list")
     @GetMapping("/list")

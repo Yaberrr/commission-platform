@@ -8,7 +8,7 @@ import com.moe.admin.domain.vo.user.InviteUserVO;
 
 import java.util.List;
 
-public interface UserInviteService {
+public interface IUserInviteService {
 
     Page<InviteUserRankVO> selectInviteUserRankVOByDTO(IPage page, UserInviteDTO userInviteDTO);
 

@@ -5,9 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.rule.RuleConfigDTO;
 import com.moe.admin.domain.vo.rule.RuleConfigVO;
 
-import java.util.List;
-
-public interface RuleConfigService {
+public interface IRuleConfigService {
 
     Page<RuleConfigVO> selectRuleConfigVOByUser(IPage page, RuleConfigDTO ruleConfigDTO);
 

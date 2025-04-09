@@ -3,16 +3,14 @@ package com.moe.admin.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.mapper.RuleConfigMapper;
-import com.moe.admin.service.RuleConfigService;
+import com.moe.admin.service.IRuleConfigService;
 import com.moe.admin.domain.dto.rule.RuleConfigDTO;
 import com.moe.admin.domain.vo.rule.RuleConfigVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class RuleConfigServiceImpl implements RuleConfigService {
+public class RuleConfigServiceImpl implements IRuleConfigService {
 
     @Autowired
     private RuleConfigMapper ruleConfigMapper;

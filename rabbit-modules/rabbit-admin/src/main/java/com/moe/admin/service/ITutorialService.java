@@ -7,9 +7,7 @@ import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
 import com.moe.admin.domain.vo.user.TutorialDetailVO;
 import com.moe.admin.domain.vo.user.TutorialVO;
 
-import java.util.List;
-
-public interface TutorialService {
+public interface ITutorialService {
 
     Page<TutorialVO> getAllTutorial(IPage page);
 

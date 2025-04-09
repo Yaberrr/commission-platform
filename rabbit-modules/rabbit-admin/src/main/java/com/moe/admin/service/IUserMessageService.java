@@ -8,9 +8,7 @@ import com.moe.admin.domain.vo.user.MessageVO;
 import com.moe.admin.domain.vo.user.UserMessageDetailVO;
 import com.moe.admin.domain.vo.user.UserMessageVO;
 
-import java.util.List;
-
-public interface UserMessageService {
+public interface IUserMessageService {
 
     Page<UserMessageVO> selectUserMessageVOByDTO(IPage page, UserMessageDTO userMessageDTO);
 

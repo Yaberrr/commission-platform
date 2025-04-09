@@ -1,7 +1,7 @@
 package com.moe.admin.controller.rule;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.service.RuleConfigService;
+import com.moe.admin.service.IRuleConfigService;
 import com.moe.admin.domain.dto.rule.RuleConfigDTO;
 import com.moe.admin.domain.vo.rule.RuleConfigVO;
 import com.moe.common.core.web.controller.BaseController;
@@ -12,14 +12,12 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/ruleConfig")
 public class RuleConfigController extends BaseController {
 
     @Autowired
-    private RuleConfigService ruleConfigService;
+    private IRuleConfigService ruleConfigService;
 
     @RequiresPermissions("admin:ruleConfig:list")
     @GetMapping("/list")

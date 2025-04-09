@@ -6,9 +6,7 @@ import com.moe.admin.domain.dto.user.UserFeedBackDTO;
 import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
 import com.moe.admin.domain.vo.user.UserFeedbackVO;
 
-import java.util.List;
-
-public interface UserFeedbackService {
+public interface IUserFeedbackService {
 
     Page<UserFeedbackVO> selectUserFeedbackByDTO(IPage page, UserFeedBackDTO userFeedBackDTO);
 
