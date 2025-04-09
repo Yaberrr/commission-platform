@@ -4,7 +4,7 @@ package com.moe.admin.controller.user;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.user.VersionTaskDTO;
 import com.moe.admin.domain.vo.user.VersionTaskVO;
-import com.moe.admin.service.VersionTaskService;
+import com.moe.admin.service.IVersionTaskService;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class VersionTaskController extends BaseController {
 
     @Autowired
-    private VersionTaskService versionTaskService;
+    private IVersionTaskService versionTaskService;
 
     @RequiresPermissions("admin:versionTask:list")
     @GetMapping("/list")

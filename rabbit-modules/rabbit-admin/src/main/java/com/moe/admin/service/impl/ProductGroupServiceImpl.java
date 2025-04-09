@@ -1,6 +1,5 @@
 package com.moe.admin.service.impl;
 
-import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.product.ProductGroupDTO;
@@ -10,7 +9,7 @@ import com.moe.admin.domain.vo.product.ProductGroupDictVO;
 import com.moe.admin.domain.vo.product.ProductGroupVO;
 import com.moe.admin.mapper.PlatformDictMapper;
 import com.moe.admin.mapper.ProductGroupMapper;
-import com.moe.admin.service.ProductGroupService;
+import com.moe.admin.service.IProductGroupService;
 import com.moe.common.core.domain.platform.PlatformDict;
 import com.moe.common.core.domain.product.ProductGroup;
 import com.moe.common.core.enums.platform.PlatformType;
@@ -22,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductGroupServiceImpl implements ProductGroupService {
+public class ProductGroupServiceImpl implements IProductGroupService {
 
     @Autowired
     private ProductGroupMapper productGroupMapper;

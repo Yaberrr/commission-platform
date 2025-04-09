@@ -8,23 +8,20 @@ import com.moe.admin.domain.dto.user.UserMessageAddDTO;
 import com.moe.admin.domain.vo.user.MessageVO;
 import com.moe.admin.mapper.SystemMessageMapper;
 import com.moe.admin.mapper.UserMessageMapper;
-import com.moe.admin.service.UserMessageService;
+import com.moe.admin.service.IUserMessageService;
 import com.moe.admin.domain.dto.user.UserMessageDTO;
 import com.moe.admin.domain.vo.user.UserMessageDetailVO;
 import com.moe.admin.domain.vo.user.UserMessageVO;
 import com.moe.common.core.domain.message.SystemMessage;
-import com.moe.common.core.enums.message.MessageContentType;
-import com.moe.common.core.enums.message.MessageSendType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 @Service
-public class UserMessageServiceImpl implements UserMessageService {
+public class UserMessageServiceImpl implements IUserMessageService {
 
     @Autowired
     private SystemMessageMapper systemMessageMapper;

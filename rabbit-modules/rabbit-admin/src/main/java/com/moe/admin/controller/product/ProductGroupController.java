@@ -3,10 +3,8 @@ package com.moe.admin.controller.product;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.product.ProductGroupDTO;
 import com.moe.admin.domain.dto.product.ProductGroupUpdateDTO;
-import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
-import com.moe.admin.domain.vo.product.ProductGroupDetailVO;
 import com.moe.admin.domain.vo.product.ProductGroupVO;
-import com.moe.admin.service.ProductGroupService;
+import com.moe.admin.service.IProductGroupService;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
@@ -15,9 +13,7 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * 产品组管理
@@ -29,7 +25,7 @@ import java.util.List;
 public class ProductGroupController extends BaseController {
 
     @Autowired
-    private ProductGroupService productGroupService;
+    private IProductGroupService productGroupService;
 
     /**
      * 分页查询产品组列表

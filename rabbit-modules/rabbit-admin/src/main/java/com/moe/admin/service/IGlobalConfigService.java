@@ -7,7 +7,7 @@ import com.moe.admin.domain.vo.rule.InviteModelVO;
 import com.moe.admin.domain.vo.rule.QRCodeVO;
 import com.moe.admin.domain.vo.user.MemberShipVO;
 
-public interface GlobalConfigService {
+public interface IGlobalConfigService {
 
     MemberShipVO selectMemberShip();
 

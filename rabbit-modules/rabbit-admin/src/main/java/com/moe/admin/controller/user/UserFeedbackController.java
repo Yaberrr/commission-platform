@@ -1,7 +1,7 @@
 package com.moe.admin.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.service.UserFeedbackService;
+import com.moe.admin.service.IUserFeedbackService;
 import com.moe.admin.domain.dto.user.UserFeedBackDTO;
 import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
 import com.moe.admin.domain.vo.user.UserFeedbackVO;
@@ -13,14 +13,12 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/userFeedback")
 public class UserFeedbackController extends BaseController {
 
     @Autowired
-    private UserFeedbackService userFeedbackService;
+    private IUserFeedbackService userFeedbackService;
 
     @RequiresPermissions("admin:userFeedback:list")
     @GetMapping("/list")

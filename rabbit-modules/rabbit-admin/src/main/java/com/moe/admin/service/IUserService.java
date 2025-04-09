@@ -10,7 +10,7 @@ import com.moe.admin.domain.vo.user.UserVO;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
 
     Page<UserVO> selectUserVOByDTO(IPage page, UserDTO userDTO);
 

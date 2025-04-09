@@ -1,7 +1,7 @@
 package com.moe.admin.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.service.UserService;
+import com.moe.admin.service.IUserService;
 import com.moe.admin.domain.dto.user.UserDTO;
 import com.moe.admin.domain.vo.user.UserVO;
 import com.moe.common.core.utils.poi.ExcelUtil;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping("/adminUser")
@@ -22,7 +21,7 @@ public class
 UserController extends BaseController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @RequiresPermissions("admin:user:list")
     @GetMapping("/list")

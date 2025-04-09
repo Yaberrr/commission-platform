@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.user.VersionTaskDTO;
 import com.moe.admin.domain.vo.user.VersionTaskVO;
 import com.moe.admin.mapper.VersionTaskMapper;
-import com.moe.admin.service.VersionTaskService;
+import com.moe.admin.service.IVersionTaskService;
 import com.moe.common.core.domain.user.VersionTask;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VersionTaskServiceImpl implements VersionTaskService {
+public class VersionTaskServiceImpl implements IVersionTaskService {
     @Autowired
     private VersionTaskMapper versionTaskMapper;
 

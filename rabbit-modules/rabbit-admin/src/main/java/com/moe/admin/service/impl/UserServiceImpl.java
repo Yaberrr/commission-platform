@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.vo.user.UserListVO;
 import com.moe.admin.mapper.UserMapper;
-import com.moe.admin.service.UserService;
+import com.moe.admin.service.IUserService;
 import com.moe.admin.domain.dto.user.UserDTO;
 import com.moe.admin.domain.vo.user.InviteUserVO;
 import com.moe.admin.domain.vo.user.UserDetailVO;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;

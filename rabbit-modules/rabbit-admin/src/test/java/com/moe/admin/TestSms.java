@@ -1,15 +1,11 @@
 package com.moe.admin;
 
 import com.moe.admin.service.*;
-import com.moe.admin.domain.dto.order.OrderListDTO;
 import com.moe.admin.domain.dto.rule.PolicyConfigDTO;
 import com.moe.admin.domain.dto.rule.RuleConfigDTO;
 import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
 import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
-import com.moe.admin.domain.dto.user.UserDTO;
-import com.moe.admin.domain.dto.user.UserFeedBackDTO;
 import com.moe.admin.domain.dto.user.UserFeedbackUpdateDTO;
-import com.moe.admin.domain.dto.user.UserInviteDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +24,25 @@ public class TestSms {
     private ISysOrderService orderService;
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
-    private UserFeedbackService userFeedbackService;
+    private IUserFeedbackService userFeedbackService;
 
     @Autowired
-    public TutorialService tutorialService;
+    public ITutorialService tutorialService;
 
     @Autowired
-    private UserInviteService userInviteService;
+    private IUserInviteService userInviteService;
 
     @Autowired
-    private RuleConfigService ruleConfigService;
+    private IRuleConfigService ruleConfigService;
 
     @Autowired
-    private PolicyConfigService policyConfigService;
+    private IPolicyConfigService policyConfigService;
 
     @Autowired
-    private ProductGroupService productGroupService;
+    private IProductGroupService productGroupService;
 
     @Test
     public void orderTest(){

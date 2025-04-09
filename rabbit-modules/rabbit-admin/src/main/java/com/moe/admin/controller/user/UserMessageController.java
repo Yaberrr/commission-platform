@@ -2,7 +2,7 @@ package com.moe.admin.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.user.UserMessageAddDTO;
-import com.moe.admin.service.UserMessageService;
+import com.moe.admin.service.IUserMessageService;
 import com.moe.admin.domain.dto.user.UserMessageDTO;
 import com.moe.admin.domain.vo.user.UserMessageVO;
 import com.moe.common.core.web.controller.BaseController;
@@ -13,14 +13,12 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/userMessage")
 public class UserMessageController extends BaseController {
 
     @Autowired
-    private UserMessageService userMessageService;
+    private IUserMessageService userMessageService;
 
     @RequiresPermissions("admin:userMessage:list")
     @GetMapping("/list")

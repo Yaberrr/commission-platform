@@ -1,7 +1,7 @@
 package com.moe.admin.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.service.TutorialService;
+import com.moe.admin.service.ITutorialService;
 import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
 import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
 import com.moe.admin.domain.vo.user.TutorialVO;
@@ -13,14 +13,12 @@ import com.moe.common.security.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/tutorial")
 public class TutorialController extends BaseController {
 
     @Autowired
-    public TutorialService tutorialService;
+    public ITutorialService tutorialService;
 
     @RequiresPermissions("admin:tutorial:list")
     @GetMapping("/list")

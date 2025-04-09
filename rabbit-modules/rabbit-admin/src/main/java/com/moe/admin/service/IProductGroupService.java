@@ -10,7 +10,7 @@ import com.moe.admin.domain.vo.product.ProductGroupVO;
 
 import java.util.List;
 
-public interface ProductGroupService {
+public interface IProductGroupService {
 
     Page<ProductGroupVO> selectProductGroupVOByDTO(IPage page, ProductGroupDTO productGroupDTO);
 

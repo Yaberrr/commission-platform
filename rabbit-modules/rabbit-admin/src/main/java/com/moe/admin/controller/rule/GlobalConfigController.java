@@ -1,6 +1,6 @@
 package com.moe.admin.controller.rule;
 
-import com.moe.admin.service.GlobalConfigService;
+import com.moe.admin.service.IGlobalConfigService;
 import com.moe.admin.domain.dto.rule.InviteModelDTO;
 import com.moe.admin.domain.dto.rule.QRCodeDTO;
 import com.moe.admin.domain.dto.user.MemberShipDTO;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class GlobalConfigController {
 
     @Autowired
-    private GlobalConfigService globalConfigService;
+    private IGlobalConfigService globalConfigService;
 
     @RequiresPermissions("admin:globalConfig:memberShip")
     @GetMapping("/memberShip")
