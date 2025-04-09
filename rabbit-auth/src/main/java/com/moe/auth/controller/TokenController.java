@@ -1,5 +1,6 @@
 package com.moe.auth.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.moe.auth.body.LoginBody;
 import com.moe.auth.service.AppLoginService;
 import com.moe.auth.service.SysLoginService;
@@ -68,8 +69,15 @@ public class TokenController
 
     @Operation(description = "App一键登录")
     @PostMapping("quickLogin")
-    public R<?> quickLogin(@Parameter(description="极光token") String loginToken){
+    public R<TokenVO> quickLogin(@Parameter(description="极光token")@RequestParam String loginToken){
         LoginUser loginUser = appLoginService.quickLogin(loginToken);
+        return R.ok(tokenService.createToken(loginUser));
+    }
+
+    @Operation(description = "App微信登录")
+    @PostMapping("wechatLogin")
+    public R<TokenVO> wechatLogin(@Parameter(description = "授权票据")@RequestParam String code){
+        LoginUser loginUser = appLoginService.wechatLogin(code);
         return R.ok(tokenService.createToken(loginUser));
     }
 

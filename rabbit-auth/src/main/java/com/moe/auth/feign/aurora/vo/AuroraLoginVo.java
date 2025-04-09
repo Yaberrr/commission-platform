@@ -1,9 +1,12 @@
 package com.moe.auth.feign.aurora.vo;
 
+import lombok.Data;
+
 /**
  * @author tangyabo
  * @date 2025/3/18
  */
+@Data
 public class AuroraLoginVo {
 
     // 流水号，请求出错时可能为空
@@ -21,43 +24,4 @@ public class AuroraLoginVo {
     // 加密后的手机号码，需用配置在极光的公钥对应的私钥解密
     private String phone;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getExID() {
-        return exID;
-    }
-
-    public void setExID(String exID) {
-        this.exID = exID;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

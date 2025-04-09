@@ -1,8 +1,13 @@
 package com.moe.auth.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.moe.auth.feign.aurora.AuroraApi;
 import com.moe.auth.feign.aurora.body.AuroraLoginBody;
 import com.moe.auth.feign.aurora.vo.AuroraLoginVo;
+import com.moe.auth.feign.wechat.WechatApi;
+import com.moe.auth.feign.wechat.WechatConfig;
+import com.moe.auth.feign.wechat.vo.WechatTokenVO;
+import com.moe.auth.feign.wechat.vo.WechatUserVO;
 import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.R;
@@ -10,6 +15,7 @@ import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.SystemType;
 import com.moe.common.core.enums.user.Gender;
+import com.moe.common.core.exception.ServiceException;
 import com.moe.common.core.utils.Assert;
 import com.moe.common.core.utils.RSAUtils;
 import com.moe.common.redis.service.RedisService;
@@ -42,7 +48,6 @@ public class AppLoginService {
     //手机号正则
     private static final Pattern PHONE_PATTERN = Pattern.compile("^1[3-9]\\d*$");
 
-
     @Autowired
     private RedisService redisService;
     @Autowired
@@ -53,6 +58,11 @@ public class AppLoginService {
     private IPlatformAuthApi platformAuthApi;
     @Autowired
     private AuroraApi auroraApi;
+    @Autowired
+    private WechatApi wechatApi;
+    @Autowired
+    private WechatConfig wechatConfig;
+
 
     /**
      * 发送手机验证码
@@ -100,11 +110,19 @@ public class AppLoginService {
      * @return
      */
     public LoginUser mobileLogin(String phoneNumber, String code){
-        String redisKey = CacheConstants.VERIFY_CODE_KEY + phoneNumber;
-        String verifyCode = redisService.getCacheObject(redisKey);
-        Assert.isTrue(verifyCode != null, "验证码已失效，请重新发送");
-        Assert.isTrue(verifyCode.equals(code), "验证码有误");
-        return this.loginByPhone(phoneNumber);
+        //todo: 测试用验证码
+        if(!"123456".equals(code)){
+            String redisKey = CacheConstants.VERIFY_CODE_KEY + phoneNumber;
+            String verifyCode = redisService.getCacheObject(redisKey);
+            Assert.isTrue(verifyCode != null, "验证码已失效，请重新发送");
+            Assert.isTrue(verifyCode.equals(code), "验证码有误");
+            Assert.isTrue(PHONE_PATTERN.matcher(phoneNumber).matches(),"手机号格式不正确");
+        }
+
+        User user = new User();
+        user.setPhoneNumber(phoneNumber);
+        user.setUserName("元宝宝" + phoneNumber.substring(phoneNumber.length()-4));
+        return this.saveUser(user);
     }
 
     /**
@@ -118,21 +136,35 @@ public class AppLoginService {
         AuroraLoginVo vo = auroraApi.loginTokenVerify(body);
         Assert.isTrue(vo.getCode() == 8000, "一键登陆服务异常，"+vo.getContent());
         String phoneNumber = RSAUtils.rsaDecrypt(vo.getPhone(), "rsa/aurora_private_key.pem");
-        return this.loginByPhone(phoneNumber);
+        Assert.isTrue(PHONE_PATTERN.matcher(phoneNumber).matches(),"手机号格式不正确");
+        User user = new User();
+        user.setPhoneNumber(phoneNumber);
+        user.setUserName("元宝宝" + phoneNumber.substring(phoneNumber.length()-4));
+        return this.saveUser(user);
     }
 
-    private LoginUser loginByPhone(String phoneNumber){
-        Assert.isTrue(PHONE_PATTERN.matcher(phoneNumber).matches(),"手机号格式不正确");
-        //保存用户
+    public LoginUser wechatLogin(String code) {
+        WechatTokenVO tokenVO = wechatApi.getAccessToken(wechatConfig.getAppId(), wechatConfig.getAppSecret(), code, "authorization_code");
+        if(StrUtil.isNotBlank(tokenVO.getErrcode())){
+            throw new ServiceException("微信授权失败:{}",tokenVO.getErrmsg());
+        }
+        WechatUserVO userVO = wechatApi.getUserInfo(tokenVO.getAccessToken(), tokenVO.getOpenId());
+        if(StrUtil.isNotBlank(tokenVO.getErrcode())){
+            throw new ServiceException("微信用户查询失败:{}",tokenVO.getErrmsg());
+        }
         User user = new User();
-        user.setUserName("元宝宝" + phoneNumber.substring(phoneNumber.length()-4));
+        user.setWechatOpenId(userVO.getOpenid());
+        user.setUserName(userVO.getNickname());
+        return this.saveUser(user);
+    }
+
+    private LoginUser saveUser(User user){
+        //保存用户
         user.setSex(Gender.UNKNOWN);
-        user.setPhoneNumber(phoneNumber);
         user = userApi.saveUser(user).getData();
 
         //查询授权信息
         List<PlatformAuth> authList = platformAuthApi.authList(user.getId()).getData();
-
         LoginUser loginUser = new LoginUser();
         loginUser.setAppUser(user);
         loginUser.setUsername(user.getUserName());
@@ -141,4 +173,6 @@ public class AppLoginService {
         loginUser.setAppAuthList(authList);
         return loginUser;
     }
+
+
 }

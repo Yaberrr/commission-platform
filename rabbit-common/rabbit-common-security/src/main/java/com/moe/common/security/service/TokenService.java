@@ -42,8 +42,6 @@ public class TokenService
 
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
 
-
-
     /**
      * 创建令牌
      */
@@ -77,8 +75,6 @@ public class TokenService
         TokenVO vo = new TokenVO();
         vo.setAccessToken(JwtUtils.createAccessToken(claimsMap));
         vo.setExpiresIn(LOGIN_EXPIRE_TIME);
-        vo.setAccess_token(vo.getAccessToken());
-        vo.setExpires_in(LOGIN_EXPIRE_TIME);
         return vo;
     }
 

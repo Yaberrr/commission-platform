@@ -1,2 +1,3 @@
 com.moe.common.redis.configure.RedisConfig
 com.moe.common.redis.service.RedisService
+com.moe.common.redis.service.RedisLock
