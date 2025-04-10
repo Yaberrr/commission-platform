@@ -28,7 +28,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="selectAllTutorial" resultType="com.moe.admin.domain.vo.user.TutorialVO">
+    <select id="getTutorialList" resultType="com.moe.admin.domain.vo.user.TutorialVO">
         SELECT id, video_name AS videoName, video_cover AS videoCover, view_count AS viewCount, create_time AS createTime
         FROM rb_tutorial
         ORDER BY sort ASC

@@ -1,5 +1,6 @@
 package com.moe.admin.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.common.core.domain.config.Tutorial;
@@ -10,9 +11,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface TutorialMapper {
+public interface TutorialMapper extends BaseMapper<Tutorial> {
 
-    Page<TutorialVO> selectAllTutorial(IPage page);
+    List<TutorialVO> getTutorialList();
 
     TutorialDetailVO selectTutorialById(@Param("id") Long id);
 
