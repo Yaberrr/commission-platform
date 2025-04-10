@@ -52,4 +52,10 @@ public class OrderListVO {
     //失效原因
     private String failReason;
 
+    //是否隐藏
+    private boolean hasHidden;
+
+    //是否比价
+    private boolean hasPredict;
+
 }

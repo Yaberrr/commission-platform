@@ -8,26 +8,32 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    
+
     <artifactId>rabbit-common-redis</artifactId>
-	
+
     <description>
         rabbit-common-redis缓存服务
     </description>
 
     <dependencies>
-		
+
         <!-- SpringBoot Boot Redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        
+
+        <!-- Redisson -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- RuoYi Common Core-->
         <dependency>
             <groupId>com.moe</groupId>
             <artifactId>rabbit-common-core</artifactId>
         </dependency>
-        
+
     </dependencies>
 </project>

@@ -26,6 +26,12 @@ public class User extends BaseEntity {
     // 手机号
     private String phoneNumber;
 
+    //元宝号
+    private String ybCode;
+
+    //微信唯一标识
+    private String wechatOpenId;
+
     // 微信号
     private String wechat;
 

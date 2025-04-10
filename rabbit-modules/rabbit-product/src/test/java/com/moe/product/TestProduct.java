@@ -3,12 +3,15 @@ package com.moe.product;
 import com.moe.common.core.domain.product.ProductGroup;
 import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
+import com.moe.common.redis.service.RedisLock;
 import com.moe.platform.api.IPlatformProductApi;
 import com.moe.platform.dto.product.PlatformProductDTO;
 import com.moe.platform.dto.product.PlatformParam;
 import com.moe.product.mapper.ProductGroupMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -49,4 +52,5 @@ public class TestProduct {
         group.setPlatformDictIds(Arrays.asList(1L,2L));
         productGroupMapper.insert(group);
     }
+
 }

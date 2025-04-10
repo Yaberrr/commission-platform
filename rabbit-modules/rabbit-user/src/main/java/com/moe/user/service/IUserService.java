@@ -19,6 +19,8 @@ public interface IUserService {
      */
     User saveUser(User user);
 
+
+
     /**
      * 获取用户等级map
      * @return

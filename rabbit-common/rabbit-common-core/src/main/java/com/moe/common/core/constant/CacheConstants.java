@@ -89,4 +89,9 @@ public class CacheConstants
      */
     public static final String PLATFORM_AUTH_MAP_KEY = "platform_auth_map";
 
+    /**
+     * 元宝号bitmap
+     */
+    public static final String YB_CODE_BIT_MAP_KEY = "yb_code_bit_map:";
+
 }

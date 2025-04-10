@@ -15,8 +15,4 @@ public class TokenVO {
     //多少秒后到期
     private Long expiresIn;
 
-
-    private String access_token;
-
-    private Long expires_in;
 }
