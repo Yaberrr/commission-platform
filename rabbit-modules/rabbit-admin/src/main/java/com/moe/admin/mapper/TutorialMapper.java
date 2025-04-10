@@ -17,10 +17,6 @@ public interface TutorialMapper extends BaseMapper<Tutorial> {
 
     TutorialDetailVO selectTutorialById(@Param("id") Long id);
 
-    int insertTutorial(@Param("dto") TutorialAddDTO tutorialAddDTO);
-
-    int updateTutorial(@Param("dto") TutorialAddDTO tutorialAddDTO);
-
     List<Tutorial> getAll();
 
     int updateSort(@Param("tutorial") Tutorial tutorial);

@@ -1,10 +1,9 @@
 package com.moe.admin.controller.user;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
 import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
 import com.moe.admin.domain.vo.user.TutorialVO;
 import com.moe.admin.service.ITutorialService;
+import com.moe.common.core.domain.config.Tutorial;
 import com.moe.common.core.web.controller.BaseController;
 import com.moe.common.core.web.domain.AjaxResult;
 import com.moe.common.core.web.page.TableDataInfo;
@@ -37,14 +36,14 @@ public class TutorialController extends BaseController {
 
     @RequiresPermissions("admin:tutorial:add")
     @PostMapping
-    public AjaxResult add(@RequestBody TutorialAddDTO tutorialAddDTO) {
-        return AjaxResult.success(tutorialService.addTutorial(tutorialAddDTO));
+    public AjaxResult add(@RequestBody Tutorial tutorial) {
+        return AjaxResult.success(tutorialService.addTutorial(tutorial));
     }
 
     @RequiresPermissions("admin:tutorial:update")
     @PutMapping
-    public AjaxResult update(@RequestBody TutorialAddDTO tutorialAddDTO) {
-        return AjaxResult.success(tutorialService.updateTutorial(tutorialAddDTO));
+    public AjaxResult update(@RequestBody Tutorial tutorial) {
+        return AjaxResult.success(tutorialService.updateTutorial(tutorial));
     }
 
     @RequiresPermissions("admin:tutorial:add")

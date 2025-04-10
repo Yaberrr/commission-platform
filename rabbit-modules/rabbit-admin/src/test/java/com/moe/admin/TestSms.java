@@ -69,19 +69,6 @@ public class TestSms {
         System.out.println(userFeedbackService.selectUserFeedbackById(1L));
     }
 
-    @Test
-    public void userFeedbackTest3(){
-        UserFeedbackUpdateDTO userFeedbackUpdateDTO = new UserFeedbackUpdateDTO();
-        userFeedbackUpdateDTO.setReplyImg("1111");
-        userFeedbackUpdateDTO.setReplyContent("666");
-        userFeedbackUpdateDTO.setId(1L);
-        System.out.println(userFeedbackService.updateUserFeedback(userFeedbackUpdateDTO));
-    }
-
-//    @Test
-//    public void tutorialTest1(){
-//        System.out.println(tutorialService.getAllTutorial());
-//    }
 
     @Test
     public void tutorialTest2(){
@@ -90,21 +77,10 @@ public class TestSms {
 
     @Test
     public void tutorialTest3(){
-        TutorialAddDTO tutorialAddDTO = new TutorialAddDTO();
-        tutorialAddDTO.setVideoCover("3213");
-        tutorialAddDTO.setVideoName("666");
-        tutorialAddDTO.setVideoUrl("2313122");
-        System.out.println(tutorialService.addTutorial(tutorialAddDTO));
     }
 
     @Test
     public void tutorialTest4(){
-        TutorialAddDTO tutorialAddDTO = new TutorialAddDTO();
-        tutorialAddDTO.setId(2L);
-        tutorialAddDTO.setVideoCover("111");
-        tutorialAddDTO.setVideoName("111");
-        tutorialAddDTO.setVideoUrl("2222");
-        System.out.println(tutorialService.updateTutorial(tutorialAddDTO));
     }
 
     @Test

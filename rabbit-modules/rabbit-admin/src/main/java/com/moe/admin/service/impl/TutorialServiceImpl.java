@@ -30,13 +30,13 @@ public class TutorialServiceImpl implements ITutorialService {
     }
 
     @Override
-    public int addTutorial(TutorialAddDTO tutorialAddDTO) {
-        return tutorialMapper.insertTutorial(tutorialAddDTO);
+    public int addTutorial(Tutorial tutorial) {
+       return tutorialMapper.insert(tutorial);
     }
 
     @Override
-    public int updateTutorial(TutorialAddDTO tutorialAddDTO) {
-        return tutorialMapper.updateTutorial(tutorialAddDTO);
+    public int updateTutorial(Tutorial tutorial) {
+        return tutorialMapper.updateById(tutorial);
     }
 
     @Override

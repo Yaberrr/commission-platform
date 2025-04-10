@@ -7,8 +7,10 @@
     <update id="updateUserFeedbackById">
         UPDATE rb_user_feedback
         SET reply_content = #{dto.replyContent},
-            reply_img = #{dto.replyImg},
-            status = 1
+            reply_img = #{dto.replyImgStr},
+            status = 1,
+            create_time = NOW(),
+            update_time = NOW()
         WHERE id = #{dto.id}
     </update>
 
@@ -46,8 +48,8 @@
 
     <select id="selectUserFeedbackById" resultType="com.moe.admin.domain.vo.user.UserFeedbackVO">
         SELECT uf.id, uf.user_id, ru.user_name as userName, ru.wechat, ru.phone_number as phoneNumber,
-               uf.feedback_content, uf.feedback_img AS feedbackImgStr, uf.feedback_time,
-               uf.feedback_count, uf.status, uf.reply_content, uf.reply_img
+               uf.feedback_content, uf.feedback_img as feedbackImgStr, uf.feedback_time,
+               uf.feedback_count, uf.status, uf.reply_content, uf.reply_img as replyImgStr
         FROM rb_user_feedback uf
                  LEFT JOIN rb_user ru ON uf.user_id = ru.id
         WHERE uf.id = #{id}
