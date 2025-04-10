@@ -9,6 +9,7 @@ import com.moe.admin.domain.vo.product.ProductGroupDictVO;
 import com.moe.admin.domain.vo.product.ProductGroupVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IProductGroupService {
 
@@ -22,6 +23,6 @@ public interface IProductGroupService {
 
     int deleteProductGroup(List<Long> ids);
 
-    List<ProductGroupDictVO> getAllProductGroupDictVO();
+    List<Map<String, Object>> getAllProductGroupDict();
 }
 

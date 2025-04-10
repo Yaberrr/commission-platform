@@ -7,37 +7,49 @@ import java.util.List;
 
 @Data
 public class MemberShipDTO {
-
     private Long id;
 
-    private Sycee silverSycee;
+    // 升级条件列表
+    private List<MemberUpdateCondition> conditionList;
 
-    private Sycee goldSycee;
-
+    // 首次升级奖励金额
     private BigDecimal reward;
 
-    private List<Benefits> benefitsList;
+    private List<Commission> commissionList;
 
+    // 升级条件
     @Data
-    public static class Sycee{
-        private Integer timePeriod;
-        private Integer count;
-        private BigDecimal income;
+    public static class MemberUpdateCondition{
+        // 等级
+        private Integer level;
+        // 时间周期(天)
+        private Integer periodDays;
+        // 订单数
+        private Integer orderCount;
+        // 累计收益
+        private BigDecimal totalIncome;
     }
 
     @Data
-    public static class Benefits{
+    public static class Commission {
+        // 平台类型
         private Integer platformType;
-        private ProfitRatio copper;
-        private ProfitRatio silver;
-        private ProfitRatio gold;
-    }
 
-    @Data
-    public static class ProfitRatio{
-        private Integer earns;
-        private Integer first;
-        private Integer second;
-        private Integer third;
+        private List<Level> levelList;
+
+        @Data
+        public static class Level{
+            // 等级
+            private Integer level;
+
+            // 被分配的总佣金比例
+            private Integer totalRate;
+            // 自己的佣金比例 （一级)
+            private Integer selfRate;
+            // 上级佣金比例 (二级)
+            private Integer parentRate;
+            // 上上级佣金比例 (三级)
+            private Integer grandParentRate;
+        }
     }
 }

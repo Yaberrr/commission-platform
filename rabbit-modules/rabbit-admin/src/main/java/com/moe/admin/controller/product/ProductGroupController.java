@@ -29,74 +29,74 @@ public class ProductGroupController extends BaseController {
 
     /**
      * 分页查询产品组列表
+     *
      * @param productGroupDTO 查询条件参数对象
      * @return 分页表格数据（带分页信息）
      */
     @RequiresPermissions("admin:productGroup:list")
     @GetMapping("/list")
-    public TableDataInfo list(ProductGroupDTO productGroupDTO)
-    {
+    public TableDataInfo list(ProductGroupDTO productGroupDTO) {
         Page<ProductGroupVO> list = productGroupService.selectProductGroupVOByDTO(TableSupport.buildPageRequest().buildPage(), productGroupDTO);
         return getDataTable(list);
     }
 
     /**
      * 获取产品组详细信息
+     *
      * @param id 产品组主键ID
      * @return 包含完整产品组详情的响应结果
      */
     @RequiresPermissions("admin:productGroup:query")
     @GetMapping("/{id}")
-    public AjaxResult detail(@PathVariable("id") Long id)
-    {
+    public AjaxResult detail(@PathVariable("id") Long id) {
         return AjaxResult.success(productGroupService.selectProductGroupDetailById(id));
     }
 
     /**
      * 新增产品组
+     *
      * @param productGroupDTO 产品组数据传输对象
      * @return 操作结果响应
      */
     @RequiresPermissions("admin:productGroup:add")
     @PostMapping
-    public AjaxResult add(@RequestBody ProductGroupUpdateDTO productGroupDTO)
-    {
+    public AjaxResult add(@RequestBody ProductGroupUpdateDTO productGroupDTO) {
         return AjaxResult.success(productGroupService.addProductGroup(productGroupDTO));
     }
 
     /**
      * 修改产品组信息
+     *
      * @param productGroupDTO 产品组更新数据传输对象
      * @return 操作结果响应
      */
     @RequiresPermissions("admin:productGroup:edit")
     @PutMapping
-    public AjaxResult edit(@RequestBody ProductGroupUpdateDTO productGroupDTO)
-    {
+    public AjaxResult edit(@RequestBody ProductGroupUpdateDTO productGroupDTO) {
         return AjaxResult.success(productGroupService.editProductGroup(productGroupDTO));
     }
 
     /**
      * 批量删除产品组
+     *
      * @param ids 需要删除的产品组ID数组
      * @return 操作结果响应
      */
     @RequiresPermissions("admin:productGroup:delete")
     @DeleteMapping("/{ids}")
-    public AjaxResult delete(@PathVariable Long[] ids)
-    {
+    public AjaxResult delete(@PathVariable Long[] ids) {
         return AjaxResult.success(productGroupService.deleteProductGroup(Arrays.asList(ids)));
     }
 
     /**
      * 获取产品组筛选条件字典
+     *
      * @return 包含层级字典结构的响应结果
      */
     @RequiresPermissions("admin:productGroup:query")
     @GetMapping("/conditions")
-    public AjaxResult getProductGroupConditions()
-    {
-        return AjaxResult.success(productGroupService.getAllProductGroupDictVO());
+    public AjaxResult getProductGroupConditions() {
+        return AjaxResult.success(productGroupService.getAllProductGroupDict());
     }
 
 }
