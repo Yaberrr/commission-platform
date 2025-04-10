@@ -5,13 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.admin.domain.dto.product.ProductGroupDTO;
 import com.moe.admin.domain.dto.product.ProductGroupUpdateDTO;
 import com.moe.admin.domain.vo.product.ProductGroupDetailVO;
-import com.moe.admin.domain.vo.product.ProductGroupDictVO;
 import com.moe.admin.domain.vo.product.ProductGroupVO;
 import com.moe.admin.mapper.PlatformDictMapper;
 import com.moe.admin.mapper.ProductGroupMapper;
 import com.moe.admin.service.IProductGroupService;
 import com.moe.common.core.domain.platform.PlatformDict;
 import com.moe.common.core.domain.product.ProductGroup;
+import com.moe.common.core.enums.platform.PlatformDictType;
 import com.moe.common.core.enums.platform.PlatformType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,37 @@ public class ProductGroupServiceImpl implements IProductGroupService {
 
     @Autowired
     private PlatformDictMapper platformDictMapper;
+
+    /**
+     * 递归构建树形结构
+     *
+     * @param dicts    所有字典数据
+     * @param dictType 当前字典类型
+     * @param parentId 父节点ID
+     * @return 子节点列表
+     */
+    private static List<Map<String, Object>> buildTree(List<PlatformDict> dicts, PlatformDictType dictType, Long parentId) {
+        return dicts.stream()
+                .filter(dict -> dict.getDictType() == dictType
+                        && Objects.equals(dict.getParentId(), parentId))
+                .map(dict -> {
+                    Map<String, Object> node = new HashMap<>();
+                    node.put("id", dict.getId());
+                    node.put("dictText", dict.getDictText());
+                    node.put("dictValue", dict.getDictValue());
+                    node.put("hasChild", dict.getHasChild());
+
+                    // 如果有子节点，递归构建
+                    if (dict.getHasChild() == 1) {
+                        node.put("children", buildTree(dicts, dictType, dict.getId()));
+                    } else {
+                        node.put("children", new ArrayList<>());
+                    }
+
+                    return node;
+                })
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Page<ProductGroupVO> selectProductGroupVOByDTO(IPage page, ProductGroupDTO productGroupDTO) {
@@ -83,42 +114,44 @@ public class ProductGroupServiceImpl implements IProductGroupService {
     }
 
     @Override
-    public List<ProductGroupDictVO> getAllProductGroupDictVO() {
+    public List<Map<String, Object>> getAllProductGroupDict() {
         List<PlatformDict> platformDictList = platformDictMapper.selectList(null);
 
-        return platformDictList.stream()
-                .collect(Collectors.groupingBy(PlatformDict::getPlatformType))
-                .entrySet().stream()
-                .map(entry -> {
-                    ProductGroupDictVO vo = new ProductGroupDictVO();
-                    vo.setPlatformName(entry.getKey().getDesc());
-                    vo.setPlatformType(entry.getKey().getCode());
+        // 按平台类型分组
+        Map<PlatformType, List<PlatformDict>> platformGroup = platformDictList.stream()
+                .collect(Collectors.groupingBy(PlatformDict::getPlatformType));
 
-                    List<ProductGroupDictVO.Dict> dictTypeList = entry.getValue().stream()
-                            .collect(Collectors.groupingBy(PlatformDict::getDictType))
-                            .entrySet().stream()
-                            .map(dictEntry -> {
-                                ProductGroupDictVO.Dict dictType = new ProductGroupDictVO.Dict();
-                                dictType.setId(dictEntry.getKey().getCode());
-                                dictType.setDictName(dictEntry.getKey().getDesc());
+        List<Map<String, Object>> result = new ArrayList<>();
 
-                                List<ProductGroupDictVO.Dict> dictList = dictEntry.getValue().stream()
-                                        .map(dict -> {
-                                            ProductGroupDictVO.Dict dictVO = new ProductGroupDictVO.Dict();
-                                            dictVO.setId(dict.getId().intValue());
-                                            dictVO.setDictName(dict.getDictText());
-                                            return dictVO;
-                                        })
-                                        .collect(Collectors.toList());
+        // 构建每个平台类型下的树形结构
+        platformGroup.forEach((platformType, platformDicts) -> {
+            Map<String, Object> platformNode = new HashMap<>();
+            platformNode.put("platformType", platformType);
+            platformNode.put("platformName", platformType.getDesc());
 
-                                dictType.setDictList(dictList);
-                                return dictType;
-                            })
-                            .collect(Collectors.toList());
-                    vo.setDictList(dictTypeList);
-                    return vo;
+            // 按dictType分组作为第一级子节点
+            Map<PlatformDictType, List<PlatformDict>> typeGroup = platformDicts.stream()
+                    .collect(Collectors.groupingBy(PlatformDict::getDictType));
 
-                })
-                .collect(Collectors.toList());
+            List<Map<String, Object>> typeNodes = new ArrayList<>();
+            typeGroup.forEach((dictType, typeDicts) -> {
+                Map<String, Object> typeNode = new HashMap<>();
+                typeNode.put("id", dictType.getCode()); // 使用字典类型code作为ID
+                typeNode.put("dictText", dictType.getDesc()); // 字典类型描述作为显示文本
+                typeNode.put("dictValue", dictType.name()); // 字典类型名称作为值
+                typeNode.put("hasChild", 1); // 标记有子节点
+
+                // 构建该类型下的树形结构
+                typeNode.put("children", buildTree(platformDicts, dictType, null));
+
+                typeNodes.add(typeNode);
+            });
+
+            platformNode.put("children", typeNodes);
+            result.add(platformNode);
+        });
+
+        return result;
     }
+
 }
