@@ -73,4 +73,7 @@ public class User extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
 
+    //用户头像
+    private String avatarUrl;
+
 }

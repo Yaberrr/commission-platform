@@ -1,5 +1,6 @@
 package com.moe.common.security.service;
 
+import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.constant.SecurityConstants;
 import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.TokenVO;
@@ -50,14 +51,17 @@ public class TokenService
         String token = IdUtils.fastUUID();
         Long userId;
         String userName;
+        String phoneNumber;
         if(loginUser.getSystemType().equals(SystemType.ADMIN)) {
             SysUser sysUser = loginUser.getSysUser();
             userId = sysUser.getUserId();
             userName = sysUser.getUserName();
+            phoneNumber = sysUser.getPhonenumber();
         }else{
             User appUser = loginUser.getAppUser();
             userId = appUser.getId();
             userName = appUser.getUserName();
+            phoneNumber = appUser.getPhoneNumber();
         }
         loginUser.setToken(token);
         loginUser.setUsername(userName);
@@ -75,6 +79,7 @@ public class TokenService
         TokenVO vo = new TokenVO();
         vo.setAccessToken(JwtUtils.createAccessToken(claimsMap));
         vo.setExpiresIn(LOGIN_EXPIRE_TIME);
+        vo.setPhoneNumber(phoneNumber);
         return vo;
     }
 
@@ -168,6 +173,15 @@ public class TokenService
     public void refreshUserInfo(LoginUser loginUser){
         String userInfoKey = JwtUtils.getUserInfoKey(loginUser);
         redisService.setCacheObject(userInfoKey, loginUser, LOGIN_EXPIRE_TIME, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 删除用户信息
+     * @param user
+     */
+    public void delUserInfo(User user){
+        String userInfoKey = SystemType.APP.getRedisPrefix() + CacheConstants.USER_INFO_KEY + user.getId();
+        redisService.deleteObject(userInfoKey);
     }
 
 }
