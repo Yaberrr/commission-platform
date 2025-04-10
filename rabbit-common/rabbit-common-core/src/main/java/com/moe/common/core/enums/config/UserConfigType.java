@@ -11,8 +11,7 @@ import lombok.Getter;
 @Getter
 public enum UserConfigType {
 
-    SHARE_WITH_APP_DOWNLOAD(1, "商品分享带APP下载"),
-    HIDE_ORDER_INFO(2, "隐藏我的订单信息");
+    HIDE_ORDER_INFO(1, "隐藏我的订单信息", "0");
 
     @EnumValue
     @JsonValue
@@ -20,9 +19,13 @@ public enum UserConfigType {
 
     private final String desc;
 
-    UserConfigType(int code, String desc) {
+    //默认值
+    private final String defaultValue;
+
+    UserConfigType(int code, String desc, String defaultValue) {
         this.code = code;
         this.desc = desc;
+        this.defaultValue = defaultValue;
     }
 
     @JsonCreator

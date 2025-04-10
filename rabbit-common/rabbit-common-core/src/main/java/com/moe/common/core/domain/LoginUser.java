@@ -6,6 +6,7 @@ import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.domain.sys.SysUser;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.SystemType;
+import com.moe.common.core.enums.config.UserConfigType;
 import com.moe.common.core.enums.platform.PlatformType;
 import lombok.Getter;
 import lombok.Setter;

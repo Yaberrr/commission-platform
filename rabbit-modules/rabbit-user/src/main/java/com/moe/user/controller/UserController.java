@@ -4,6 +4,7 @@ import com.moe.common.core.domain.LoginUser;
 import com.moe.common.core.domain.OnlyList;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.domain.TokenVO;
+import com.moe.common.core.domain.config.UserConfig;
 import com.moe.common.core.domain.platform.PlatformAuth;
 import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.platform.PlatformType;
@@ -12,7 +13,10 @@ import com.moe.common.security.service.TokenService;
 import com.moe.common.security.utils.SecurityUtils;
 import com.moe.platform.api.IPlatformAuthApi;
 import com.moe.platform.vo.PlatformUrlVO;
+import com.moe.user.domain.dto.UserConfigDTO;
+import com.moe.user.domain.dto.UserDTO;
 import com.moe.user.domain.vo.PlatformAuthVO;
+import com.moe.user.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,6 +43,8 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
+    private IUserService userService;
+    @Autowired
     private IPlatformAuthApi platformAuthApi;
     @Autowired
     private TokenService tokenService;
@@ -51,6 +57,20 @@ public class UserController {
             throw new NotLoginException("用户信息不存在");
         }
         return R.ok(user);
+    }
+
+    @Operation(description = "修改用户信息")
+    @PostMapping("/updateInfo")
+    public R<?> updateInfo(UserDTO dto){
+        userService.updateInfo(dto);
+        return R.ok();
+    }
+
+    @Operation(description = "修改用户设置")
+    @PostMapping("/updateConfig")
+    public R<?> updateConfig(UserConfigDTO dto){
+        userService.updateConfig(dto);
+        return R.ok();
     }
 
     @Operation(description = "获取平台授权url")

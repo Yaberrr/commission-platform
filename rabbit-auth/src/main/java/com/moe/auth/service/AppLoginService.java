@@ -147,18 +147,19 @@ public class AppLoginService {
     }
 
     public LoginUser wechatLogin(String code) {
-       /* WechatTokenVO tokenVO = wechatApi.getAccessToken(wechatConfig.getAppId(), wechatConfig.getAppSecret(), code, "authorization_code");
+        WechatTokenVO tokenVO = wechatApi.getAccessToken(wechatConfig.getAppId(), wechatConfig.getAppSecret(), code, "authorization_code");
         if(StrUtil.isNotBlank(tokenVO.getErrcode())){
             throw new ServiceException("微信授权失败:{}",tokenVO.getErrmsg());
         }
         WechatUserVO userVO = wechatApi.getUserInfo(tokenVO.getAccessToken(), tokenVO.getOpenid());
         if(StrUtil.isNotBlank(userVO.getErrcode())){
             throw new ServiceException("微信用户查询失败:{}",userVO.getErrmsg());
-        }*/
+        }
         User user = new User();
-        user.setWechatOpenId(code);
-        user.setUserName("test");
-        user.setAvatarUrl("testUrl");
+        user.setWechatOpenId(userVO.getOpenid());
+        user.setUserName(userVO.getNickname());
+        //todo:头像保存到云服务器，微信的url会过期
+        user.setAvatarUrl(userVO.getHeadimgurl());
         return this.saveUser(user);
     }
 
