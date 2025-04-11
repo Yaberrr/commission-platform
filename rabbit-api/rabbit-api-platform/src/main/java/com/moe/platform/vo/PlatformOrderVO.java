@@ -68,7 +68,12 @@ public class PlatformOrderVO {
     //失败原因
     private String failReason;
 
-    //用户id  平台各自不处理，统一处理
+    //是否比价
+    private boolean hasPredict;
+
+    //用户id 平台各自不处理，统一处理
     private Long userId;
+
+
 
 }

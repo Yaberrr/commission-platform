@@ -79,6 +79,9 @@ public class User extends BaseEntity {
     //用户头像
     private String avatarUrl;
 
+    //是否注销
+    private boolean hasDeleted;
+
     //用户配置列表
     @TableField(exist = false)
     private List<PairVO<Integer,String>> configList;

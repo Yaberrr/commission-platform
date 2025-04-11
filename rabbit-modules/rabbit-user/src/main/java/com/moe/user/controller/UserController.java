@@ -98,4 +98,11 @@ public class UserController {
         return R.ok(new OnlyList<>(new ArrayList<>(authVOMap.values())));
     }
 
+    @Operation(description = "注销账号")
+    @PostMapping("/remove")
+    public R<?> remove(){
+
+        return R.ok();
+    }
+
 }

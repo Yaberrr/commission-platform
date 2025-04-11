@@ -1,6 +1,7 @@
 package com.moe.common.core.domain.order;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -73,6 +74,9 @@ public class Order extends BaseEntity {
 
     //失效原因
     private String failReason;
+
+    //是否比价
+    private boolean hasPredict;
 
     // 下单时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
