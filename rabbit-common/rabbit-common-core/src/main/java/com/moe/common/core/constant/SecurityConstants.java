@@ -47,6 +47,11 @@ public class SecurityConstants
      */
     public static final String LOGIN_USER = "login_user";
 
+    /*
+     * app版本
+     */
+    public static final String APP_VERSION = "Client-Version";
+
     /**
      * 角色权限
      */

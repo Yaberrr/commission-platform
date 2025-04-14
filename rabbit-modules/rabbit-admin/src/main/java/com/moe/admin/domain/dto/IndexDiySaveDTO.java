@@ -1,7 +1,7 @@
 package com.moe.admin.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.moe.common.core.enums.PublishStatus;
+import com.moe.common.core.enums.index.PublishStatus;
 import lombok.Data;
 
 import java.util.Date;

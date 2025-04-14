@@ -37,6 +37,10 @@ public class HeaderInterceptor implements AsyncHandlerInterceptor
                 SecurityContextHolder.set(SecurityConstants.LOGIN_USER, loginUser);
             }
         }
+        String appVersion = request.getHeader(SecurityConstants.APP_VERSION);
+        if(StringUtils.isNotEmpty(appVersion)){
+            SecurityContextHolder.set(SecurityConstants.APP_VERSION, appVersion);
+        }
         return true;
     }
 

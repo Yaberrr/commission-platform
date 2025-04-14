@@ -30,6 +30,11 @@ public class FeignRequestInterceptor implements RequestInterceptor
             if (StringUtils.isNotEmpty(authentication)) {
                 requestTemplate.header(SecurityConstants.AUTHORIZATION_HEADER, authentication);
             }
+            //传递version
+            String appVersion = headers.get(SecurityConstants.APP_VERSION);
+            if(StringUtils.isNotEmpty(appVersion)) {
+                requestTemplate.header(SecurityConstants.APP_VERSION, appVersion);
+            }
             // 配置客户端IP
             requestTemplate.header("X-Forwarded-For", IpUtils.getIpAddr());
         }

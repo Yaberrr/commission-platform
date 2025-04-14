@@ -30,4 +30,15 @@ public interface IIndexDiyService {
      */
     void saveIndexDiy(IndexDiySaveDTO dto);
 
+    /**
+     * 取消发布
+     * @param id
+     */
+    void cancelIndexDiy(Long id);
+
+    /**
+     * 删除装修
+     * @param id
+     */
+    void deleteIndexDiy(Long id);
 }

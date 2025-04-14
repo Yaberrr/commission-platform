@@ -2,7 +2,7 @@ package com.moe.admin.queue;
 
 import com.moe.admin.mapper.IndexDiyMapper;
 import com.moe.common.core.domain.IndexDiy;
-import com.moe.common.core.enums.PublishStatus;
+import com.moe.common.core.enums.index.PublishStatus;
 import org.redisson.api.RBlockingDeque;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RedissonClient;

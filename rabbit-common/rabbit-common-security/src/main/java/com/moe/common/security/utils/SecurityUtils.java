@@ -52,6 +52,14 @@ public class SecurityUtils
     }
 
     /**
+     *
+     * @return
+     */
+    public static String getAppVersion(){
+        return SecurityContextHolder.get(SecurityConstants.APP_VERSION, String.class);
+    }
+
+    /**
      * 获取会员等级 未登录默认铜元宝
      * @return
      */

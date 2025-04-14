@@ -1,4 +1,4 @@
-package com.moe.common.core.enums;
+package com.moe.common.core.enums.index;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;

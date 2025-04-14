@@ -9,7 +9,7 @@ import com.moe.admin.queue.IndexDiyDelayQueue;
 import com.moe.admin.service.IIndexDiyService;
 import com.moe.common.core.constant.CacheConstants;
 import com.moe.common.core.domain.IndexDiy;
-import com.moe.common.core.enums.PublishStatus;
+import com.moe.common.core.enums.index.PublishStatus;
 import com.moe.common.core.utils.Assert;
 import com.moe.common.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +66,20 @@ public class IndexDiyService implements IIndexDiyService {
             indexDiyDelayQueue.addTask(indexDiy.getId().toString(),
                     indexDiy.getSchedulePublishTime().getTime()-System.currentTimeMillis(), TimeUnit.MILLISECONDS);
         }
+    }
+
+    @Override
+    public void cancelIndexDiy(Long id) {
+        IndexDiy updateBean = new IndexDiy();
+        updateBean.setId(id);
+        updateBean.setPublishStatus(PublishStatus.UNPUBLISHED);
+        indexDiyMapper.updateById(updateBean);
+        redisService.deleteObject(CacheConstants.DIY_INDEX_KEY + id);
+    }
+
+    @Override
+    public void deleteIndexDiy(Long id) {
+        indexDiyMapper.deleteById(id);
+        redisService.deleteObject(CacheConstants.DIY_INDEX_KEY + id);
     }
 }

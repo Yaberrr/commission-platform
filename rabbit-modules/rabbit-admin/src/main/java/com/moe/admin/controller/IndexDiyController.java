@@ -32,15 +32,29 @@ public class IndexDiyController extends BaseController {
     }
 
     @Operation(description = "装修详情")
-    @GetMapping("/detail")
-    public R<IndexDiy> indexDiyDetail(Long id) {
+    @GetMapping("/{id}")
+    public R<IndexDiy> indexDiyDetail(@PathVariable("id") Long id) {
         return R.ok(indexDiyService.indexDiyDetail(id));
     }
 
     @Operation(description = "保存装修")
-    @PostMapping("/save")
+    @PostMapping
     public R<?> saveIndexDiy(@RequestBody IndexDiySaveDTO dto){
         indexDiyService.saveIndexDiy(dto);
+        return R.ok();
+    }
+
+    @Operation(description = "取消发布")
+    @PostMapping("/cancel")
+    public R<?> cancelIndexDiy(Long id) {
+        indexDiyService.cancelIndexDiy(id);
+        return R.ok();
+    }
+
+    @Operation(description = "删除装修")
+    @DeleteMapping
+    public R<?> deleteIndexDiy(Long id) {
+        indexDiyService.deleteIndexDiy(id);
         return R.ok();
     }
 
