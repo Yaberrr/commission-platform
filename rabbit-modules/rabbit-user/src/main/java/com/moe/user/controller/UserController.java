@@ -101,7 +101,7 @@ public class UserController {
     @Operation(description = "注销账号")
     @PostMapping("/remove")
     public R<?> remove(){
-
+        //todo:注销账号
         return R.ok();
     }
 

@@ -20,8 +20,6 @@ public class YbCodeGenerator {
     @Autowired
     private RedissonClient redissonClient;
 
-    private static final String BITMAP_KEY = CacheConstants.YB_CODE_BIT_MAP_KEY;
-
     private static final int MIN = 100000; // 最少6位
 
     private static final int MAX = 999999999; // 最多9位
