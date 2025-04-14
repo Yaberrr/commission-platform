@@ -11,5 +11,7 @@ public class UserFeedbackUpdateDTO {
 
     private String replyContent;
 
-    private String replyImg;
+    private List<String> replyImg;
+
+    private String replyImgStr;
 }

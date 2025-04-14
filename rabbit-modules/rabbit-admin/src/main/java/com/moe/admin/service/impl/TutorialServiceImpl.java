@@ -1,14 +1,12 @@
 package com.moe.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moe.admin.mapper.TutorialMapper;
-import com.moe.admin.service.ITutorialService;
-import com.moe.common.core.domain.config.Tutorial;
 import com.moe.admin.domain.dto.tutorial.TutorialAddDTO;
 import com.moe.admin.domain.dto.tutorial.TutorialSortDTO;
 import com.moe.admin.domain.vo.user.TutorialDetailVO;
 import com.moe.admin.domain.vo.user.TutorialVO;
+import com.moe.admin.mapper.TutorialMapper;
+import com.moe.admin.service.ITutorialService;
+import com.moe.common.core.domain.config.Tutorial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +20,8 @@ public class TutorialServiceImpl implements ITutorialService {
     private TutorialMapper tutorialMapper;
 
     @Override
-    public Page<TutorialVO> getAllTutorial(IPage page) {
-        return tutorialMapper.selectAllTutorial(page);
+    public List<TutorialVO> getTutorialList() {
+        return tutorialMapper.getTutorialList();
     }
 
     @Override
@@ -32,13 +30,13 @@ public class TutorialServiceImpl implements ITutorialService {
     }
 
     @Override
-    public int addTutorial(TutorialAddDTO tutorialAddDTO) {
-        return tutorialMapper.insertTutorial(tutorialAddDTO);
+    public int addTutorial(Tutorial tutorial) {
+       return tutorialMapper.insert(tutorial);
     }
 
     @Override
-    public int updateTutorial(TutorialAddDTO tutorialAddDTO) {
-        return tutorialMapper.updateTutorial(tutorialAddDTO);
+    public int updateTutorial(Tutorial tutorial) {
+        return tutorialMapper.updateById(tutorial);
     }
 
     @Override
@@ -93,6 +91,6 @@ public class TutorialServiceImpl implements ITutorialService {
 
     @Override
     public int deleteTutorial(Long id) {
-        return 0;
+        return tutorialMapper.deleteTutorialById(id);
     }
 }

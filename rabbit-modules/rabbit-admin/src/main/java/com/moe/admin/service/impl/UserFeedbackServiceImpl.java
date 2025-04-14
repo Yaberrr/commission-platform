@@ -28,6 +28,9 @@ public class UserFeedbackServiceImpl implements IUserFeedbackService {
 
     @Override
     public int updateUserFeedback(UserFeedbackUpdateDTO userFeedbackUpdateDTO) {
+        if (userFeedbackUpdateDTO.getReplyImg() != null) {
+            userFeedbackUpdateDTO.setReplyImgStr(String.join(",", userFeedbackUpdateDTO.getReplyImg()));
+        }
         return userFeedbackMapper.updateUserFeedbackById(userFeedbackUpdateDTO);
     }
 }

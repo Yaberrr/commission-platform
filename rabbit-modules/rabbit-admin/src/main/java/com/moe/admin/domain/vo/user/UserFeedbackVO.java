@@ -1,6 +1,7 @@
 package com.moe.admin.domain.vo.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.Arrays;
@@ -22,13 +23,17 @@ public class UserFeedbackVO {
 
     private String feedbackContent;
 
+    @JsonIgnore
     private String feedbackImgStr;
 
     private List<String> feedbackImg;
 
     private String replyContent;
 
-    private String replyImg;
+    @JsonIgnore
+    private String replyImgStr;
+
+    private List<String> replyImg;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date feedbackTime;
@@ -37,7 +42,14 @@ public class UserFeedbackVO {
 
     private Integer status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
     public List<String> getFeedbackImg() {
         return feedbackImgStr == null ? null : Arrays.asList(feedbackImgStr.split(","));
+    }
+
+    public List<String> getReplyImg() {
+        return replyImgStr == null? null : Arrays.asList(replyImgStr.split(","));
     }
 }
