@@ -9,6 +9,8 @@ import com.moe.platform.dto.product.ProductSearchDTO;
 import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
+import com.moe.product.domain.dto.CancelFavoriteDTO;
+import com.moe.product.domain.dto.ProductFavoriteDTO;
 import com.moe.product.domain.dto.ProductListDTO;
 
 /**
@@ -53,4 +55,18 @@ public interface IProductService {
      * @return
      */
     R<PlatformUrlVO> productUrl(ProductDetailDTO dto);
+
+    /**
+     * 添加收藏
+     * @param dto
+     * @return
+     */
+    R<ProductVO> addFavorite(ProductFavoriteDTO dto);
+
+    /**
+     * 取消收藏
+     * @param dto
+     * @return
+     */
+    R<Boolean> cancelFavorite(CancelFavoriteDTO dto);
 }

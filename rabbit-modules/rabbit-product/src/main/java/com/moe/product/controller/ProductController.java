@@ -3,12 +3,12 @@ package com.moe.product.controller;
 import com.moe.common.core.domain.R;
 import com.moe.common.core.web.page.TableDataInfo;
 import com.moe.common.core.web.page.TableSupport;
-import com.moe.platform.dto.product.ProductDetailDTO;
-import com.moe.platform.dto.product.ProductRecommendDto;
-import com.moe.platform.dto.product.ProductSearchDTO;
+import com.moe.platform.dto.product.*;
 import com.moe.platform.vo.PlatformUrlVO;
 import com.moe.platform.vo.ProductDetailVO;
 import com.moe.platform.vo.ProductVO;
+import com.moe.product.domain.dto.CancelFavoriteDTO;
+import com.moe.product.domain.dto.ProductFavoriteDTO;
 import com.moe.product.domain.dto.ProductListDTO;
 import com.moe.product.service.IProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +55,18 @@ public class ProductController {
     @PostMapping("/productUrl")
     public R<PlatformUrlVO> productUrl(@Valid ProductDetailDTO dto){
         return productService.productUrl(dto);
+    }
+
+    @Operation(description = "添加商品收藏")
+    @PostMapping("/addFavorite")
+    public R<ProductVO> addFavorite(@Valid ProductFavoriteDTO dto){
+        return productService.addFavorite(dto);
+    }
+
+    @Operation(description = "取消商品收藏")
+    @PostMapping("/cancelFavorite")
+    public R<Boolean> cancelFavorite(@Valid CancelFavoriteDTO dto){
+        return productService.cancelFavorite(dto);
     }
 
 }

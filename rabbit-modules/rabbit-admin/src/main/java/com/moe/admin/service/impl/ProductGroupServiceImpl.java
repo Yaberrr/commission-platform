@@ -38,26 +38,25 @@ public class ProductGroupServiceImpl implements IProductGroupService {
      * @return 子节点列表
      */
     private static List<Map<String, Object>> buildTree(List<PlatformDict> dicts, PlatformDictType dictType, Long parentId) {
-        return dicts.stream()
-                .filter(dict -> dict.getDictType() == dictType
-                        && Objects.equals(dict.getParentId(), parentId))
-                .map(dict -> {
-                    Map<String, Object> node = new HashMap<>();
-                    node.put("id", dict.getId());
-                    node.put("dictText", dict.getDictText());
-                    node.put("dictValue", dict.getDictValue());
-                    node.put("hasChild", dict.getHasChild());
+        return dicts.stream().filter(dict -> dict.getDictType() == dictType && Objects.equals(dict.getParentId(), parentId)).map(dict -> {
+            Map<String, Object> node = new HashMap<>();
+            node.put("id", dict.getId());
+            node.put("dictText", dict.getDictText());
+            node.put("dictValue", dict.getDictValue());
 
-                    // 如果有子节点，递归构建
-                    if (dict.getHasChild() == 1) {
-                        node.put("children", buildTree(dicts, dictType, dict.getId()));
-                    } else {
-                        node.put("children", new ArrayList<>());
-                    }
+            // 递归构建子节点
+            List<Map<String, Object>> children = buildTree(dicts, dictType, dict.getId());
 
-                    return node;
-                })
-                .collect(Collectors.toList());
+            // 只有当有子节点时才添加children字段
+            if (!children.isEmpty()) {
+                node.put("hasChild", 1);
+                node.put("children", children);
+            } else {
+                node.put("hasChild", 0);
+            }
+
+            return node;
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -77,13 +76,7 @@ public class ProductGroupServiceImpl implements IProductGroupService {
 
     @Override
     public int addProductGroup(ProductGroupUpdateDTO productGroupUpdateDTO) {
-        List<Integer> platformCodeList = platformDictMapper.selectBatchIds(productGroupUpdateDTO.getPlatformDictIds())
-                .stream()
-                .map(PlatformDict::getPlatformType)
-                .filter(Objects::nonNull)
-                .map(PlatformType::getCode)
-                .distinct()
-                .collect(Collectors.toList());
+        List<Integer> platformCodeList = platformDictMapper.selectBatchIds(productGroupUpdateDTO.getPlatformDictIds()).stream().map(PlatformDict::getPlatformType).filter(Objects::nonNull).map(PlatformType::getCode).distinct().collect(Collectors.toList());
 
         ProductGroup productGroup = new ProductGroup();
         BeanUtils.copyProperties(productGroupUpdateDTO, productGroup);
@@ -94,13 +87,7 @@ public class ProductGroupServiceImpl implements IProductGroupService {
 
     @Override
     public int editProductGroup(ProductGroupUpdateDTO productGroupUpdateDTO) {
-        List<Integer> platformCodeList = platformDictMapper.selectBatchIds(productGroupUpdateDTO.getPlatformDictIds())
-                .stream()
-                .map(PlatformDict::getPlatformType)
-                .filter(Objects::nonNull)
-                .map(PlatformType::getCode)
-                .distinct()
-                .collect(Collectors.toList());
+        List<Integer> platformCodeList = platformDictMapper.selectBatchIds(productGroupUpdateDTO.getPlatformDictIds()).stream().map(PlatformDict::getPlatformType).filter(Objects::nonNull).map(PlatformType::getCode).distinct().collect(Collectors.toList());
 
         ProductGroup productGroup = new ProductGroup();
         BeanUtils.copyProperties(productGroupUpdateDTO, productGroup);
@@ -118,8 +105,7 @@ public class ProductGroupServiceImpl implements IProductGroupService {
         List<PlatformDict> platformDictList = platformDictMapper.selectList(null);
 
         // 按平台类型分组
-        Map<PlatformType, List<PlatformDict>> platformGroup = platformDictList.stream()
-                .collect(Collectors.groupingBy(PlatformDict::getPlatformType));
+        Map<PlatformType, List<PlatformDict>> platformGroup = platformDictList.stream().collect(Collectors.groupingBy(PlatformDict::getPlatformType));
 
         List<Map<String, Object>> result = new ArrayList<>();
 
@@ -130,8 +116,7 @@ public class ProductGroupServiceImpl implements IProductGroupService {
             platformNode.put("platformName", platformType.getDesc());
 
             // 按dictType分组作为第一级子节点
-            Map<PlatformDictType, List<PlatformDict>> typeGroup = platformDicts.stream()
-                    .collect(Collectors.groupingBy(PlatformDict::getDictType));
+            Map<PlatformDictType, List<PlatformDict>> typeGroup = platformDicts.stream().collect(Collectors.groupingBy(PlatformDict::getDictType));
 
             List<Map<String, Object>> typeNodes = new ArrayList<>();
             typeGroup.forEach((dictType, typeDicts) -> {

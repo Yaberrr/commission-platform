@@ -24,8 +24,8 @@ public class MemberShipDTO {
         private Integer level;
         // 时间周期(天)
         private Integer periodDays;
-        // 订单数
-        private Integer orderCount;
+        // 有效人数
+        private Integer activeUserCount;
         // 累计收益
         private BigDecimal totalIncome;
     }
