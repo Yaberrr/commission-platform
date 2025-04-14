@@ -15,4 +15,7 @@ public class TokenVO {
     //多少秒后到期
     private Long expiresIn;
 
+    //手机号
+    private String phoneNumber;
+
 }

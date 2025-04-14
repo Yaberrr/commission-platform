@@ -1,6 +1,7 @@
 package com.moe.auth.service;
 
 import cn.hutool.core.util.StrUtil;
+import com.moe.admin.api.FileApi;
 import com.moe.auth.feign.aurora.AuroraApi;
 import com.moe.auth.feign.aurora.body.AuroraLoginBody;
 import com.moe.auth.feign.aurora.vo.AuroraLoginVo;
@@ -62,6 +63,8 @@ public class AppLoginService {
     private WechatApi wechatApi;
     @Autowired
     private WechatConfig wechatConfig;
+    @Autowired
+    private FileApi fileApi;
 
 
     /**
@@ -148,13 +151,15 @@ public class AppLoginService {
         if(StrUtil.isNotBlank(tokenVO.getErrcode())){
             throw new ServiceException("微信授权失败:{}",tokenVO.getErrmsg());
         }
-        WechatUserVO userVO = wechatApi.getUserInfo(tokenVO.getAccessToken(), tokenVO.getOpenId());
-        if(StrUtil.isNotBlank(tokenVO.getErrcode())){
-            throw new ServiceException("微信用户查询失败:{}",tokenVO.getErrmsg());
+        WechatUserVO userVO = wechatApi.getUserInfo(tokenVO.getAccessToken(), tokenVO.getOpenid());
+        if(StrUtil.isNotBlank(userVO.getErrcode())){
+            throw new ServiceException("微信用户查询失败:{}",userVO.getErrmsg());
         }
         User user = new User();
         user.setWechatOpenId(userVO.getOpenid());
         user.setUserName(userVO.getNickname());
+        //todo:头像保存到云服务器，微信的url会过期
+        user.setAvatarUrl(userVO.getHeadimgurl());
         return this.saveUser(user);
     }
 

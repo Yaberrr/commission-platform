@@ -3,7 +3,7 @@
 <mapper namespace="com.moe.order.mapper.OrderMapper">
 
     <select id="orderList" resultType="com.moe.order.domain.vo.OrderListVO">
-        SELECT id,order_no,status,product_id,product_name, product_img,order_amount,platform_type,order_time,fail_reason,
+        SELECT id,order_no,status,product_id,product_name, product_img,order_amount,platform_type,order_time,fail_reason,has_predict,
         CASE
         WHEN user_id = #{userId} THEN commission
         WHEN parent_user_id = #{userId} THEN parent_commission
