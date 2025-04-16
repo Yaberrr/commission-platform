@@ -11,7 +11,6 @@ import lombok.Getter;
 @Getter
 public enum OrderStatus {
 
-    NEW(0,"新建"),
     PAID(1, "已付款"),
     RECEIVED(2, "已收货"),
     ACCOUNTED(3, "已到账"),

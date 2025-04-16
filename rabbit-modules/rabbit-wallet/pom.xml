@@ -26,6 +26,10 @@
             <artifactId>rabbit-api-wallet</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.moe</groupId>
+            <artifactId>rabbit-common-mq</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

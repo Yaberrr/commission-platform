@@ -6,23 +6,26 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moe.common.core.domain.config.PlatformConfig;
 import com.moe.common.core.domain.order.Order;
-import com.moe.common.core.domain.user.User;
 import com.moe.common.core.enums.config.PlatformConfigType;
+import com.moe.common.core.enums.order.OrderEvent;
 import com.moe.common.core.enums.order.OrderStatus;
 import com.moe.common.core.enums.user.MemberLevel;
 import com.moe.common.core.utils.Assert;
-import com.moe.common.core.web.page.TableDataInfo;
+import com.moe.common.module.domain.bo.OrderEventBO;
 import com.moe.common.module.service.PlatformConfigService;
 import com.moe.common.module.utils.CommissionUtils;
+import com.moe.common.mq.MqTopicConstant;
 import com.moe.common.security.utils.SecurityUtils;
-import com.moe.order.domain.bo.OrderStatusBO;
 import com.moe.order.domain.dto.OrderListDTO;
 import com.moe.order.domain.vo.OrderListVO;
 import com.moe.order.dto.BatchUpdateOrderDTO;
-import com.moe.order.handler.OrderHandlerFactory;
 import com.moe.order.mapper.OrderMapper;
 import com.moe.order.service.IOrderService;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,12 +41,13 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements IOrderService {
 
+    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
-    private OrderHandlerFactory orderHandlerFactory;
-    @Autowired
     private PlatformConfigService platformConfigService;
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
     @Override
     @Transactional
@@ -58,16 +62,16 @@ public class OrderServiceImpl implements IOrderService {
         List<Order> newList = new ArrayList<>();
         //需更新订单
         List<Order> updateList = new ArrayList<>();
-        //状态变化
-        List<OrderStatusBO> statusList = new ArrayList<>();
+        //订单事件
+        List<OrderEventBO> eventList = new ArrayList<>();
         for (Order newBean : dto.getOrderList()) {
             Order oldBean = existMap.get(newBean.getPlatformOrderId());
             if(oldBean == null){
                 //新增
                 newList.add(newBean);
                 //状态变化
-                OrderStatusBO statusBO = new OrderStatusBO(newBean, OrderStatus.NEW, newBean.getStatus());
-                statusList.add(statusBO);
+                OrderEvent event = OrderEvent.getEvent(null, newBean.getStatus());
+                eventList.add(new OrderEventBO(newBean, event));
             }else{
                 if(!newBean.getStatus().equals(oldBean.getStatus())) {
                     //仅更新状态和失败原因
@@ -77,8 +81,12 @@ public class OrderServiceImpl implements IOrderService {
                     updateBean.setFailReason(newBean.getFailReason());
                     updateList.add(updateBean);
                     //状态变化
-                    OrderStatusBO statusBO = new OrderStatusBO(oldBean,oldBean.getStatus(),newBean.getStatus());
-                    statusList.add(statusBO);
+                    OrderEvent event = OrderEvent.getEvent(oldBean.getStatus(), newBean.getStatus());
+                    if(event != null){
+                        eventList.add(new OrderEventBO(oldBean, event));
+                    }else{
+                        log.warn("订单{}出现预料外的状态变化:{}到{}",oldBean.getId(),oldBean.getStatus().getDesc(),newBean.getStatus().getDesc());
+                    }
                 }
             }
         }
@@ -91,20 +99,14 @@ public class OrderServiceImpl implements IOrderService {
             Assert.isTrue(orderMapper.updateBatchById(updateList), "订单更新失败");
         }
 
-        int orderCount = dto.getOrderList().size();
-        for (OrderStatusBO statusBO : statusList) {
-            //处理状态变化
-            boolean isSuccess = orderHandlerFactory.changeStatus(statusBO);
-            if(!isSuccess){
-                //回退状态
-                Order rollBackBean = new Order();
-                rollBackBean.setId(statusBO.getOrder().getId());
-                rollBackBean.setStatus(statusBO.getOldStatus());
-                orderMapper.updateById(rollBackBean);
-                orderCount-=1;
-            }
+        for (OrderEventBO eventBO : eventList) {
+            //todo:改为事务消息
+            //延时发送订单事件消息，等待事务提交
+            rocketMQTemplate.syncSendDelayTimeSeconds(MqTopicConstant.ORDER_EVENT_TOPIC, MessageBuilder.withPayload(eventBO).build(), 2);
         }
-        return orderCount;
+
+        //返回有变化的数量
+        return eventList.size();
     }
 
     @Override

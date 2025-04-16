@@ -64,18 +64,16 @@ public class PddConvert {
             vo.setLowestPrice(vo.getPrice());
         }
 
-        //佣金计算
+        //佣金计算 取最低比例
         BigDecimal rate = BigDecimal.ZERO;
-        if(item.getPredictPromotionRate() != null){
-            //优先使用比价预判佣金
+        if(item.getPromotionRate() != null){
+            rate = BigDecimal.valueOf(item.getPromotionRate());
+        }
+        if(item.getActivityPromotionRate() != null && item.getActivityPromotionRate() < rate.longValue()){
+            rate = BigDecimal.valueOf(item.getActivityPromotionRate());
+        }
+        if(item.getPredictPromotionRate() != null && item.getPredictPromotionRate() < rate.longValue()){
             rate = BigDecimal.valueOf(item.getPredictPromotionRate());
-        }else{
-            if(item.getPromotionRate() != null){
-                rate = BigDecimal.valueOf(item.getPromotionRate());
-            }
-            if(item.getActivityPromotionRate() != null && item.getActivityPromotionRate() > rate.longValue()){
-                rate = BigDecimal.valueOf(item.getActivityPromotionRate());
-            }
         }
         vo.setCommission(vo.getLowestPrice().multiply(rate).divide(THOUSAND,2, RoundingMode.DOWN));
         vo.setPlatformType(PlatformType.PDD);

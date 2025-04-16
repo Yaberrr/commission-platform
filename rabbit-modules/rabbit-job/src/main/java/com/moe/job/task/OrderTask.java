@@ -93,7 +93,7 @@ public class OrderTask {
         for (int i = 0; i < totalPages; i++) {
             int pageNum = i + 1;
             futures.add(CompletableFuture.supplyAsync(() -> {
-                    //查询订单
+                    //查询平台订单
                     PlatformOrderDTO dto = new PlatformOrderDTO();
                     dto.setStartTime(startTime);
                     dto.setEndTime(endTime);
@@ -125,18 +125,20 @@ public class OrderTask {
                         }
                         return order;
                     }).collect(Collectors.toList());
-                    //更新订单
+
+                    //更新订单到数据库
                     BatchUpdateOrderDTO updateOrderDTO = new BatchUpdateOrderDTO();
                     updateOrderDTO.setOrderList(orderList);
                     updateOrderDTO.setPlatformType(dto.getPlatformType());
                     return orderApi.batchUpdateOrder(updateOrderDTO).getData();
                 }, executorService).handle((result, exception) -> {
-                if (exception != null) {
-                    log.error("同步订单失败, 第{}页发生异常", pageNum, exception);
-                    return 0;
-                }
-                return result;
-            }));
+                    if (exception != null) {
+                        log.error("同步订单失败, 第{}页发生异常", pageNum, exception);
+                        return 0;
+                    }
+                    return result;
+                })
+            );
         }
 
         //汇总

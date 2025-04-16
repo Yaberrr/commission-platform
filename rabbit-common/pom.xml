@@ -19,6 +19,7 @@
         <module>rabbit-common-datascope</module>
         <module>rabbit-common-datasource</module>
         <module>rabbit-common-module</module>
+        <module>rabbit-common-mq</module>
     </modules>
 
     <artifactId>rabbit-common</artifactId>

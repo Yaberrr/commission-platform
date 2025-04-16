@@ -1,4 +1,4 @@
-package com.moe.order.service;
+package com.moe.wallet.service;
 
 import com.moe.common.core.domain.order.Order;
 
